@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Свяжитесь с нами - {{ block.super }}{% endblock %}
+
+{% block content %}
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">Свяжитесь с нами</h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Свяжитесь с нами, чтобы обсудить ваш строительный проект. Мы поможем вам воплотить вашу идею в жизнь.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <!-- Contact Form -->
+            <div class="bg-white rounded-lg shadow-lg p-8" data-aos="fade-right">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Обратная связь</h2>
+                <div id="contact-form-container">
+                    {% include 'contact/partials/contact_form.html' %}
+                </div>
+            </div>
+            
+            <!-- Contact Information -->
+            <div class="space-y-8" data-aos="fade-left">
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Контакты</h2>
+                    
+                    {% if contact_info %}
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-blue-600 mt-1 mr-3"></i>
+                            <div>
+                                <h3 class="font-semibold text-gray-800">Адрес</h3>
+                                <p class="text-gray-600">{{ contact_info.address|linebreaks }}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <i class="fas fa-phone text-blue-600 mt-1 mr-3"></i>
+                            <div>
+                                <h3 class="font-semibold text-gray-800">Телефон</h3>
+                                <p class="text-gray-600">{{ contact_info.phone }}</p>
+                                {% if contact_info.emergency_phone %}
+                                <p class="text-gray-600">Emergency: {{ contact_info.emergency_phone }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <i class="fas fa-envelope text-blue-600 mt-1 mr-3"></i>
+                            <div>
+                                <h3 class="font-semibold text-gray-800">Почта</h3>
+                                <p class="text-gray-600">{{ contact_info.email }}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <i class="fas fa-clock text-blue-600 mt-1 mr-3"></i>
+                            <div>
+                                <h3 class="font-semibold text-gray-800">Часы работы</h3>
+                                <p class="text-gray-600">{{ contact_info.business_hours|linebreaks }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="text-gray-500">
+                        <p>Данные отсутствуют</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

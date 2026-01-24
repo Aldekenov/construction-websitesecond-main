@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ category.name }} | Категории блога | {{ company_info.company_name|default:'ConstructPro' }}{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto py-12 px-4">
+    <div class="mb-8">
+        <a href="{% url 'blog:blog_list' %}" class="text-blue-600 hover:underline">&larr; Назад</a>
+    </div>
+    <h1 class="text-3xl font-bold mb-6 text-gray-900">Категория: {{ category.name }}</h1>
+    {% if category.description %}
+        <div class="mb-8 text-gray-600">{{ category.description }}</div>
+    {% endif %}
+    {% if posts %}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {% for post in posts %}
+                <div class="bg-white rounded-lg shadow p-6 flex flex-col">
+                    <h2 class="text-2xl font-semibold mb-2">
+                        <a href="{{ post.get_absolute_url }}" class="hover:underline text-blue-700">{{ post.title }}</a>
+                    </h2>
+                    <div class="text-gray-500 text-sm mb-2">
+                        By {{ post.author }} | {{ post.created_at|date:"F j, Y" }}
+                    </div>
+                    {% if post.featured_image %}
+                        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="w-full h-40 object-cover rounded mb-4">
+                    {% endif %}
+                    <div class="text-gray-700 mb-4">{{ post.excerpt }}</div>
+                    <a href="{{ post.get_absolute_url }}" class="mt-auto text-blue-600 hover:underline">Читать статью &rarr;</a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-gray-500">Нету постов в данной категории</div>
+    {% endif %}
+    <div class="mt-8">
+        <a href="{% url 'blog:blog_list' %}" class="text-blue-600 hover:underline">&larr; Назад</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,298 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% if company_info %}{{ company_info.company_name }} - {{ company_info.tagline }}{% else %}TESS{% endif %}
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative h-screen flex items-center justify-center hero-pattern"
+         style="background-image: url('/media/company/main.JPG'); background-size: cover; background-position: center;">
+    <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+    <div class="relative z-10 text-center text-white px-4">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 text-shadow" data-aos="fade-up">
+            {% if company_info %}{{ company_info.company_name }}{% else %}TESS{% endif %}
+        </h1>
+        <p class="text-xl md:text-2xl mb-8 text-shadow" data-aos="fade-up" data-aos-delay="200">
+            {% if company_info %}{{ company_info.tagline }}{% else %}TESS{% endif %}
+        </p>
+        <div class="space-x-4" data-aos="fade-up" data-aos-delay="400">
+            <a href="{% url 'core:services' %}" 
+               class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105 btn-glow inline-block">
+                Наши услуги
+            </a>
+            <a href="{% url 'contact:contact' %}" 
+               class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-3 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105 inline-block">
+                Обрятная связь
+            </a>
+        </div>
+    </div>
+    
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+        <i class="fas fa-chevron-down text-2xl"></i>
+    </div>
+</section>
+
+<!-- Stats Section -->
+{% if company_info %}
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div class="p-6" data-aos="fade-up">
+                <div class="text-4xl font-bold text-blue-600 mb-2">{{ company_info.years_experience }}+</div>
+                <div class="text-gray-600">Лет на рынке</div>
+            </div>
+            <div class="p-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="text-4xl font-bold text-blue-600 mb-2">{{ company_info.projects_completed }}+</div>
+                <div class="text-gray-600">Проектов выполнено</div>
+            </div>
+            <div class="p-6" data-aos="fade-up" data-aos-delay="400">
+                <div class="text-4xl font-bold text-blue-600 mb-2">{{ company_info.happy_clients }}+</div>
+                <div class="text-gray-600">Клиентов</div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Services Section -->
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Наши Услуги</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Наша компания предлагает широкий спектр услуг в области строительства, обслуживания и ремонта промышленного оборудования, а также проектирование и эксплуатация электрических станций, электрических сетей и подстанций, магистральных газо-нефтепродуктов, подъемных сооружений, строительно-монтажные работы.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for service in featured_services %}
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300" 
+                 data-aos="fade-up" data-aos-delay="{% cycle '0' '100' '200' '300' '400' '500' %}">
+                {% if service.image %}
+                <img src="{{ service.image.url }}" alt="{{ service.name }}" class="w-full h-48 object-cover">
+                {% else %}
+                <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                    <i class="{{ service.icon|default:'fas fa-tools' }} text-4xl text-gray-400"></i>
+                </div>
+                {% endif %}
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">{{ service.name }}</h3>
+                    <p class="text-gray-600 mb-4">{{ service.description|truncatewords:20 }}</p>
+                    <a href="{% url 'core:services' %}" 
+                       class="text-blue-600 hover:text-blue-800 font-semibold transition-colors">
+                        Подробнее <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-full text-center text-gray-500">
+                <p>Временно недоступно</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-12" data-aos="fade-up">
+            <a href="{% url 'core:services' %}" 
+               class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors btn-glow">
+                Все Услуги
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-right">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">О нашей компании</h2>
+                {% if company_info and company_info.about_us %}
+                <div class="text-gray-600 mb-6 prose max-w-none">
+                    {{ company_info.about_us|safe|truncatewords_html:50 }}
+                </div>
+                {% else %}
+                <p class="text-gray-600 mb-6">
+                    We are a professional construction company dedicated to delivering high-quality 
+                    construction and renovation services. With years of experience in the industry, 
+                    we have built a reputation for excellence and reliability.
+                </p>
+                {% endif %}
+                <a href="{% url 'core:about' %}" 
+                   class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors btn-glow">
+                    Подробнее
+                </a>
+            </div>
+            <div data-aos="fade-left">
+                {% if company_info and company_info.hero_image %}
+                <img src="{{ company_info.hero_image.url }}" alt="About us" 
+                     class="w-full rounded-lg shadow-lg">
+                {% else %}
+                <div class="w-full h-96 bg-gray-200 rounded-lg shadow-lg flex items-center justify-center">
+                    <i class="fas fa-building text-6xl text-gray-400"></i>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Projects -->
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Наши проекты</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Ознакомьтесь с некоторыми из наших последних завершенных проектов, которые демонстрируют наш опыт и качество.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for project in featured_projects %}
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300" 
+                 data-aos="fade-up" data-aos-delay="{% cycle '0' '100' '200' '300' '400' '500' %}">
+                {% if project.image %}
+                <img src="{{ project.image.url }}" alt="{{ project.title }}" class="w-full h-48 object-cover">
+                {% else %}
+                <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                    <i class="fas fa-image text-4xl text-gray-400"></i>
+                </div>
+                {% endif %}
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">{{ project.title }}</h3>
+                    <p class="text-gray-600 mb-3">{{ project.description|truncatewords:15 }}</p>
+                    {% if project.category %}
+                    <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
+                        {{ project.category }}
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-full text-center text-gray-500">
+                <p>Project gallery will be displayed here once added through the admin panel.</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% if featured_projects %}
+        <div class="text-center mt-12" data-aos="fade-up">
+            <a href="{% url 'core:gallery' %}" 
+               class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors btn-glow">
+                Все выполненные проекты
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Testimonials -->
+{% if featured_testimonials %}
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Отзывы о нашей компании</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Что говорят о наших услугах наши довольные клиенты.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% for testimonial in featured_testimonials %}
+            <div class="bg-gray-50 rounded-lg p-6 shadow-lg" data-aos="fade-up" data-aos-delay="{% cycle '0' '200' '400' %}">
+                <div class="flex items-center mb-4">
+                    {% for i in "12345"|make_list %}
+                        {% if forloop.counter <= testimonial.rating %}
+                        <i class="fas fa-star text-yellow-400"></i>
+                        {% else %}
+                        <i class="far fa-star text-gray-300"></i>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <p class="text-gray-600 mb-4 italic">"{{ testimonial.testimonial }}"</p>
+                <div class="flex items-center">
+                    {% if testimonial.client_image %}
+                    <img src="{{ testimonial.client_image.url }}" alt="{{ testimonial.client_name }}" 
+                         class="w-12 h-12 rounded-full mr-4 object-cover">
+                    {% else %}
+                    <div class="w-12 h-12 rounded-full mr-4 bg-gray-300 flex items-center justify-center">
+                        <i class="fas fa-user text-gray-600"></i>
+                    </div>
+                    {% endif %}
+                    <div>
+                        <div class="font-semibold text-gray-800">{{ testimonial.client_name }}</div>
+                        {% if testimonial.client_position and testimonial.client_company %}
+                        <div class="text-sm text-gray-600">{{ testimonial.client_position }}, {{ testimonial.client_company }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Latest Blog Posts -->
+{% if latest_blog_posts %}
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Последние новости</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Будьте в курсе наших последних проектов, отраслевой аналитики и корпоротивной жизни.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% for post in latest_blog_posts %}
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300" 
+                 data-aos="fade-up" data-aos-delay="{% cycle '0' '200' '400' %}">
+                {% if post.featured_image %}
+                <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="w-full h-48 object-cover">
+                {% else %}
+                <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                    <i class="fas fa-newspaper text-4xl text-gray-400"></i>
+                </div>
+                {% endif %}
+                <div class="p-6">
+                    <div class="text-sm text-gray-500 mb-2">{{ post.created_at|date:"M d, Y" }}</div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">{{ post.title }}</h3>
+                    <p class="text-gray-600 mb-4">{{ post.excerpt|truncatewords:20 }}</p>
+                    <a href="{{ post.get_absolute_url }}" 
+                       class="text-blue-600 hover:text-blue-800 font-semibold transition-colors">
+                        Read More <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-12" data-aos="fade-up">
+            <a href="{% url 'blog:blog_list' %}" 
+               class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors btn-glow">
+                Посмотреть все посты
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- CTA Section -->
+<section class="py-16 gradient-bg">
+    <div class="container mx-auto px-4 text-center text-white">
+        <div data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Остались вопросы?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">
+                Готовы обсудить ваши потребности в строительстве и проектировании.
+                Свяжитесь с нами сегодня для получения консультации.
+            </p>
+            <a href="{% url 'contact:contact' %}" 
+               class="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105 btn-glow">
+                Обратная связь
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

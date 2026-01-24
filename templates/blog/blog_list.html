@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %}Blog - {{ block.super }}{% endblock %}
+
+{% block content %}
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">Последние события</h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Будьте в курсе наших последних новостей, информации и обновлений проекта.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Blog Posts -->
+            <div class="lg:col-span-2">
+                <div class="space-y-8">
+                    {% for post in posts %}
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden" data-aos="fade-up">
+                        {% if post.featured_image %}
+                        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="w-full h-48 object-cover">
+                        {% endif %}
+                        <div class="p-6">
+                            <div class="text-sm text-gray-500 mb-2">{{ post.created_at|date:"M d, Y" }} от {{ post.author.get_full_name|default:post.author.username }}</div>
+                            <h2 class="text-2xl font-bold mb-3 text-gray-800">{{ post.title }}</h2>
+                            <p class="text-gray-600 mb-4">{{ post.excerpt }}</p>
+                            <a href="{{ post.get_absolute_url }}" 
+                               class="text-blue-600 hover:text-blue-800 font-semibold transition-colors">
+                                Читать статью <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="text-center text-gray-500">
+                        <p>Пока новостей нет! Зайдите позже</p>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- Pagination -->
+                {% if posts.has_other_pages %}
+                <div class="flex justify-center mt-8">
+                    <div class="flex space-x-2">
+                        {% if posts.has_previous %}
+                        <a href="?page={{ posts.previous_page_number }}" 
+                           class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition-colors">
+                            Пред.
+                        </a>
+                        {% endif %}
+                        
+                        <span class="bg-gray-200 px-4 py-2 rounded">
+                            Страница {{ posts.number }} из {{ posts.paginator.num_pages }}
+                        </span>
+                        
+                        {% if posts.has_next %}
+                        <a href="?page={{ posts.next_page_number }}" 
+                           class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition-colors">
+                            След.
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="space-y-8">
+                <!-- Featured Posts -->
+                {% if featured_posts %}
+                <div class="bg-white rounded-lg shadow-lg p-6" data-aos="fade-up">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">Последние посты</h3>
+                    <div class="space-y-4">
+                        {% for post in featured_posts %}
+                        <div class="border-b border-gray-200 pb-4 last:border-b-0 last:pb-0">
+                            <a href="{{ post.get_absolute_url }}" class="block hover:text-blue-600 transition-colors">
+                                <h4 class="font-semibold text-gray-800 mb-1">{{ post.title }}</h4>
+                                <p class="text-sm text-gray-500">{{ post.created_at|date:"M d, Y" }}</p>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Categories -->
+                {% if categories %}
+                <div class="bg-white rounded-lg shadow-lg p-6" data-aos="fade-up">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">Категории</h3>
+                    <div class="space-y-2">
+                        {% for category in categories %}
+                        <a href="{% url 'blog:blog_category' category.slug %}" 
+                           class="block text-gray-600 hover:text-blue-600 transition-colors">
+                            {{ category.name }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

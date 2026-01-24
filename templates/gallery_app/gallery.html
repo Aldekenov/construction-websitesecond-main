@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="py-12">
+  <div class="container mx-auto px-4">
+
+    <!-- Заголовок -->
+    <div class="text-center mb-10" data-aos="fade-up">
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Галерея</h1>
+      <p class="text-gray-600 max-w-2xl mx-auto mt-3">
+        Будни компании, обучение персонала, корпоративные мероприятия и рабочие совещания
+      </p>
+    </div>
+
+    <!-- ===== Будни компании (с пагинацией) ===== -->
+    <div class="mb-16">
+      <h2 class="text-2xl font-semibold mb-6">Будни нашей компании</h2>
+
+      <!-- Skeleton loader -->
+      <div id="workdays-skeleton" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        {% for i in "12345678" %}
+        <div class="animate-pulse bg-gray-200 h-48 rounded-lg"></div>
+        {% endfor %}
+      </div>
+
+      <!-- Галерея -->
+      <div id="workdays-gallery"
+           class="hidden grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+
+        {% for img in workdays_page %}
+        <button onclick="openGalleryModal({{ forloop.counter0 }}, 'workdays')"
+                class="group overflow-hidden rounded-lg bg-gray-100">
+          <img
+            src="{{ img.image.url }}"
+            alt="Фото"
+            class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+            loading="lazy"
+          />
+        </button>
+        {% endfor %}
+      </div>
+
+      <!-- Пагинация -->
+      <div class="flex justify-center gap-2 mt-6">
+        {% if workdays_page.has_previous %}
+          <a href="?page={{ workdays_page.previous_page_number }}"
+             class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">←</a>
+        {% endif %}
+
+        <span class="px-4 py-2 bg-gray-100 rounded">
+          {{ workdays_page.number }} / {{ workdays_page.paginator.num_pages }}
+        </span>
+
+        {% if workdays_page.has_next %}
+          <a href="?page={{ workdays_page.next_page_number }}"
+             class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">→</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- ===== Остальные категории (без пагинации) ===== -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+
+      <!-- Обучение -->
+      <div>
+        <h2 class="text-2xl font-semibold mb-6">Обучение персонала</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          {% for img in training %}
+          <button onclick="openGalleryModal({{ forloop.counter0 }}, 'training')">
+            <img src="{{ img.image.url }}"
+                 class="w-full h-40 object-cover rounded-lg"
+                 loading="lazy">
+          </button>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Корпоратив -->
+      <div>
+        <h2 class="text-2xl font-semibold mb-6">Корпоративные мероприятия</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          {% for img in corporate %}
+          <button onclick="openGalleryModal({{ forloop.counter0 }}, 'corporate')">
+            <img src="{{ img.image.url }}"
+                 class="w-full h-40 object-cover rounded-lg"
+                 loading="lazy">
+          </button>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== МОДАЛКА ===== -->
+<div id="galleryModal"
+     class="fixed inset-0 bg-black/80 hidden z-50 flex items-center justify-center">
+
+  <button onclick="closeGalleryModal()"
+          class="absolute top-6 right-6 text-white text-3xl">✕</button>
+
+  <button onclick="prevImage()"
+          class="absolute left-4 md:left-10 text-white text-4xl">‹</button>
+
+  <img id="galleryModalImg"
+       class="max-h-[85vh] max-w-[90vw] object-contain rounded-lg">
+
+  <button onclick="nextImage()"
+          class="absolute right-4 md:right-10 text-white text-4xl">›</button>
+
+  <div id="galleryCounter"
+       class="absolute bottom-6 text-white text-sm opacity-80"></div>
+</div>
+
+<!-- ===== JS ===== -->
+<script>
+  const images = {
+    workdays: [
+      {% for img in workdays_page %}
+        "{{ img.image.url }}",
+      {% endfor %}
+    ],
+    training: [
+      {% for img in training %}
+        "{{ img.image.url }}",
+      {% endfor %}
+    ],
+    corporate: [
+      {% for img in corporate %}
+        "{{ img.image.url }}",
+      {% endfor %}
+    ]
+  };
+
+  let currentIndex = 0;
+  let currentGroup = "workdays";
+
+  function openGalleryModal(index, group) {
+    currentIndex = index;
+    currentGroup = group;
+    updateModal();
+    document.getElementById("galleryModal").classList.remove("hidden");
+    document.documentElement.style.overflow = "hidden";
+  }
+
+  function closeGalleryModal() {
+    document.getElementById("galleryModal").classList.add("hidden");
+    document.documentElement.style.overflow = "";
+  }
+
+  function updateModal() {
+    const img = images[currentGroup][currentIndex];
+    document.getElementById("galleryModalImg").src = img;
+    document.getElementById("galleryCounter").innerText =
+      `${currentIndex + 1} / ${images[currentGroup].length}`;
+  }
+
+  function nextImage() {
+    if (currentIndex < images[currentGroup].length - 1) {
+      currentIndex++;
+      updateModal();
+    }
+  }
+
+  function prevImage() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateModal();
+    }
+  }
+
+  // SWIPE
+  let startX = 0;
+  document.getElementById("galleryModal").addEventListener("touchstart", e => {
+    startX = e.touches[0].clientX;
+  });
+
+  document.getElementById("galleryModal").addEventListener("touchend", e => {
+    const diff = startX - e.changedTouches[0].clientX;
+    if (diff > 50) nextImage();
+    if (diff < -50) prevImage();
+  });
+
+  // Skeleton hide after load
+  window.addEventListener("load", () => {
+    document.getElementById("workdays-skeleton").classList.add("hidden");
+    document.getElementById("workdays-gallery").classList.remove("hidden");
+  });
+</script>
+
+{% endblock %}

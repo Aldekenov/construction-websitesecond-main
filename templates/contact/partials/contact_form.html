@@ -1,0 +1,6 @@
+{% load crispy_forms_tags %}
+
+<form method="post" hx-post="{% url 'contact:contact_submit' %}" hx-target="#contact-form-container" hx-swap="innerHTML">
+    {% csrf_token %}
+    {% crispy form %}
+</form>
