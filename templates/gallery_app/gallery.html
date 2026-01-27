@@ -11,7 +11,7 @@
         Будни компании, обучение персонала, корпоративные мероприятия и рабочие совещания
       </p>
     </div>
-  
+
     <form method="get" class="flex flex-wrap items-center gap-3 mb-8">
       <label class="text-sm text-gray-600">Год:</label>
       <select name="year" class="border rounded px-3 py-2" onchange="this.form.submit()">
@@ -20,7 +20,7 @@
           <option value="{{ y }}" {% if selected_year == y|stringformat:"s" %}selected{% endif %}>{{ y }}</option>
         {% endfor %}
       </select>
-    
+
       <label class="text-sm text-gray-600">Проект:</label>
       <select name="project" class="border rounded px-3 py-2" onchange="this.form.submit()">
         <option value="">Все</option>
@@ -32,7 +32,7 @@
         <a href="{% url 'gallery:gallery' %}" class="text-sm text-blue-600 hover:underline">Сбросить</a>
       {% endif %}
     </form>
-  
+
     {% for item in categories_data %}
       {% with cat=item.category page=item.page_obj param=item.page_param %}
 
@@ -56,21 +56,21 @@
         </div>
 
         {% if page.paginator.num_pages > 1 %}
-          <div class="flex justify-center gap-2 mt-6">
-            {% if page.has_previous %}
-              <a href="?{{ item.page_param }}={{ item.page_obj.next_page_number }}{% if selected_year %}&year={{ selected_year }}{% endif %}{% if selected_project %}&project={{ selected_project|urlencode }}{% endif %}#{{ item.category.slug }}">
-                 class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">←</a>
-            {% endif %}
-
-            <span class="px-4 py-2 bg-gray-100 rounded">
-              {{ page.number }} / {{ page.paginator.num_pages }}
-            </span>
-
-            {% if page.has_next %}
-              <a href="?{{ item.page_param }}={{ item.page_obj.next_page_number }}{% if selected_year %}&year={{ selected_year }}{% endif %}{% if selected_project %}&project={{ selected_project|urlencode }}{% endif %}#{{ item.category.slug }}">
-                 class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">→</a>
-            {% endif %}
-          </div>
+         <div class="flex justify-center gap-2 mt-6">
+          {% if page.has_previous %}
+            <a href="?{{ item.page_param }}={{ page.previous_page_number }}{% if selected_year %}&year={{ selected_year }}{% endif %}{% if selected_project %}&project={{ selected_project|urlencode }}{% endif %}"
+              class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">←</a>
+          {% endif %}
+        
+          <span class="px-4 py-2 bg-gray-100 rounded">
+            {{ page.number }} / {{ page.paginator.num_pages }}
+          </span>
+        
+          {% if page.has_next %}
+            <a href="?{{ item.page_param }}={{ page.next_page_number }}{% if selected_year %}&year={{ selected_year }}{% endif %}{% if selected_project %}&project={{ selected_project|urlencode }}{% endif %}"
+              class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">→</a>
+          {% endif %}
+        </div>
         {% endif %}
       </div>
 
@@ -119,7 +119,7 @@
   function openGalleryModal(index, group) {
     currentGroup = group;
     currentIndex = index;
-      
+
     if (!images[currentGroup] || images[currentGroup].length === 0) return;
 
     updateModal();
@@ -176,11 +176,11 @@
     if (diff > 50) nextImage();
     if (diff < -50) prevImage();
   });
-  
+
   modal.addEventListener("click", (e) => {
     if (e.target.id === "galleryModal") closeGalleryModal();
   });
-  
+
   window.addEventListener("load", () => {
     document.querySelectorAll(".gallery-skeleton").forEach(el => el.classList.add("hidden"));
     document.querySelectorAll(".gallery-grid").forEach(el => el.classList.remove("hidden"));

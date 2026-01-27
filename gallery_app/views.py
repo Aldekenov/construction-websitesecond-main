@@ -3,7 +3,7 @@ from django.db.models import Q
 from django.shortcuts import render
 from .models import GalleryCategory, GalleryImage
 
-PER_PAGE = 24
+PER_PAGE = 14
 
 
 def gallery(request):
