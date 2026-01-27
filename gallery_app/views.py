@@ -5,18 +5,18 @@ from .models import GalleryCategory, GalleryImage
 
 PER_PAGE = 24
 
-def gallery(request):
-    year = request.GET.get("year")      # например "2025"
-    project = request.GET.get("project")  # например "KPO склад"
 
-    # варианты для выпадающих списков — из БД
+def gallery(request):
+    """Страница: Фотогалерея"""
+    year = request.GET.get("year")
+    project = request.GET.get("project")
+
     years = (GalleryImage.objects
              .exclude(project_year__isnull=True)
              .values_list("project_year", flat=True)
              .distinct()
              .order_by("-project_year"))
 
-    # проекты лучше подстраивать под выбранный год (если год выбран)
     projects_qs = GalleryImage.objects.exclude(project_name="")
     if year:
         projects_qs = projects_qs.filter(project_year=year)
@@ -30,7 +30,7 @@ def gallery(request):
 
     categories_data = []
     for cat in categories:
-        qs = cat.images.all().order_by("-created_at")  # related_name="images" :contentReference[oaicite:3]{index=3}
+        qs = cat.images.all().order_by("-created_at")
 
         if year:
             qs = qs.filter(project_year=year)

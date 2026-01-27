@@ -8,7 +8,7 @@ from .forms import ContactFormForm
 
 
 def contact(request):
-    """Contact page with form"""
+    """Страница: Контакты"""
     form = ContactFormForm()
     contact_info = ContactInfo.objects.first()
     
@@ -21,7 +21,7 @@ def contact(request):
 
 @require_http_methods(["POST"])
 def contact_submit(request):
-    """Handle contact form submission via HTMX"""
+    """Форма связи HTMX"""
     form = ContactFormForm(request.POST)
     
     if form.is_valid():

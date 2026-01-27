@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
+<!-- Баннер -->
 <section class="relative h-screen flex items-center justify-center hero-pattern"
          style="background-image: url('/media/company/main.JPG'); background-size: cover; background-position: center;">
     <div class="absolute inset-0 bg-black bg-opacity-40"></div>
@@ -28,13 +28,13 @@
         </div>
     </div>
     
-    <!-- Scroll indicator -->
+    <!-- Стрелка на баннере -->
     <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
         <i class="fas fa-chevron-down text-2xl"></i>
     </div>
 </section>
 
-<!-- Stats Section -->
+<!-- Блок статус -->
 {% if company_info %}
 <section class="py-16 bg-white">
     <div class="container mx-auto px-4">
@@ -56,7 +56,7 @@
 </section>
 {% endif %}
 
-<!-- Services Section -->
+<!-- Блок услуги -->
 <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
         <div class="text-center mb-12" data-aos="fade-up">
@@ -102,7 +102,7 @@
     </div>
 </section>
 
-<!-- About Section -->
+<!-- Блок о нас -->
 <section class="py-16 bg-white">
     <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -114,9 +114,7 @@
                 </div>
                 {% else %}
                 <p class="text-gray-600 mb-6">
-                    We are a professional construction company dedicated to delivering high-quality 
-                    construction and renovation services. With years of experience in the industry, 
-                    we have built a reputation for excellence and reliability.
+                    Временно не добвлено
                 </p>
                 {% endif %}
                 <a href="{% url 'core:about' %}" 
@@ -138,7 +136,7 @@
     </div>
 </section>
 
-<!-- Featured Projects -->
+<!-- Блок наши проекты -->
 <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
         <div class="text-center mb-12" data-aos="fade-up">
@@ -171,7 +169,7 @@
             </div>
             {% empty %}
             <div class="col-span-full text-center text-gray-500">
-                <p>Project gallery will be displayed here once added through the admin panel.</p>
+                <p>Проекты еще не добавлены</p>
             </div>
             {% endfor %}
         </div>
@@ -187,7 +185,7 @@
     </div>
 </section>
 
-<!-- Testimonials -->
+<!-- Отзывы -->
 {% if featured_testimonials %}
 <section class="py-16 bg-white">
     <div class="container mx-auto px-4">
@@ -234,7 +232,7 @@
 </section>
 {% endif %}
 
-<!-- Latest Blog Posts -->
+<!-- Блок последние новости -->
 {% if latest_blog_posts %}
 <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
@@ -262,7 +260,7 @@
                     <p class="text-gray-600 mb-4">{{ post.excerpt|truncatewords:20 }}</p>
                     <a href="{{ post.get_absolute_url }}" 
                        class="text-blue-600 hover:text-blue-800 font-semibold transition-colors">
-                        Read More <i class="fas fa-arrow-right ml-1"></i>
+                        Подробнее <i class="fas fa-arrow-right ml-1"></i>
                     </a>
                 </div>
             </div>
@@ -279,7 +277,7 @@
 </section>
 {% endif %}
 
-<!-- CTA Section -->
+<!-- Блок обратной связи -->
 <section class="py-16 gradient-bg">
     <div class="container mx-auto px-4 text-center text-white">
         <div data-aos="fade-up">

@@ -3,7 +3,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class CompanyInfo(models.Model):
-    """Main company information"""
+    """Информация о компании"""
     company_name = models.CharField(max_length=200, default="Наименование компании", verbose_name="Компания")
     tagline = models.CharField(max_length=300, default="Слоган", verbose_name="Слоган")
     about_us = RichTextUploadingField(verbose_name="О нас")
@@ -23,7 +23,7 @@ class CompanyInfo(models.Model):
 
 
 class Service(models.Model):
-    """Services offered by the company"""
+    """Услуги компании"""
     name = models.CharField(max_length=100, verbose_name="Наименование")
     description = models.TextField(verbose_name="Описание")
     icon = models.CharField(max_length=50, help_text="Font Awesome icon class", verbose_name="Иконка")
@@ -41,7 +41,7 @@ class Service(models.Model):
 
 
 class Testimonial(models.Model):
-    """Client testimonials"""
+    """Отзывы клиентов"""
     client_name = models.CharField(max_length=100, verbose_name="Заказчик")
     client_position = models.CharField(max_length=100, blank=True, verbose_name="Должность")
     client_company = models.CharField(max_length=100, blank=True, verbose_name="Компания")
@@ -62,7 +62,7 @@ class Testimonial(models.Model):
 
 
 class ProjectGallery(models.Model):
-    """Gallery of completed projects"""
+    """Выполненные проекты"""
     title = models.CharField(max_length=200, verbose_name="Наименование")
     description = models.TextField(blank=True, verbose_name="Описание")
     image = models.ImageField(upload_to='gallery/', verbose_name="Изображение")
@@ -81,6 +81,7 @@ class ProjectGallery(models.Model):
 
 
 class AboutGoals(models.Model):
+    """Цели"""
     title = models.CharField(max_length=255, default="Цели")
     text = models.TextField()
 
@@ -92,6 +93,7 @@ class AboutGoals(models.Model):
 
 
 class AboutTasks(models.Model):
+    """Задачи"""
     title = models.CharField(max_length=255, default="Задачи")
     text = models.TextField()
 
@@ -103,6 +105,7 @@ class AboutTasks(models.Model):
 
 
 class AboutStrategy(models.Model):
+    """Стратегия"""
     title = models.CharField(max_length=255, default="Стратегия")
     text = models.TextField()
     image = models.ImageField(upload_to="about/strategy/", blank=True, null=True)
@@ -115,6 +118,7 @@ class AboutStrategy(models.Model):
 
 
 class AboutLicense(models.Model):
+    """Лицензии"""
     image = models.ImageField(upload_to="about/licenses/")
     description = models.CharField(max_length=255, blank=True)
     category = models.CharField(max_length=255, blank=True)
@@ -138,6 +142,7 @@ class AboutCertificate(models.Model):
 
 
 class AboutAward(models.Model):
+    """Награды"""
     image = models.ImageField(upload_to="about/awards/")
     description = models.CharField(max_length=255, blank=True)
 

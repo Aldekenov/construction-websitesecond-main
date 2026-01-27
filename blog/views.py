@@ -4,10 +4,10 @@ from .models import BlogPost, BlogCategory
 
 
 def blog_list(request):
-    """Blog listing page with pagination"""
+    """Страница: Блог"""
     posts = BlogPost.objects.filter(published=True)
     
-    # Pagination
+    # Пагинация
     paginator = Paginator(posts, 6)  # Show 6 posts per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -21,7 +21,7 @@ def blog_list(request):
 
 
 def blog_detail(request, slug):
-    """Individual blog post detail"""
+    """Ошибка"""
     post = get_object_or_404(BlogPost, slug=slug, published=True)
     related_posts = BlogPost.objects.filter(
         published=True
@@ -35,14 +35,14 @@ def blog_detail(request, slug):
 
 
 def blog_category(request, category_slug):
-    """Blog posts filtered by category"""
+    """Фильтрация по категориям"""
     category = get_object_or_404(BlogCategory, slug=category_slug)
     posts = BlogPost.objects.filter(
         blogpostcategory__category=category,
         published=True
     )
     
-    # Pagination
+    # Пагинация
     paginator = Paginator(posts, 6)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)

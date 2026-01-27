@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Blog - {{ block.super }}{% endblock %}
+{% block title %}Новости - {{ block.super }}{% endblock %}
 
 {% block content %}
 <section class="py-16 bg-gray-50">
@@ -38,7 +38,7 @@
                     {% endfor %}
                 </div>
                 
-                <!-- Pagination -->
+                <!-- Пагинация -->
                 {% if posts.has_other_pages %}
                 <div class="flex justify-center mt-8">
                     <div class="flex space-x-2">
@@ -64,9 +64,9 @@
                 {% endif %}
             </div>
             
-            <!-- Sidebar -->
+            <!-- Боковая панель -->
             <div class="space-y-8">
-                <!-- Featured Posts -->
+                <!-- Последние новости -->
                 {% if featured_posts %}
                 <div class="bg-white rounded-lg shadow-lg p-6" data-aos="fade-up">
                     <h3 class="text-xl font-bold mb-4 text-gray-800">Последние посты</h3>
@@ -83,7 +83,7 @@
                 </div>
                 {% endif %}
                 
-                <!-- Categories -->
+                <!-- Категории -->
                 {% if categories %}
                 <div class="bg-white rounded-lg shadow-lg p-6" data-aos="fade-up">
                     <h3 class="text-xl font-bold mb-4 text-gray-800">Категории</h3>

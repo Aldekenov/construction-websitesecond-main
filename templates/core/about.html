@@ -219,7 +219,7 @@
   </div>
 </section> 
     
-<!-- Лайтбокс / Модал (поместить один раз в шаблон, рядом с концом body) -->
+<!-- Модал -->
 <div id="imageModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 px-4 py-6">
   <button id="imageModalClose" class="absolute top-4 right-4 text-white text-2xl p-2 rounded-md hover:bg-white/10 focus:outline-none" aria-label="Закрыть">&times;</button>
 
@@ -266,14 +266,14 @@ document.querySelectorAll('[data-slider]').forEach(slider => {
 });
 </script>
 <script>
-  // Открыть модалку — принимает URL картинки
+  // Открыть модалку
   function openLicenseModal(imageUrl) {
     const modal = document.getElementById('imageModal');
     const img = document.getElementById('imageModalImg');
 
     img.src = imageUrl;
     modal.classList.remove('hidden');
-    // блокируем скролл страницы, если нужно:
+    
     document.documentElement.style.overflow = 'hidden';
   }
 
@@ -291,7 +291,6 @@ document.querySelectorAll('[data-slider]').forEach(slider => {
   document.getElementById('imageModalClose').addEventListener('click', closeLicenseModal);
 
   document.getElementById('imageModal').addEventListener('click', function(e) {
-    // если кликнули по фону (а не по самому img), закрываем
     const img = document.getElementById('imageModalImg');
     if (!img.contains(e.target)) {
       closeLicenseModal();

@@ -30,7 +30,7 @@ class ContactForm(models.Model):
 
 
 class ContactInfo(models.Model):
-    """Company contact information"""
+    """Контактная информация компании"""
     company_name = models.CharField(max_length=200, default="Компания", verbose_name="Компания")
     address = models.TextField(verbose_name="Адрес")
     phone = models.CharField(max_length=20, verbose_name="Телефон")

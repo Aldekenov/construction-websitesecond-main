@@ -8,10 +8,20 @@
 
   <label>Категория:</label>
   <select name="category" required>
-    {% for value, label in categories %}
-      <option value="{{ value }}">{{ label }}</option>
+    {% for cat in categories %}
+      <option value="{{ cat.id }}">{{ cat.title }}</option>
     {% endfor %}
   </select>
+
+  <br><br>
+
+  <label>Год:</label>
+  <input type="number" name="project_year" min="1990" max="2100" required>
+
+  <br><br>
+
+  <label>Наименование проекта:</label>
+  <input type="text" name="project_name" maxlength="200" required style="width: 420px;">
 
   <br><br>
 

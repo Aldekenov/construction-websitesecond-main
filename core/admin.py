@@ -8,11 +8,9 @@ class CompanyInfoAdmin(admin.ModelAdmin):
     list_display = ['company_name', 'years_experience', 'projects_completed', 'happy_clients']
     
     def has_add_permission(self, request):
-        # Only allow one company info instance
         return not CompanyInfo.objects.exists()
 
     def has_delete_permission(self, request, obj=None):
-        # Prevent deletion of company info
         return False
 
 
@@ -26,8 +24,7 @@ class ServiceAdmin(admin.ModelAdmin):
 
     def image_preview(self, obj):
         if obj.image:
-            return format_html('<img src="{}" width="50" height="50" style="object-fit: cover;" />', 
-                             obj.image.url)
+            return format_html('<img src="{}" width="50" height="50" style="object-fit: cover;" />', obj.image.url)
         return "No Image"
     image_preview.short_description = "Эскиз"
 

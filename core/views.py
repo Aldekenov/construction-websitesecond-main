@@ -6,7 +6,7 @@ from contact.models import ContactForm
 
 
 def home(request):
-    """Homepage view with hero section and featured content"""
+    """Домашняя страница"""
     context = {
         'company_info': CompanyInfo.objects.first(),
         'featured_services': Service.objects.filter(active=True)[:6],
@@ -18,7 +18,7 @@ def home(request):
 
 
 def about(request):
-    """About page with company information"""
+    """Страница: О нас"""
     goals = AboutGoals.objects.all()
     tasks = AboutTasks.objects.all()
 
@@ -42,7 +42,7 @@ def about(request):
 
 
 def services(request):
-    """Services page"""
+    """Страница: Деятельность"""
     context = {
         'services': Service.objects.filter(active=True),
     }
@@ -50,7 +50,7 @@ def services(request):
 
 
 def gallery(request):
-    """Project gallery page"""
+    """Страница: Проекты"""
     context = {
         'projects': ProjectGallery.objects.all(),
     }
@@ -58,7 +58,7 @@ def gallery(request):
 
 
 def gallery_detail(request, pk):
-    """Detail view for a single gallery item"""
+    """Страница: Проекты подробно"""
     gallery = get_object_or_404(ProjectGallery, pk=pk)
     company_info = CompanyInfo.objects.first()
     return render(request, 'core/gallery_detail.html', {'gallery': gallery, 'company_info': company_info})

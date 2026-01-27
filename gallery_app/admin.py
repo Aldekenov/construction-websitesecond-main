@@ -15,6 +15,7 @@ class GalleryCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(GalleryImage)
 class GalleryImageAdmin(admin.ModelAdmin):
+    change_list_template = "admin/gallery_app/galleryimage/change_list.html"
     list_display = ("id", "thumb", "category", "project_year", "project_name", "created_at")
     list_filter = ("category", "project_year", "created_at")
     search_fields = ("project_name", "category__title", "category__slug")
@@ -44,9 +45,17 @@ class GalleryImageAdmin(admin.ModelAdmin):
             cat_id = request.POST.get("category")
             category = get_object_or_404(GalleryCategory, id=cat_id)
 
+            project_year = request.POST.get("project_year")
+            project_name = (request.POST.get("project_name") or "").strip()
+
             files = request.FILES.getlist("images")
             for f in files:
-                GalleryImage.objects.create(image=f, category=category)
+                GalleryImage.objects.create(
+                    image=f,
+                    category=category,
+                    project_year=int(project_year) if project_year else None,
+                    project_name=project_name,
+                )
 
             self.message_user(request, "Фотографии успешно загружены")
             return redirect("..")

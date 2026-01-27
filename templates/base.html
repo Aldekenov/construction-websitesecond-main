@@ -72,7 +72,7 @@
     {% block extra_css %}{% endblock %}
 </head>
 <body class="font-sans antialiased bg-gray-50">
-    <!-- Navigation -->
+    <!-- Навигация -->
     <nav class="fixed w-full z-50 transition-all duration-300 {% if not request.resolver_match.url_name == 'home' %}bg-gray-900 bg-opacity-95 shadow-lg{% else %}bg-transparent{% endif %}" id="navbar">
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between h-16">
@@ -90,7 +90,7 @@
                     </a>
                 </div>
                 
-                <!-- Desktop Menu -->
+                <!-- Меню -->
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         <a href="{% url 'core:home' %}" 
@@ -115,7 +115,7 @@
                         </a>
                         <a href="{% url 'gallery:gallery' %}"
                            class="text-white hover:text-blue-200 px-3 py-2 rounded-md text-sm font-medium transition-colors">
-                            Календарь
+                            Фотогалерея
                         </a>
                         <a href="{% url 'contact:contact' %}" 
                            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors btn-glow">
@@ -124,7 +124,7 @@
                     </div>
                 </div>
                 
-                <!-- Mobile menu button -->
+                <!-- Кнопка меню (мобильный) -->
                 <div class="md:hidden">
                     <button type="button" class="text-white hover:text-blue-200 focus:outline-none focus:text-blue-200" id="mobile-menu-button">
                         <i class="fas fa-bars text-xl"></i>
@@ -134,7 +134,7 @@
             </div>
         </div>
         
-        <!-- Mobile Menu -->
+        <!-- Меню (мобильное) -->
         <div class="md:hidden hidden" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 bg-gray-900 bg-opacity-90">
                 <a href="{% url 'core:home' %}" class="text-white hover:text-blue-200 block px-3 py-2 rounded-md text-base font-medium">Главная</a>
@@ -142,28 +142,28 @@
                 <a href="{% url 'core:services' %}" class="text-white hover:text-blue-200 block px-3 py-2 rounded-md text-base font-medium">Деятельность</a>
                 <a href="{% url 'blog:blog_list' %}" class="text-white hover:text-blue-200 block px-3 py-2 rounded-md text-base font-medium">Блог</a>
                 <a href="{% url 'core:gallery' %}" class="text-white hover:text-blue-200 block px-3 py-2 rounded-md text-base font-medium">Проекты</a>
-                <a href="{% url 'gallery:gallery' %}" class="text-white hover:text-blue-200 block px-3 py-2 rounded-md text-base font-medium">Календарь</a>
+                <a href="{% url 'gallery:gallery' %}" class="text-white hover:text-blue-200 block px-3 py-2 rounded-md text-base font-medium">Фотогалерея</a>
                 <a href="{% url 'contact:contact' %}" class="text-white hover:text-blue-200 block px-3 py-2 rounded-md text-base font-medium">Контакты</a>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
+    <!-- Блок контент -->
     <main class="{% if not request.resolver_match.url_name == 'home' %}pt-16{% endif %}">
         {% block content %}{% endblock %}
     </main>
 
-    <!-- Footer -->
+    <!-- Футер -->
     <footer class="bg-gray-900 text-white">
         <div class="container mx-auto px-4 py-12">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <!-- Company Info -->
+                <!-- Информация о компании -->
                 <div class="col-span-1 md:col-span-2">
                     <h3 class="text-xl font-bold mb-4">
-                        {% if company_info %}{{ company_info.company_name }}{% else %}ConstructPro{% endif %}
+                        {% if company_info %}{{ company_info.company_name }}{% else %}TESS{% endif %}
                     </h3>
                     <p class="text-gray-400 mb-4">
-                        {% if company_info %}{{ company_info.tagline }}{% else %}Building Your Dreams{% endif %}
+                        {% if company_info %}{{ company_info.tagline }}{% else %}Электроснабжение - Водоснабжение - Газоснабжение{% endif %}
                     </p>
                     <div class="flex space-x-4">
                         <a href="#" class="text-gray-400 hover:text-white transition-colors">
@@ -181,7 +181,7 @@
                     </div>
                 </div>
                 
-                <!-- Quick Links -->
+                <!-- Быстрый доступ -->
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Навигация</h3>
                     <ul class="space-y-2">
@@ -189,11 +189,13 @@
                         <li><a href="{% url 'core:about' %}" class="text-gray-400 hover:text-white transition-colors">О нас</a></li>
                         <li><a href="{% url 'core:services' %}" class="text-gray-400 hover:text-white transition-colors">Деятельность</a></li>
                         <li><a href="{% url 'blog:blog_list' %}" class="text-gray-400 hover:text-white transition-colors">Блог</a></li>
+                        <li><a href="{% url 'core:gallery' %}" class="text-gray-400 hover:text-white transition-colors">Проекты</a></li>
+                        <li><a href="{% url 'gallery:gallery' %}" class="text-gray-400 hover:text-white transition-colors">Фотогалерея</a></li>
                         <li><a href="{% url 'contact:contact' %}" class="text-gray-400 hover:text-white transition-colors">Контакты</a></li>
                     </ul>
                 </div>
                 
-                <!-- Contact Form -->
+                <!-- Обратная связь -->
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Обратная связь</h3>
                     <form hx-post="{% url 'contact:contact_submit' %}" 
@@ -220,12 +222,12 @@
             </div>
             
             <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; {% now "Y" %} {% if company_info %}{{ company_info.company_name }}{% else %}ConstructPro{% endif %}. Все права защищены.</p>
+                <p>&copy; {% now "Y" %} {% if company_info %}{{ company_info.company_name }}{% else %}TESS{% endif %}. Все права защищены.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
+    <!-- Скрипты -->
     <script>
 
         // Initialize AOS

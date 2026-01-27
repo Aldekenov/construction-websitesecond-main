@@ -13,7 +13,6 @@ class ContactFormAdmin(admin.ModelAdmin):
     readonly_fields = ['created_at']
 
     def has_add_permission(self, request):
-        # Prevent manual addition of contact forms through admin
         return False
 
 
@@ -22,9 +21,7 @@ class ContactInfoAdmin(admin.ModelAdmin):
     list_display = ['company_name', 'phone', 'email']
     
     def has_add_permission(self, request):
-        # Only allow one contact info instance
         return not ContactInfo.objects.exists()
 
     def has_delete_permission(self, request, obj=None):
-        # Prevent deletion of contact info
         return False

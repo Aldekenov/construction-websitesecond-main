@@ -80,7 +80,7 @@
   </div>
 </section>
 
-<!-- ===== МОДАЛКА ===== -->
+<!-- МОДАЛКА -->
 <div id="galleryModal"
      class="fixed inset-0 bg-black/80 hidden z-50 flex items-center justify-center">
 
@@ -100,9 +100,9 @@
        class="absolute bottom-6 text-white text-sm opacity-80"></div>
 </div>
 
-<!-- ===== JS ===== -->
+<!-- JS -->
 <script>
-  // Собираем все картинки по категориям из БД (только те, что на текущей странице пагинации)
+  // Собираем все картинки по категориям из БД
   const images = {
     {% for item in categories_data %}
       "{{ item.category.slug }}": [
@@ -119,8 +119,7 @@
   function openGalleryModal(index, group) {
     currentGroup = group;
     currentIndex = index;
-
-    // защита, если вдруг группа пустая/не существует
+      
     if (!images[currentGroup] || images[currentGroup].length === 0) return;
 
     updateModal();
@@ -177,15 +176,11 @@
     if (diff > 50) nextImage();
     if (diff < -50) prevImage();
   });
-
-  // Клик по затемнению — закрыть (чтобы не бесило)
+  
   modal.addEventListener("click", (e) => {
     if (e.target.id === "galleryModal") closeGalleryModal();
   });
-
-  // Если ты используешь skeleton — делаем универсально:
-  // 1) Добавь skeleton-блоку class="gallery-skeleton"
-  // 2) А grid-галерее class="gallery-grid hidden"
+  
   window.addEventListener("load", () => {
     document.querySelectorAll(".gallery-skeleton").forEach(el => el.classList.add("hidden"));
     document.querySelectorAll(".gallery-grid").forEach(el => el.classList.remove("hidden"));
