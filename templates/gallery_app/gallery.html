@@ -58,18 +58,28 @@
         {% if page.paginator.num_pages > 1 %}
          <div class="flex justify-center gap-2 mt-6">
           {% if page.has_previous %}
-            <a href="?{{ item.page_param }}={{ page.previous_page_number }}{% if selected_year %}&year={{ selected_year }}{% endif %}{% if selected_project %}&project={{ selected_project|urlencode }}{% endif %}"
-              class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">←</a>
-          {% endif %}
+          <a
+            hx-get="?{{ item.page_param }}={{ page.previous_page_number }}{% if selected_year %}&year={{ selected_year }}{% endif %}{% if selected_project %}&project={{ selected_project|urlencode }}{% endif %}"
+            hx-target="#{{ cat.slug }}"
+            hx-select="#{{ cat.slug }}"
+            hx-swap="outerHTML"
+            hx-push-url="true"
+            data-scroll-id="{{ cat.slug }}"
+            class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+          >←</a>
+        {% endif %}
         
-          <span class="px-4 py-2 bg-gray-100 rounded">
-            {{ page.number }} / {{ page.paginator.num_pages }}
-          </span>
-        
-          {% if page.has_next %}
-            <a href="?{{ item.page_param }}={{ page.next_page_number }}{% if selected_year %}&year={{ selected_year }}{% endif %}{% if selected_project %}&project={{ selected_project|urlencode }}{% endif %}"
-              class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">→</a>
-          {% endif %}
+        {% if page.has_next %}
+          <a
+            hx-get="?{{ item.page_param }}={{ page.next_page_number }}{% if selected_year %}&year={{ selected_year }}{% endif %}{% if selected_project %}&project={{ selected_project|urlencode }}{% endif %}"
+            hx-target="#{{ cat.slug }}"
+            hx-select="#{{ cat.slug }}"
+            hx-swap="outerHTML"
+            hx-push-url="true"
+            data-scroll-id="{{ cat.slug }}"
+            class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+          >→</a>
+        {% endif %}
         </div>
         {% endif %}
       </div>
@@ -186,5 +196,19 @@
     document.querySelectorAll(".gallery-grid").forEach(el => el.classList.remove("hidden"));
   });
 </script>
+<script>
+  document.body.addEventListener("htmx:afterSwap", (e) => {
+    // реагируем только если обновляли категорию галереи
+    const target = e.target;
+    if (!target || !target.id) return;
 
+    // мягкий скролл к началу блока
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+</script>
+<style>
+  /* лёгкая анимация на время подмены */
+  .htmx-swapping { opacity: 0; transition: opacity .15s ease; }
+  .htmx-settling { opacity: 1; transition: opacity .15s ease; }
+</style>
 {% endblock %}

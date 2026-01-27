@@ -71,42 +71,6 @@
     
     {% block extra_css %}{% endblock %}
 </head>
-<script>
-  // 1) Отключаем автоскролл браузера при навигации (важно!)
-  if ("scrollRestoration" in history) {
-    history.scrollRestoration = "manual";
-  }
-
-  // 2) Перед уходом по пагинации сохраняем текущую позицию
-  document.addEventListener("click", (e) => {
-    const a = e.target.closest("a");
-    if (!a) return;
-
-    // метим только ссылки пагинации
-    const href = a.getAttribute("href") || "";
-    if (!href.includes("page_")) return;
-
-    sessionStorage.setItem("gallery_scroll_y", String(window.scrollY));
-  });
-
-  // 3) После загрузки страницы восстанавливаем позицию 2 раза:
-  //    сразу и после отрисовки/подгрузки (иначе картинки могут "сдвинуть" высоту)
-  function restoreScroll() {
-    const y = sessionStorage.getItem("gallery_scroll_y");
-    if (y == null) return;
-
-    const yy = parseInt(y, 10);
-    if (!Number.isNaN(yy)) window.scrollTo(0, yy);
-
-    // второй раз — после рендера
-    requestAnimationFrame(() => window.scrollTo(0, yy));
-    setTimeout(() => window.scrollTo(0, yy), 80);
-
-    sessionStorage.removeItem("gallery_scroll_y");
-  }
-
-  window.addEventListener("DOMContentLoaded", restoreScroll);
-</script>
 <body class="font-sans antialiased bg-gray-50">
     <!-- Навигация -->
     <nav class="fixed w-full z-50 transition-all duration-300 {% if not request.resolver_match.url_name == 'home' %}bg-gray-900 bg-opacity-95 shadow-lg{% else %}bg-transparent{% endif %}" id="navbar">
