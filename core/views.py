@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
-from .models import CompanyInfo, Service, Testimonial, ProjectGallery, AboutGoals, AboutTasks, AboutStrategy, AboutLicense, AboutCertificate, AboutAward
+from .models import CompanyInfo, Service, Testimonial, ProjectGallery, AboutGoals, AboutTasks, AboutStrategy, AboutLicense, AboutCertificate, AboutAward, CEOProfile
 from blog.models import BlogPost
 from contact.models import ContactForm
 
@@ -9,6 +9,7 @@ def home(request):
     """Домашняя страница"""
     context = {
         'company_info': CompanyInfo.objects.first(),
+        'ceo': CEOProfile.objects.filter(is_active=True).first(),
         'featured_services': Service.objects.filter(active=True)[:6],
         'featured_testimonials': Testimonial.objects.filter(featured=True)[:3],
         'featured_projects': ProjectGallery.objects.filter(featured=True)[:6],

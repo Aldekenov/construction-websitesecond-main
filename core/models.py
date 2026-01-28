@@ -22,6 +22,27 @@ class CompanyInfo(models.Model):
         return self.company_name
 
 
+class CEOProfile(models.Model):
+    """Блок ГД"""
+    full_name = models.CharField("ФИО", max_length=255)
+    position = models.CharField("Должность", max_length=255, default="Генеральный директор")
+    quote = models.TextField("Цитата", blank=True)
+    photo = models.ImageField("Фото", upload_to="company/ceo/", blank=True, null=True)
+    education = models.TextField("Образование", blank=True, help_text="Каждый пункт с новой строки")
+    qualification = models.TextField("Квалификация / сертификаты", blank=True, help_text="Каждый пункт с новой строки")
+    experience_years = models.PositiveSmallIntegerField("Опыт (лет)", blank=True, null=True)
+    experience_text = models.TextField("Опыт работы (кратко)", blank=True, help_text="1–3 строки или пункты")
+    key_skills = models.TextField("Ключевые навыки", blank=True, help_text="Навыки через запятую или с новой строки")
+    is_active = models.BooleanField("Показывать на главной", default=True)
+
+    class Meta:
+        verbose_name = "Генеральный директор"
+        verbose_name_plural = "Генеральный директор"
+
+    def __str__(self):
+        return self.full_name
+
+
 class Service(models.Model):
     """Услуги компании"""
     name = models.CharField(max_length=100, verbose_name="Наименование")

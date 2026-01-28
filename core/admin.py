@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import CompanyInfo, Service, Testimonial, ProjectGallery, AboutGoals, AboutTasks, AboutStrategy, AboutLicense, AboutCertificate, AboutAward
+from .models import CompanyInfo, Service, Testimonial, ProjectGallery, AboutGoals, AboutTasks, AboutStrategy, AboutLicense, AboutCertificate, AboutAward, CEOProfile
 
 
 @admin.register(CompanyInfo)
@@ -12,6 +12,22 @@ class CompanyInfoAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+
+@admin.register(CEOProfile)
+class CEOProfileAdmin(admin.ModelAdmin):
+    list_display = ("full_name", "position", "is_active")
+    list_editable = ("is_active",)
+    search_fields = ("full_name", "position")
+
+    fieldsets = (
+        ("Основное", {
+            "fields": ("is_active", "full_name", "position", "photo", "quote")
+        }),
+        ("Профиль", {
+            "fields": ("education", "qualification", "experience_years", "experience_text", "key_skills")
+        }),
+    )
 
 
 @admin.register(Service)

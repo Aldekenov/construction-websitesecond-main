@@ -55,7 +55,132 @@
     </div>
 </section>
 {% endif %}
+    
+<!-- Блок CEO -->
+{% if ceo %}
+<section class="py-16 bg-white">
+  <div class="container mx-auto px-4">
+    <!-- ВАЖНО: overflow-visible, чтобы PNG мог "выпирать" -->
+    <div class="relative max-w-6xl mx-auto overflow-visible">
 
+      <!-- Карточка -->
+      <div class="relative bg-gray-50 rounded-2xl shadow-xl border border-gray-100"
+           data-aos="fade-up">
+        <!-- Резерв под фото справа (под твой PNG) -->
+        <div class="p-8 md:p-12 md:pr-[360px]">
+          <div class="uppercase tracking-widest text-xs text-gray-500 mb-3">
+            Руководство компании
+          </div>
+
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+            {{ ceo.full_name }}
+          </h2>
+
+          <div class="text-gray-600 mt-3 mb-8">
+            {{ ceo.position }}
+          </div>
+        
+        <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-2xl">
+          {% if ceo.education %}
+          <div>
+            <div class="text-xs uppercase tracking-widest text-gray-500 mb-2">Образование</div>
+            <ul class="text-gray-700 text-sm space-y-1">
+              {% for line in ceo.education.splitlines %}
+                {% if line %}<li>• {{ line }}</li>{% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+        
+          {% if ceo.qualification %}
+          <div>
+            <div class="text-xs uppercase tracking-widest text-gray-500 mb-2">Квалификация</div>
+            <ul class="text-gray-700 text-sm space-y-1">
+              {% for line in ceo.qualification.splitlines %}
+                {% if line %}<li>• {{ line }}</li>{% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+        
+          {% if ceo.experience_years or ceo.experience_text %}
+          <div class="sm:col-span-2">
+            <div class="text-xs uppercase tracking-widest text-gray-500 mb-2">Опыт работы</div>
+        
+            {% if ceo.experience_years %}
+              <div class="inline-flex items-center gap-2 mb-2">
+                <span class="px-3 py-1 text-gray-700 text-sm">
+                  {{ ceo.experience_years }}+ лет
+                </span>
+              </div>
+            {% endif %}
+        
+            {% if ceo.experience_text %}
+              <ul class="text-gray-700 text-sm space-y-1">
+                {% for line in ceo.experience_text.splitlines %}
+                  {% if line %}<li>• {{ line }}</li>{% endif %}
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+          {% endif %}
+        
+          {% if ceo.key_skills %}
+            <div class="sm:col-span-2">
+              <div class="text-xs uppercase tracking-widest text-gray-500 mb-2">Ключевые навыки</div>
+              <div class="flex flex-wrap gap-2">
+                {% for line in ceo.key_skills.splitlines %}
+                  {% if line %}
+                  <span class="px-3 py-1 text-gray-700 text-sm">
+                    {{ line }}
+                  </span>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+            {% endif %}
+        
+        </div>
+        {% if ceo.quote %}
+          <div class="flex gap-4 max-w-2xl mt-7">
+            <div class="w-1 bg-gray-300 rounded"></div>
+            <blockquote class="italic text-gray-700 leading-relaxed">
+              {{ ceo.quote }}
+            </blockquote>
+          </div>
+          {% endif %}
+      
+        <div class="hidden md:block absolute inset-y-0 right-0 w-[380px]
+                    bg-gradient-to-l from-gray-50 via-gray-50 to-transparent
+                    pointer-events-none rounded-2xl"></div>
+      </div>
+    
+      {% if ceo.photo %}
+      <img src="{{ ceo.photo.url }}"
+           alt="{{ ceo.full_name }}"
+           class="hidden md:block absolute right-0 bottom-0
+                  translate-x-10
+                  h-[440px] lg:h-[480px]
+                  object-contain
+                  drop-shadow-2xl
+                  pointer-events-none"
+           data-aos="fade-left"
+           data-aos-delay="80">
+      {% endif %}
+    
+      {% if ceo.photo %}
+      <div class="md:hidden mt-8 flex justify-center" data-aos="fade-up">
+        <img src="{{ ceo.photo.url }}"
+             alt="{{ ceo.full_name }}"
+             class="h-64 object-contain drop-shadow-xl">
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+</section>
+{% endif %}
+    
 <!-- Блок услуги -->
 <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
