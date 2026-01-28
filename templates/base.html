@@ -200,13 +200,16 @@
                 <!-- Обратная связь -->
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Обратная связь</h3>
-                    <form hx-post="{% url 'contact:contact_submit' %}" 
-                          hx-target="#footer-form-result" 
+                    <form hx-post="{% url 'contact:contact_submit' %}"
+                          hx-target="#footer-form-result"
                           hx-swap="innerHTML"
                           class="space-y-3">
                         {% csrf_token %}
+                        <input type="hidden" name="form_source" value="footer">
                         <input type="hidden" name="contact_type" value="general">
                         <input type="text" name="name" placeholder="Ваше ФИО" required
+                               class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <input type="text" name="phone" placeholder="Ваш номер телефона" required
                                class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <input type="email" name="email" placeholder="Ваша почта" required
                                class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -214,7 +217,7 @@
                                class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <textarea name="message" placeholder="Ваше сообщение" required rows="3"
                                   class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-                        <button type="submit" 
+                        <button type="submit"
                                 class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md transition-colors btn-glow">
                             Отправить
                         </button>

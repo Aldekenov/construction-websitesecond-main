@@ -1,0 +1,12 @@
+Новая заявка с сайта
+
+Тема: {{ subject }}
+
+Компания/Имя: {{ name }}
+Email: {{ email|default:"-" }}
+Телефон: {{ phone|default:"-" }}
+Тип: {{ contact_type }}
+Дата: {{ created_at }}
+
+Сообщение:
+{{ message }}

@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Мы получили ваше обращение</title>
+</head>
+
+<body style="margin:0;padding:0;background:#eef0f3;font-family:Arial,Helvetica,sans-serif;color:#111827;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#eef0f3;">
+    <tr>
+      <td align="center" style="padding:30px 12px;">
+
+        <!-- container -->
+        <table role="presentation" width="680" cellpadding="0" cellspacing="0" border="0"
+               style="width:680px;max-width:680px;">
+
+          <!-- top logo -->
+          <tr>
+            <td align="left" style="padding:0 6px 14px 6px;">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="vertical-align:middle;">
+                    <!-- inline logo via CID -->
+                    <img src="cid:tess_logo" alt="TESS-PROJECT"
+                         style="display:block;max-height:44px;height:44px;width:auto;border:0;outline:none;">
+                  </td>
+                  <td style="vertical-align:middle;padding-left:10px;">
+                    <div style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#6b7280;">
+                      TESS-PROJECT
+                    </div>
+                    <div style="font-size:14px;color:#111827;font-weight:600;margin-top:2px;">
+                      Служба поддержки
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- hero (dark) -->
+          <tr>
+            <td style="padding:0 6px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                     style="background:#0f172a;border-radius:18px;">
+                <tr>
+                  <td style="padding:26px 26px 22px 26px;">
+                    <div style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#cbd5e1;">
+                      Обращение получено
+                    </div>
+                    <div style="font-size:26px;line-height:1.2;font-weight:700;color:#ffffff;margin-top:8px;">
+                      Спасибо, {{ name }}!
+                    </div>
+                    <div style="font-size:14px;line-height:1.6;color:#e2e8f0;margin-top:10px;">
+                      Мы получили ваше сообщение и уже передали его специалистам.
+                      Обычно отвечаем <b>в течение рабочего дня</b>.
+                    </div>
+
+                    <!-- meta chips -->
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:14px;">
+                      <tr>
+                        <td style="font-size:12px;color:#e2e8f0;background:#111c34;border:1px solid #22304e;
+                                   border-radius:999px;padding:7px 10px;">
+                          Тема: <span style="color:#ffffff;font-weight:600;">{{ subject }}</span>
+                        </td>
+                        <td style="width:8px;"></td>
+                        <td style="font-size:12px;color:#e2e8f0;background:#111c34;border:1px solid #22304e;
+                                   border-radius:999px;padding:7px 10px;">
+                          {{ created_at }}
+                        </td>
+                      </tr>
+                    </table>
+
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- main card -->
+          <tr>
+            <td style="padding:14px 6px 0 6px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                     style="background:#ffffff;border-radius:18px;border:1px solid #e5e7eb;">
+                <tr>
+                  <td style="padding:22px 24px;">
+
+                    <div style="font-size:14px;color:#6b7280;">
+                      Ниже — копия вашего обращения:
+                    </div>
+
+                    <div style="height:1px;background:#e5e7eb;margin:14px 0;"></div>
+
+                    <div style="font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:#6b7280;">
+                      Сообщение
+                    </div>
+
+                    <div style="font-size:15px;line-height:1.75;color:#111827;margin-top:10px;white-space:pre-wrap;">
+                      {{ message }}
+                    </div>
+
+                    <div style="height:1px;background:#e5e7eb;margin:18px 0;"></div>
+
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td style="font-size:13px;color:#6b7280;line-height:1.6;">
+                          Если в сообщении есть дополнительные материалы или уточнения — можете отправить новое обращение,
+                          указав ту же тему.
+                        </td>
+                      </tr>
+                    </table>
+
+                    <!-- CTA button -->
+                    {% if site_url %}
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:16px;">
+                      <tr>
+                        <td>
+                          <a href="{{ site_url }}/contact/"
+                             style="display:inline-block;background:#111827;color:#ffffff;text-decoration:none;
+                                    padding:12px 16px;border-radius:12px;font-size:14px;font-weight:600;">
+                            Перейти на страницу контактов
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                    {% endif %}
+
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- footer -->
+          <tr>
+            <td style="padding:14px 10px 0 10px;text-align:center;color:#9ca3af;font-size:12px;line-height:1.5;">
+              Это автоматическое уведомление. Пожалуйста, не отвечайте на это письмо.
+              <br>
+              © TESS-PROJECT
+            </td>
+          </tr>
+
+        </table>
+
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

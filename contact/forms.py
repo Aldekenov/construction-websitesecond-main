@@ -22,21 +22,22 @@ class ContactFormForm(forms.ModelForm):
             'hx-target': '#contact-form-container',
             'hx-swap': 'innerHTML'
         }
-        
+
         self.helper.layout = Layout(
             Row(
-                Column('name', css_class='w-full md:w-1/2'),
-                Column('email', css_class='w-full md:w-1/2'),
+                Column('name', css_class='w-full md:w-1/2 px-2'),
+                Column('email', css_class='w-full md:w-1/2 px-2'),
                 css_class='flex flex-wrap -mx-2'
             ),
             Row(
-                Column('phone', css_class='w-full md:w-1/2'),
-                Column('contact_type', css_class='w-full md:w-1/2'),
+                Column('phone', css_class='w-full md:w-1/2 px-2'),
+                Column('contact_type', css_class='w-full md:w-1/2 px-2'),
                 css_class='flex flex-wrap -mx-2'
             ),
             Field('subject'),
             Field('message'),
-            Submit('submit', 'Отправить', css_class='bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded')
+            Submit('submit', 'Отправить',
+                   css_class='bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded')
         )
 
         # Add Tailwind classes to form fields
