@@ -39,6 +39,7 @@
         html, body {
             max-width: 100vw;
             overflow-x: hidden;
+            overflow-anchor: none;
         }
         .container {
             max-width: 100vw !important;
@@ -71,6 +72,7 @@
     
     {% block extra_css %}{% endblock %}
 </head>
+
 <body class="font-sans antialiased bg-gray-50">
     <!-- Навигация -->
     <nav class="fixed w-full z-50 transition-all duration-300 {% if not request.resolver_match.url_name == 'home' %}bg-gray-900 bg-opacity-95 shadow-lg{% else %}bg-transparent{% endif %}" id="navbar">

@@ -23,8 +23,8 @@ class GalleryImage(models.Model):
         related_name="images",
         verbose_name="Категория"
     )
-    project_name = models.CharField("Проект", max_length=200, blank=True, default="")
-    project_year = models.PositiveSmallIntegerField("Год", null=True, blank=True)
+    project_name = models.CharField("Проект", max_length=200, blank=True, default="", null=True)
+    project_year = models.PositiveSmallIntegerField("Год", null=True, blank=True, )
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

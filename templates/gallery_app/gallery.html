@@ -36,10 +36,10 @@
     {% for item in categories_data %}
       {% with cat=item.category page=item.page_obj param=item.page_param %}
 
-      <div class="mb-16" id="{{ cat.slug }}">
+      <div class="mb-16 gallery-swap" id="{{ cat.slug }}" style="view-transition-name: gallery-{{ cat.slug }};">
         <h2 class="text-2xl font-semibold mb-6">{{ cat.title }}</h2>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7 gap-4">
+        <div id="grid-{{ cat.slug }}" class="gallery-swap grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7 gap-4">
           {% for img in page %}
             <button onclick="openGalleryModal({{ forloop.counter0 }}, '{{ cat.slug }}')"
                     class="group overflow-hidden rounded-lg bg-gray-100">
@@ -56,32 +56,95 @@
         </div>
 
         {% if page.paginator.num_pages > 1 %}
-         <div class="flex justify-center gap-2 mt-6">
-          {% if page.has_previous %}
+        <div class="flex justify-center items-center gap-2 mt-5 select-none text-sm">
           <a
-            hx-get="?{{ item.page_param }}={{ page.previous_page_number }}{% if selected_year %}&year={{ selected_year }}{% endif %}{% if selected_project %}&project={{ selected_project|urlencode }}{% endif %}"
+            {% if page.has_previous %}
+              hx-get="?{{ item.page_param }}={{ page.previous_page_number }}{% if selected_year %}&year={{ selected_year }}{% endif %}{% if selected_project %}&project={{ selected_project|urlencode }}{% endif %}"
+            {% endif %}
             hx-target="#{{ cat.slug }}"
             hx-select="#{{ cat.slug }}"
-            hx-swap="outerHTML"
-            hx-push-url="true"
+            hx-swap="outerHTML settle:200"
             data-scroll-id="{{ cat.slug }}"
-            class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+            class="w-9 h-9 grid place-items-center rounded-lg border
+                   {% if page.has_previous %}
+                     bg-white hover:bg-gray-50 cursor-pointer
+                   {% else %}
+                     bg-gray-100 text-gray-400 cursor-not-allowed pointer-events-none
+                   {% endif %}"
+            aria-label="Предыдущая страница"
           >←</a>
-        {% endif %}
-        
-        {% if page.has_next %}
+
+          <div class="flex items-center gap-1">
+            {% if page.number == 1 %}
+              <span class="min-w-9 h-9 px-2 grid place-items-center rounded-lg bg-gray-600 text-white font-semibold">1</span>
+            {% else %}
+              <a
+                hx-get="?{{ item.page_param }}=1{% if selected_year %}&year={{ selected_year }}{% endif %}{% if selected_project %}&project={{ selected_project|urlencode }}{% endif %}"
+                hx-target="#{{ cat.slug }}" hx-select="#{{ cat.slug }}" hx-swap="outerHTML settle:200"
+                data-scroll-id="{{ cat.slug }}"
+                class="min-w-9 h-9 px-2 grid place-items-center rounded-lg border bg-white hover:bg-gray-50 cursor-pointer"
+              >1</a>
+            {% endif %}
+
+            {% if page.number > 4 %}
+              <span class="px-1 text-gray-400">…</span>
+            {% endif %}
+
+            {% for p in page.paginator.page_range %}
+              {% if p >= page.number|add:"-2" and p <= page.number|add:"2" and p > 1 and p < page.paginator.num_pages %}
+                {% if p == page.number %}
+                  <span class="min-w-9 h-9 px-2 grid place-items-center rounded-lg bg-gray-600 text-white font-semibold">{{ p }}</span>
+                {% else %}
+                  <a
+                    hx-get="?{{ item.page_param }}={{ p }}{% if selected_year %}&year={{ selected_year }}{% endif %}{% if selected_project %}&project={{ selected_project|urlencode }}{% endif %}"
+                    hx-target="#{{ cat.slug }}" hx-select="#{{ cat.slug }}" hx-swap="outerHTML settle:200"
+                    data-scroll-id="{{ cat.slug }}"
+                    class="min-w-9 h-9 px-2 grid place-items-center rounded-lg border bg-white hover:bg-gray-50 cursor-pointer"
+                  >{{ p }}</a>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+
+            {% if page.number < page.paginator.num_pages|add:"-3" %}
+              <span class="px-1 text-gray-400">…</span>
+            {% endif %}
+
+            {% if page.paginator.num_pages > 1 %}
+              {% if page.number == page.paginator.num_pages %}
+                <span class="min-w-9 h-9 px-2 grid place-items-center rounded-lg bg-gray-600 text-white font-semibold">
+                  {{ page.paginator.num_pages }}
+                </span>
+              {% else %}
+                <a
+                  hx-get="?{{ item.page_param }}={{ page.paginator.num_pages }}{% if selected_year %}&year={{ selected_year }}{% endif %}{% if selected_project %}&project={{ selected_project|urlencode }}{% endif %}"
+                  hx-target="#{{ cat.slug }}" hx-select="#{{ cat.slug }}" hx-swap="outerHTML settle:200"
+                  data-scroll-id="{{ cat.slug }}"
+                  class="min-w-9 h-9 px-2 grid place-items-center rounded-lg border bg-white hover:bg-gray-50 cursor-pointer"
+                >{{ page.paginator.num_pages }}</a>
+              {% endif %}
+            {% endif %}
+          </div>
+
           <a
-            hx-get="?{{ item.page_param }}={{ page.next_page_number }}{% if selected_year %}&year={{ selected_year }}{% endif %}{% if selected_project %}&project={{ selected_project|urlencode }}{% endif %}"
+            {% if page.has_next %}
+              hx-get="?{{ item.page_param }}={{ page.next_page_number }}{% if selected_year %}&year={{ selected_year }}{% endif %}{% if selected_project %}&project={{ selected_project|urlencode }}{% endif %}"
+            {% endif %}
             hx-target="#{{ cat.slug }}"
             hx-select="#{{ cat.slug }}"
-            hx-swap="outerHTML"
-            hx-push-url="true"
+            hx-swap="outerHTML settle:200"
             data-scroll-id="{{ cat.slug }}"
-            class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+            class="w-9 h-9 grid place-items-center rounded-lg border
+                   {% if page.has_next %}
+                     bg-white hover:bg-gray-50 cursor-pointer
+                   {% else %}
+                     bg-gray-100 text-gray-400 cursor-not-allowed pointer-events-none
+                   {% endif %}"
+            aria-label="Следующая страница"
           >→</a>
-        {% endif %}
+
         </div>
         {% endif %}
+
       </div>
 
       {% endwith %}
@@ -197,18 +260,20 @@
   });
 </script>
 <script>
-  document.body.addEventListener("htmx:afterSwap", (e) => {
-    // реагируем только если обновляли категорию галереи
-    const target = e.target;
-    if (!target || !target.id) return;
+  let savedY = null;
 
-    // мягкий скролл к началу блока
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  // Запоминаем текущую позицию ДО запроса (важно: именно beforeRequest)
+  document.body.addEventListener("htmx:beforeRequest", (e) => {
+    const a = e.target.closest("a[data-scroll-id]"); // твои ссылки пагинации
+    if (!a) return;
+    savedY = window.scrollY;
+  });
+
+  // После подмены возвращаем scrollY обратно (без плавности)
+  document.body.addEventListener("htmx:afterSwap", () => {
+    if (savedY === null) return;
+    window.scrollTo({ top: savedY, left: 0, behavior: "auto" });
+    savedY = null;
   });
 </script>
-<style>
-  /* лёгкая анимация на время подмены */
-  .htmx-swapping { opacity: 0; transition: opacity .15s ease; }
-  .htmx-settling { opacity: 1; transition: opacity .15s ease; }
-</style>
 {% endblock %}
