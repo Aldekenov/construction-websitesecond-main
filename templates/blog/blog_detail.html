@@ -1,18 +1,19 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}{{ post.title }} | Блог | {{ company_info.company_name|default:'TESS' }}{% endblock %}
+{% block title %}{{ post.title }} | {% trans "Блог" %} | {{ company_info.company_name|default:'TESS' }}{% endblock %}
 
 {% block content %}
 <div class="max-w-3xl mx-auto py-12 px-4">
     <div class="mb-8">
-        <a href="{% url 'blog:blog_list' %}" class="text-blue-600 hover:underline">&larr; Назад</a>
+        <a href="{% url 'blog:blog_list' %}" class="text-blue-600 hover:underline">&larr; {% trans "Назад" %}</a>
     </div>
     <h1 class="text-4xl font-bold mb-4 text-gray-900">{{ post.title }}</h1>
     <div class="flex items-center text-gray-500 text-sm mb-6">
-        <span>От {{ post.author }}</span>
+        <span>{% trans "От" %} {{ post.author }}</span>
         <span class="mx-2">|</span>
         <span>{{ post.created_at|date:"F j, Y" }}</span>
-        {% if post.featured %}<span class="ml-2 px-2 py-1 bg-yellow-200 text-yellow-800 rounded text-xs">Последнее</span>{% endif %}
+        {% if post.featured %}<span class="ml-2 px-2 py-1 bg-yellow-200 text-yellow-800 rounded text-xs">{% trans "Последнее" %}</span>{% endif %}
     </div>
     {% if post.featured_image %}
         <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="w-full rounded-lg mb-8 shadow-md">
@@ -22,11 +23,11 @@
     </div>
     {% if post.excerpt %}
         <div class="bg-gray-100 p-4 rounded mb-8">
-            <strong>Краткое содержание:</strong> {{ post.excerpt }}
+            <strong>{% trans "Краткое содержание:" %}</strong> {{ post.excerpt }}
         </div>
     {% endif %}
     <div class="mt-8">
-        <a href="{% url 'blog:blog_list' %}" class="text-blue-600 hover:underline">&larr; Назад</a>
+        <a href="{% url 'blog:blog_list' %}" class="text-blue-600 hover:underline">&larr; {% trans "Назад" %}</a>
     </div>
 </div>
 {% endblock %}

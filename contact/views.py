@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.core.mail import EmailMultiAlternatives
 from email.mime.image import MIMEImage
 import os
+from django.utils.translation import gettext as _
 
 from .forms import ContactFormForm
 from .models import ContactInfo
@@ -112,7 +113,7 @@ def contact_submit(request):
             request,
             "contact/partials/footer_success.html",
             {
-                "message": "Сообщение отправлено! Мы скоро свяжемся с вами.",
+                "message": _("Сообщение отправлено! Мы скоро свяжемся с вами."),
             }
         )
 
@@ -121,8 +122,8 @@ def contact_submit(request):
         request,
         "contact/partials/contact_success.html",
         {
-            "message": "Сообщение отправлено! Мы скоро свяжемся с вами.",
-            "form": ContactFormForm(),  # новая пустая форма
+            "message": _("Сообщение отправлено! Мы скоро свяжемся с вами."),
+            "form": ContactFormForm(),
             "contact_info": contact_info,
         }
     )

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}О нас - {{ block.super }}{% endblock %}
+{% block title %}{% trans "О нас" %} - {{ block.super }}{% endblock %}
 
 {% block content %}
 {% load static %}
@@ -13,7 +14,7 @@
           <div class="md:col-span-2">
             <div class="bg-white rounded-lg shadow-lg p-8 h-full flex flex-col md:flex-row md:items-center">
               <div class="md:w-2/3">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">О нас</h2>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">{% trans "О нас" %}</h2>
                 <div class="prose max-w-none text-gray-700">
                   {{ company_info.about_us|safe }}
                 </div>
@@ -130,9 +131,11 @@
 <section class="py-12">
   <div class="container mx-auto px-4">
     <div class="text-center mb-8" data-aos="fade-up">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Наши Лицензии</h2>
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-800">{% trans "Наши Лицензии" %}</h2>
       <p class="text-gray-600 max-w-2xl mx-auto mt-3">
+        {% blocktrans %}
         Государственные лицензии первой категории на выполнение проектно-изыскательской деятельности, строительно-монтажных работ и эксплуатацию электрических сетей и подстанции всех типов.
+        {% endblocktrans %}
       </p>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-8">
@@ -152,7 +155,7 @@
         </button>
       </div>
       {% empty %}
-      <p class="text-gray-600">Лицензии не добавлены.</p>
+      <p class="text-gray-600">{% trans "Лицензии не добавлены." %}</p>
       {% endfor %}
     </div>
   </div>
@@ -163,9 +166,11 @@
 <section class="py-12">
   <div class="container mx-auto px-4">
     <div class="text-center mb-8" data-aos="fade-up">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Сертификаты</h2>
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-800">{% trans "Сертификаты" %}</h2>
       <p class="text-gray-600 max-w-2xl mx-auto mt-3">
+        {% blocktrans %}
         ТОО «ТЭСС-Проект» прошло сертификацию своей деятельности на соответствие  с Системой менеджмента качества, по результатам которого были получены сертификаты соответствия:
+        {% endblocktrans %}
       </p>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-8">
@@ -185,7 +190,7 @@
         </button>
       </div>
       {% empty %}
-      <p class="text-gray-600">Сертификаты не добавлены.</p>
+      <p class="text-gray-600">{% trans "Сертификаты не добавлены." %}</p>
       {% endfor %}
     </div>
   </div>
@@ -195,9 +200,11 @@
 <!-- Секция Награды и Отзывы -->
 <section class="py-12">
   <div class="text-center mb-8" data-aos="fade-up">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Награды и отзывы</h2>
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-800">{% trans "Награды и отзывы" %}</h2>
       <p class="text-gray-600 max-w-2xl mx-auto mt-3">
+        {% blocktrans %}
         Результаты нашей работы подтверждены профессиональными наградами и отзывами клиентов.
+        {% endblocktrans %}
       </p>
   </div> 
   <div class="container mx-auto px-4">
@@ -205,13 +212,13 @@
 
       <!-- Награды -->
       <div>
-        <h2 class="text-2xl font-semibold mb-4 text-center">Награды</h2>
+        <h2 class="text-2xl font-semibold mb-4 text-center">{% trans "Награды" %}</h2>
         {% include "partials/slider.html" with items=awards %}
       </div>
 
       <!-- Отзывы -->
       <div>
-        <h2 class="text-2xl font-semibold mb-4 text-center">Отзывы</h2>
+        <h2 class="text-2xl font-semibold mb-4 text-center">{% trans "Отзывы" %}</h2>
         {% include "partials/slider.html" with items=testimonials %}
       </div>
 

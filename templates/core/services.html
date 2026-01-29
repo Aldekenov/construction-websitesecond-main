@@ -1,14 +1,17 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}Деятельсность - {{ block.super }}{% endblock %}
+{% block title %}{% trans "Деятельсность" %} - {{ block.super }}{% endblock %}
 
 {% block content %}
 <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
         <div class="text-center mb-12" data-aos="fade-up">
-            <h1 class="text-4xl font-bold text-gray-800 mb-4">Наши Услуги</h1>
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">{% trans "Наши Услуги" %}</h1>
             <p class="text-gray-600 max-w-2xl mx-auto">
+                {% blocktrans %}
                 Мы предлагаем комплексные услуги по строительству и ремонту, отвечающие всем вашим потребностям.
+                {% endblocktrans %}
             </p>
         </div>
         
@@ -29,7 +32,7 @@
             </div>
             {% empty %}
             <div class="col-span-full text-center text-gray-500">
-                <p>Услуги еще не добавлены</p>
+                <p>{% trans "Услуги еще не добавлены" %}</p>
             </div>
             {% endfor %}
         </div>

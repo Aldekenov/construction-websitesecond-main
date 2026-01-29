@@ -1,35 +1,40 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Фотогалерея" %} - {{ block.super }}{% endblock %}
 
 {% block content %}
 <section class="py-12">
   <div class="container mx-auto px-4">
 
     <div class="text-center mb-10" data-aos="fade-up">
-      <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Галерея</h1>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-800">{% trans "Галерея" %}</h1>
       <p class="text-gray-600 max-w-2xl mx-auto mt-3">
+        {% blocktrans %}
         Будни компании, обучение персонала, корпоративные мероприятия и рабочие совещания
+        {% endblocktrans %}
       </p>
     </div>
 
     <form method="get" class="flex flex-wrap items-center gap-3 mb-8">
-      <label class="text-sm text-gray-600">Год:</label>
+      <label class="text-sm text-gray-600">{% trans "Год:" %}</label>
       <select name="year" class="border rounded px-3 py-2" onchange="this.form.submit()">
-        <option value="">Все</option>
+        <option value="">{% trans "Все" %}</option>
         {% for y in years %}
           <option value="{{ y }}" {% if selected_year == y|stringformat:"s" %}selected{% endif %}>{{ y }}</option>
         {% endfor %}
       </select>
 
-      <label class="text-sm text-gray-600">Проект:</label>
+      <label class="text-sm text-gray-600">{% trans "Проект:" %}</label>
       <select name="project" class="border rounded px-3 py-2" onchange="this.form.submit()">
-        <option value="">Все</option>
+        <option value="">{% trans "Все" %}</option>
         {% for p in projects %}
           <option value="{{ p }}" {% if selected_project == p %}selected{% endif %}>{{ p }}</option>
         {% endfor %}
       </select>
       {% if selected_year or selected_project %}
-        <a href="{% url 'gallery:gallery' %}" class="text-sm text-blue-600 hover:underline">Сбросить</a>
+        <a href="{% url 'gallery:gallery' %}" class="text-sm text-blue-600 hover:underline">{% trans "Сбросить" %}</a>
       {% endif %}
     </form>
 
@@ -50,7 +55,7 @@
             </button>
           {% empty %}
             <div class="col-span-full text-center text-gray-500">
-              Пока нет фотографий в этой категории
+              {% trans "Пока нет фотографий в этой категории" %}
             </div>
           {% endfor %}
         </div>

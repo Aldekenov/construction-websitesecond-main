@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}
 {% if company_info %}{{ company_info.company_name }} - {{ company_info.tagline }}{% else %}TESS{% endif %}
@@ -19,11 +20,11 @@
         <div class="space-x-4" data-aos="fade-up" data-aos-delay="400">
             <a href="{% url 'core:services' %}" 
                class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105 btn-glow inline-block">
-                Наши услуги
+                {% trans "Наши услуги" %}
             </a>
             <a href="{% url 'contact:contact' %}" 
                class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-3 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105 inline-block">
-                Обрятная связь
+                {% trans "Обрятная связь" %}
             </a>
         </div>
     </div>
@@ -41,15 +42,15 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div class="p-6" data-aos="fade-up">
                 <div class="text-4xl font-bold text-blue-600 mb-2">{{ company_info.years_experience }}+</div>
-                <div class="text-gray-600">Лет на рынке</div>
+                <div class="text-gray-600">{% trans "Лет на рынке" %}</div>
             </div>
             <div class="p-6" data-aos="fade-up" data-aos-delay="200">
                 <div class="text-4xl font-bold text-blue-600 mb-2">{{ company_info.projects_completed }}+</div>
-                <div class="text-gray-600">Проектов выполнено</div>
+                <div class="text-gray-600">{% trans "Проектов выполнено" %}</div>
             </div>
             <div class="p-6" data-aos="fade-up" data-aos-delay="400">
                 <div class="text-4xl font-bold text-blue-600 mb-2">{{ company_info.happy_clients }}+</div>
-                <div class="text-gray-600">Клиентов</div>
+                <div class="text-gray-600">{% trans "Клиентов" %}</div>
             </div>
         </div>
     </div>
@@ -60,16 +61,14 @@
 {% if ceo %}
 <section class="py-16 bg-white">
   <div class="container mx-auto px-4">
-    <!-- ВАЖНО: overflow-visible, чтобы PNG мог "выпирать" -->
     <div class="relative max-w-6xl mx-auto overflow-visible">
 
       <!-- Карточка -->
       <div class="relative bg-gray-50 rounded-2xl shadow-xl border border-gray-100"
            data-aos="fade-up">
-        <!-- Резерв под фото справа (под твой PNG) -->
         <div class="p-8 md:p-12 md:pr-[360px]">
           <div class="uppercase tracking-widest text-xs text-gray-500 mb-3">
-            Руководство компании
+            {% trans "Руководство компании" %}
           </div>
 
           <h2 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
@@ -83,7 +82,7 @@
         <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-2xl">
           {% if ceo.education %}
           <div>
-            <div class="text-xs uppercase tracking-widest text-gray-500 mb-2">Образование</div>
+            <div class="text-xs uppercase tracking-widest text-gray-500 mb-2">{% trans "Образование" %}</div>
             <ul class="text-gray-700 text-sm space-y-1">
               {% for line in ceo.education.splitlines %}
                 {% if line %}<li>• {{ line }}</li>{% endif %}
@@ -94,7 +93,7 @@
         
           {% if ceo.qualification %}
           <div>
-            <div class="text-xs uppercase tracking-widest text-gray-500 mb-2">Квалификация</div>
+            <div class="text-xs uppercase tracking-widest text-gray-500 mb-2">{% trans "Квалификация" %}</div>
             <ul class="text-gray-700 text-sm space-y-1">
               {% for line in ceo.qualification.splitlines %}
                 {% if line %}<li>• {{ line }}</li>{% endif %}
@@ -105,12 +104,12 @@
         
           {% if ceo.experience_years or ceo.experience_text %}
           <div class="sm:col-span-2">
-            <div class="text-xs uppercase tracking-widest text-gray-500 mb-2">Опыт работы</div>
+            <div class="text-xs uppercase tracking-widest text-gray-500 mb-2">{% trans "Опыт работы" %}</div>
         
             {% if ceo.experience_years %}
               <div class="inline-flex items-center gap-2 mb-2">
                 <span class="px-3 py-1 text-gray-700 text-sm">
-                  {{ ceo.experience_years }}+ лет
+                  {{ ceo.experience_years }}{% trans "+ лет" %}
                 </span>
               </div>
             {% endif %}
@@ -127,7 +126,7 @@
         
           {% if ceo.key_skills %}
             <div class="sm:col-span-2">
-              <div class="text-xs uppercase tracking-widest text-gray-500 mb-2">Ключевые навыки</div>
+              <div class="text-xs uppercase tracking-widest text-gray-500 mb-2">{% trans "Ключевые навыки" %}</div>
               <div class="flex flex-wrap gap-2">
                 {% for line in ceo.key_skills.splitlines %}
                   {% if line %}
@@ -185,9 +184,11 @@
 <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
         <div class="text-center mb-12" data-aos="fade-up">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Наши Услуги</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">{% trans "Наши Услуги" %}</h2>
             <p class="text-gray-600 max-w-2xl mx-auto">
+                {% blocktrans %}
                 Наша компания предлагает широкий спектр услуг в области строительства, обслуживания и ремонта промышленного оборудования, а также проектирование и эксплуатация электрических станций, электрических сетей и подстанций, магистральных газо-нефтепродуктов, подъемных сооружений, строительно-монтажные работы.
+                {% endblocktrans %}
             </p>
         </div>
         
@@ -207,13 +208,13 @@
                     <p class="text-gray-600 mb-4">{{ service.description|truncatewords:20 }}</p>
                     <a href="{% url 'core:services' %}" 
                        class="text-blue-600 hover:text-blue-800 font-semibold transition-colors">
-                        Подробнее <i class="fas fa-arrow-right ml-1"></i>
+                        {% trans "Подробнее" %} <i class="fas fa-arrow-right ml-1"></i>
                     </a>
                 </div>
             </div>
             {% empty %}
             <div class="col-span-full text-center text-gray-500">
-                <p>Временно недоступно</p>
+                <p>{% trans "Временно недоступно" %}</p>
             </div>
             {% endfor %}
         </div>
@@ -221,7 +222,7 @@
         <div class="text-center mt-12" data-aos="fade-up">
             <a href="{% url 'core:services' %}" 
                class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors btn-glow">
-                Все Услуги
+                {% trans "Все Услуги" %}
             </a>
         </div>
     </div>
@@ -232,19 +233,19 @@
     <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div data-aos="fade-right">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">О нашей компании</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">{% trans "О нашей компании" %}</h2>
                 {% if company_info and company_info.about_us %}
                 <div class="text-gray-600 mb-6 prose max-w-none">
                     {{ company_info.about_us|safe|truncatewords_html:50 }}
                 </div>
                 {% else %}
                 <p class="text-gray-600 mb-6">
-                    Временно не добвлено
+                    {% trans "Временно не добвлено" %}
                 </p>
                 {% endif %}
                 <a href="{% url 'core:about' %}" 
                    class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors btn-glow">
-                    Подробнее
+                    {% trans "Подробнее" %}
                 </a>
             </div>
             <div data-aos="fade-left">
@@ -265,9 +266,11 @@
 <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
         <div class="text-center mb-12" data-aos="fade-up">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Наши проекты</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">{% trans "Наши проекты" %}</h2>
             <p class="text-gray-600 max-w-2xl mx-auto">
+                {% blocktrans %}
                 Ознакомьтесь с некоторыми из наших последних завершенных проектов, которые демонстрируют наш опыт и качество.
+                {% endblocktrans %}
             </p>
         </div>
         
@@ -294,7 +297,7 @@
             </div>
             {% empty %}
             <div class="col-span-full text-center text-gray-500">
-                <p>Проекты еще не добавлены</p>
+                <p>{% trans "Проекты еще не добавлены" %}</p>
             </div>
             {% endfor %}
         </div>
@@ -303,7 +306,7 @@
         <div class="text-center mt-12" data-aos="fade-up">
             <a href="{% url 'core:gallery' %}" 
                class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors btn-glow">
-                Все выполненные проекты
+                {% trans "Все выполненные проекты" %}
             </a>
         </div>
         {% endif %}
@@ -315,9 +318,9 @@
 <section class="py-16 bg-white">
     <div class="container mx-auto px-4">
         <div class="text-center mb-12" data-aos="fade-up">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Отзывы о нашей компании</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">{% trans "Отзывы о нашей компании" %}</h2>
             <p class="text-gray-600 max-w-2xl mx-auto">
-                Что говорят о наших услугах наши довольные клиенты.
+                {% trans "Что говорят о наших услугах наши довольные клиенты." %}
             </p>
         </div>
         
@@ -362,9 +365,11 @@
 <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
         <div class="text-center mb-12" data-aos="fade-up">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Последние новости</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">{% trans "Последние новости" %}</h2>
             <p class="text-gray-600 max-w-2xl mx-auto">
+                {% blocktrans %}
                 Будьте в курсе наших последних проектов, отраслевой аналитики и корпоротивной жизни.
+                {% endblocktrans %}
             </p>
         </div>
         
@@ -385,7 +390,7 @@
                     <p class="text-gray-600 mb-4">{{ post.excerpt|truncatewords:20 }}</p>
                     <a href="{{ post.get_absolute_url }}" 
                        class="text-blue-600 hover:text-blue-800 font-semibold transition-colors">
-                        Подробнее <i class="fas fa-arrow-right ml-1"></i>
+                        {% trans "Подробнее" %} <i class="fas fa-arrow-right ml-1"></i>
                     </a>
                 </div>
             </div>
@@ -395,7 +400,7 @@
         <div class="text-center mt-12" data-aos="fade-up">
             <a href="{% url 'blog:blog_list' %}" 
                class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors btn-glow">
-                Посмотреть все посты
+                {% trans "Посмотреть все посты" %}
             </a>
         </div>
     </div>
@@ -406,14 +411,16 @@
 <section class="py-16 gradient-bg">
     <div class="container mx-auto px-4 text-center text-white">
         <div data-aos="fade-up">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6">Остались вопросы?</h2>
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">{% trans "Остались вопросы?" %}</h2>
             <p class="text-xl mb-8 max-w-2xl mx-auto">
+                {% blocktrans %}
                 Готовы обсудить ваши потребности в строительстве и проектировании.
                 Свяжитесь с нами сегодня для получения консультации.
+                {% endblocktrans %}
             </p>
             <a href="{% url 'contact:contact' %}" 
                class="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105 btn-glow">
-                Обратная связь
+                {% trans "Обратная связь" %}
             </a>
         </div>
     </div>

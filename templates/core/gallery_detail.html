@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}{{ gallery.title }} | Проекты | {{ block.super }}{% endblock %}
+{% block title %}{{ gallery.title }} | {% trans "Проекты" %} | {{ block.super }}{% endblock %}
 
 {% block content %}
 <div class="max-w-2xl mx-auto py-12 px-4">
     <div class="mb-8">
-        <a href="{% url 'core:gallery' %}" class="text-blue-600 hover:underline">&larr; Back to Gallery</a>
+        <a href="{% url 'core:gallery' %}" class="text-blue-600 hover:underline">&larr; {% trans "Вернуться в Проекты" %} "</a>
     </div>
     <h1 class="text-3xl font-bold mb-4 text-gray-900">{{ gallery.title }}</h1>
     {% if gallery.image %}
@@ -16,14 +17,14 @@
     {% endif %}
     <div class="mb-4 text-gray-500 text-sm">
         {% if gallery.category %}
-            <span class="mr-2">Category: {{ gallery.category }}</span>
+            <span class="mr-2">{% trans "Категория:" %} {{ gallery.category }}</span>
         {% endif %}
         {% if gallery.completion_date %}
-            <span>Completed: {{ gallery.completion_date|date:"F j, Y" }}</span>
+            <span>{% trans "Выполнено:" %} {{ gallery.completion_date|date:"F j, Y" }}</span>
         {% endif %}
     </div>
     <div class="mt-8">
-        <a href="{% url 'core:gallery' %}" class="text-blue-600 hover:underline">&larr; Back to Gallery</a>
+        <a href="{% url 'core:gallery' %}" class="text-blue-600 hover:underline">&larr; {% trans "Вернуться в Проекты" %} </a>
     </div>
 </div>
 {% endblock %}

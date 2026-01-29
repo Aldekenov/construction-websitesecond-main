@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import os
 from dotenv import load_dotenv
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Third party apps
+    "modeltranslation",
     'ckeditor',
     'ckeditor_uploader',
     'crispy_forms',
@@ -52,6 +54,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -158,3 +161,15 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 CRISPY_TEMPLATE_PACK = "tailwind"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+USE_I18N = True
+
+LANGUAGE_CODE = "ru"
+
+LANGUAGES = [
+    ("ru", _("Русский")),
+    ("kk", _("Қазақша")),
+    ("en", _("English")),
+]
+
+LOCALE_PATHS = [BASE_DIR / "locale"]

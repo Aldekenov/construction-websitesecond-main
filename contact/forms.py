@@ -2,12 +2,21 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Submit, Row, Column
 from .models import ContactForm
-
+from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 
 class ContactFormForm(forms.ModelForm):
     class Meta:
         model = ContactForm
         fields = ['name', 'email', 'phone', 'contact_type', 'subject', 'message']
+        labels = {
+            "name": _("Имя"),
+            "email": _("Email"),
+            "phone": _("Телефон"),
+            "contact_type": _("Тип обращения"),
+            "subject": _("Тема"),
+            "message": _("Сообщение"),
+        }
         widgets = {
             'message': forms.Textarea(attrs={'rows': 4}),
         }
@@ -18,7 +27,7 @@ class ContactFormForm(forms.ModelForm):
         self.helper.form_method = 'post'
         self.helper.form_action = ''
         self.helper.attrs = {
-            'hx-post': '/contact/submit/',
+            'hx-post': reverse_lazy('contact:contact_submit'),
             'hx-target': '#contact-form-container',
             'hx-swap': 'innerHTML'
         }
@@ -36,7 +45,7 @@ class ContactFormForm(forms.ModelForm):
             ),
             Field('subject'),
             Field('message'),
-            Submit('submit', 'Отправить',
+            Submit('submit', _('Отправить'),
                    css_class='bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded')
         )
 
