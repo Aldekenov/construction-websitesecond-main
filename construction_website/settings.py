@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,16 +40,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Third party apps
-    "modeltranslation",
     'ckeditor',
     'ckeditor_uploader',
     'crispy_forms',
     'crispy_tailwind',
     # Local apps
-    'core',
-    'blog',
-    'contact',
-    'gallery_app',
+    "core.apps.CoreConfig",
+    "contact.apps.ContactConfig",
+    "blog.apps.BlogConfig",
+    "gallery_app.apps.CalendarAppConfig"
 ]
 
 MIDDLEWARE = [
@@ -173,3 +173,10 @@ LANGUAGES = [
 ]
 
 LOCALE_PATHS = [BASE_DIR / "locale"]
+
+MODELTRANSLATION_TRANSLATION_FILES = (
+    "core.translation",
+    "blog.translation",
+    "gallery_app.translation",
+    "contact.translation",
+)

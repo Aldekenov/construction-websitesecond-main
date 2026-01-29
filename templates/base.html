@@ -75,6 +75,76 @@
 </head>
 
 <body class="font-sans antialiased bg-gray-50">
+
+    
+    {% load i18n %}
+    <!-- Языковая панель (слева) -->
+    <div class="fixed left-0 top-[15%] -translate-y-1/2 z-[60]" data-langtab>
+      <!-- контейнер -->
+      <div class="relative">
+        <!-- панель (выезжает) -->
+        <div class="absolute left-0 top-0 -translate-x-full opacity-0 pointer-events-none transition-all duration-200"
+             data-langtab-panel>
+          <div class="ml-0 rounded-r-2xl border border-gray-200 bg-white shadow-xl overflow-hidden">
+            <div class="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-gray-500 border-b border-gray-100">
+              {% trans "Язык" %}
+            </div>
+
+            <form action="{% url 'set_language' %}" method="post" class="p-2 w-[200px]">
+              {% csrf_token %}
+              <input type="hidden" name="next" value="{{ request.get_full_path }}">
+
+              <button type="submit" name="language" value="ru"
+                      class="w-full flex items-center justify-between rounded-xl px-3 py-2 text-sm hover:bg-gray-50 transition
+                      {% if request.LANGUAGE_CODE == 'ru' %}bg-gray-900 text-white hover:bg-gray-900{% else %}text-gray-800{% endif %}">
+                <span class="flex items-center gap-2">
+                  <span class="h-2 w-2 rounded-full {% if request.LANGUAGE_CODE == 'ru' %}bg-white{% else %}bg-gray-300{% endif %}"></span>
+                  Русский
+                </span>
+                {% if request.LANGUAGE_CODE == 'ru' %}<span class="text-xs font-semibold">✓</span>{% endif %}
+              </button>
+
+              <button type="submit" name="language" value="kk"
+                      class="mt-1 w-full flex items-center justify-between rounded-xl px-3 py-2 text-sm hover:bg-gray-50 transition
+                      {% if request.LANGUAGE_CODE == 'kk' %}bg-gray-900 text-white hover:bg-gray-900{% else %}text-gray-800{% endif %}">
+                <span class="flex items-center gap-2">
+                  <span class="h-2 w-2 rounded-full {% if request.LANGUAGE_CODE == 'kk' %}bg-white{% else %}bg-gray-300{% endif %}"></span>
+                  Қазақша
+                </span>
+                {% if request.LANGUAGE_CODE == 'kk' %}<span class="text-xs font-semibold">✓</span>{% endif %}
+              </button>
+
+              <button type="submit" name="language" value="en"
+                      class="mt-1 w-full flex items-center justify-between rounded-xl px-3 py-2 text-sm hover:bg-gray-50 transition
+                      {% if request.LANGUAGE_CODE == 'en' %}bg-gray-900 text-white hover:bg-gray-900{% else %}text-gray-800{% endif %}">
+                <span class="flex items-center gap-2">
+                  <span class="h-2 w-2 rounded-full {% if request.LANGUAGE_CODE == 'en' %}bg-white{% else %}bg-gray-300{% endif %}"></span>
+                  English
+                </span>
+                {% if request.LANGUAGE_CODE == 'en' %}<span class="text-xs font-semibold">✓</span>{% endif %}
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- "язычок" панели языка -->
+        <button type="button"
+                class="group inline-flex items-center gap-2 rounded-r-2xl border border-gray-200 bg-white shadow-lg
+                       px-3 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-50 transition"
+                data-langtab-btn
+                aria-label="{% trans 'Сменить язык' %}">
+          <span class="h-2 w-2 rounded-full bg-gray-900"></span>
+          {% get_current_language as LANGUAGE_CODE %}
+          <span class="tracking-wide">
+            {% if LANGUAGE_CODE == "kk" %}KAZ{% elif LANGUAGE_CODE == "en" %}ENG{% else %}RUS{% endif %}
+          </span>
+          <svg class="h-4 w-4 text-gray-500 group-hover:text-gray-700 transition" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clip-rule="evenodd"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
     <!-- Навигация -->
     <nav class="fixed w-full z-50 transition-all duration-300 {% if not request.resolver_match.url_name == 'home' %}bg-gray-900 bg-opacity-95 shadow-lg{% else %}bg-transparent{% endif %}" id="navbar">
         <div class="container mx-auto px-4">
@@ -96,27 +166,6 @@
                 <!-- Меню -->
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <form action="{% url 'set_language' %}" method="post" class="flex items-center gap-2">
-                          {% csrf_token %}
-                          <input type="hidden" name="next" value="{{ request.get_full_path }}">
-                        
-                          <button type="submit" name="language" value="kk"
-                                  class="px-3 py-1 rounded-lg border text-sm transition
-                                         {% if request.LANGUAGE_CODE == 'kk' %}bg-gray-900 text-white border-gray-900{% else %}bg-white text-gray-700 border-gray-200 hover:bg-gray-50{% endif %}">
-                            KAZ
-                          </button>
-                        
-                          <button type="submit" name="language" value="en"
-                                  class="px-3 py-1 rounded-lg border text-sm transition
-                                         {% if request.LANGUAGE_CODE == 'en' %}bg-gray-900 text-white border-gray-900{% else %}bg-white text-gray-700 border-gray-200 hover:bg-gray-50{% endif %}">
-                            ENG
-                          </button>
-                          <button type="submit" name="language" value="ru"
-                                  class="px-3 py-1 rounded-lg border text-sm transition
-                                         {% if request.LANGUAGE_CODE == 'ru' %}bg-gray-900 text-white border-gray-900{% else %}bg-white text-gray-700 border-gray-200 hover:bg-gray-50{% endif %}">
-                            RUS
-                          </button>
-                        </form>
                         <a href="{% url 'core:home' %}" 
                            class="text-white hover:text-blue-200 px-3 py-2 rounded-md text-sm font-medium transition-colors">
                             {% trans "Главная" %}
@@ -322,6 +371,38 @@
       slider.dataset.index = index;
       slider.style.transform = `translateX(-${index * 100}%)`;
     }
+    </script>
+    <script>
+      (function () {
+        const root = document.querySelector("[data-langtab]");
+        if (!root) return;
+
+        const btn = root.querySelector("[data-langtab-btn]");
+        const panel = root.querySelector("[data-langtab-panel]");
+
+        let open = false;
+
+        const setOpen = (v) => {
+          open = v;
+          if (open) {
+            panel.classList.remove("-translate-x-full", "opacity-0", "pointer-events-none");
+            panel.classList.add("translate-x-0", "opacity-100");
+          } else {
+            panel.classList.add("-translate-x-full", "opacity-0", "pointer-events-none");
+            panel.classList.remove("translate-x-0", "opacity-100");
+          }
+        };
+
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          setOpen(!open);
+        });
+
+        document.addEventListener("click", () => setOpen(false));
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") setOpen(false);
+        });
+      })();
     </script>
     {% block extra_js %}{% endblock %}
 </body>
