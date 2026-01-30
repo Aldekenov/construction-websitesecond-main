@@ -1,0 +1,633 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-29 15:52+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\construction_website\settings.py:170
+msgid "Русский"
+msgstr ""
+
+#: .\construction_website\settings.py:171
+msgid "Қазақша"
+msgstr ""
+
+#: .\construction_website\settings.py:172
+msgid "English"
+msgstr ""
+
+#: .\contact\forms.py:13
+msgid "Имя"
+msgstr "Name"
+
+#: .\contact\forms.py:14
+msgid "Email"
+msgstr "Email"
+
+#: .\contact\forms.py:15 .\templates\contact\contact.html:46
+msgid "Телефон"
+msgstr "Phone"
+
+#: .\contact\forms.py:16
+msgid "Тип обращения"
+msgstr "Type of appeal"
+
+#: .\contact\forms.py:17 .\templates\base.html:238
+#: .\templates\contact\emails\contact_client.html:64
+msgid "Тема"
+msgstr "Subject"
+
+#: .\contact\forms.py:18 .\templates\contact\emails\contact_client.html:95
+msgid "Сообщение"
+msgstr "Message"
+
+#: .\contact\forms.py:48 .\templates\base.html:244
+msgid "Отправить"
+msgstr "Send"
+
+#: .\contact\views.py:116 .\contact\views.py:125
+msgid "Сообщение отправлено! Мы скоро свяжемся с вами."
+msgstr "Your message has been sent! We will contact you soon."
+
+#: .\templates\base.html:122 .\templates\base.html:164
+#: .\templates\base.html:212
+msgid "Главная"
+msgstr "Home"
+
+#: .\templates\base.html:126
+msgid "О Нас"
+msgstr "About us"
+
+#: .\templates\base.html:130 .\templates\base.html:166
+#: .\templates\base.html:214
+msgid "Деятельность"
+msgstr "Activity"
+
+#: .\templates\base.html:134 .\templates\base.html:167
+#: .\templates\base.html:215 .\templates\blog\blog_detail.html:4
+msgid "Блог"
+msgstr "Blog"
+
+#: .\templates\base.html:138 .\templates\base.html:168
+#: .\templates\base.html:216 .\templates\core\gallery.html:4
+#: .\templates\core\gallery_detail.html:4
+msgid "Проекты"
+msgstr "Projects"
+
+#: .\templates\base.html:142 .\templates\base.html:169
+#: .\templates\base.html:217 .\templates\gallery_app\gallery.html:5
+msgid "Фотогалерея"
+msgstr "Photogallery"
+
+#: .\templates\base.html:146 .\templates\base.html:170
+#: .\templates\base.html:218 .\templates\contact\contact.html:31
+msgid "Контакты"
+msgstr "Contacts"
+
+#: .\templates\base.html:165 .\templates\base.html:213
+#: .\templates\core\about.html:4 .\templates\core\about.html:17
+msgid "О нас"
+msgstr "About us"
+
+#: .\templates\base.html:210
+msgid "Навигация"
+msgstr "Navigation"
+
+#: .\templates\base.html:224 .\templates\contact\contact.html:22
+#: .\templates\core\home.html:423
+msgid "Обратная связь"
+msgstr "Feedback"
+
+#: .\templates\base.html:232
+msgid "Ваше ФИО"
+msgstr "Your full name"
+
+#: .\templates\base.html:234
+msgid "Ваш номер телефона"
+msgstr "Your phone number"
+
+#: .\templates\base.html:236
+msgid "Ваша почта"
+msgstr "Your e-mail"
+
+#: .\templates\base.html:240
+msgid "Ваше сообщение"
+msgstr "Your message"
+
+#: .\templates\base.html:252
+msgid "Все права защищены."
+msgstr "All rights reserved."
+
+#: .\templates\blog\blog_category.html:4
+msgid "Категории блога"
+msgstr "Blog categories"
+
+#: .\templates\blog\blog_category.html:9 .\templates\blog\blog_category.html:37
+#: .\templates\blog\blog_detail.html:9 .\templates\blog\blog_detail.html:30
+msgid "Назад"
+msgstr "Back"
+
+#: .\templates\blog\blog_category.html:11
+#: .\templates\core\gallery_detail.html:20
+msgid "Категория:"
+msgstr "Category:"
+
+#: .\templates\blog\blog_category.html:23 .\templates\blog\blog_detail.html:13
+msgid "От"
+msgstr "By"
+
+#: .\templates\blog\blog_category.html:29 .\templates\blog\blog_list.html:33
+msgid "Читать статью"
+msgstr "Read article"
+
+#: .\templates\blog\blog_category.html:34
+msgid "Нету постов в данной категории"
+msgstr "There are no posts in this category"
+
+#: .\templates\blog\blog_detail.html:16
+msgid "Последнее"
+msgstr "Latest"
+
+#: .\templates\blog\blog_detail.html:26
+msgid "Краткое содержание:"
+msgstr "Summary:"
+
+#: .\templates\blog\blog_list.html:4
+msgid "Новости"
+msgstr "News"
+
+#: .\templates\blog\blog_list.html:10
+msgid "Последние события"
+msgstr "Latest events"
+
+#: .\templates\blog\blog_list.html:12
+msgid ""
+"\n"
+"                Будьте в курсе наших последних новостей, информации и "
+"обновлений проекта.\n"
+"                "
+msgstr ""
+"\n"
+"                Stay up to date with our latest news, information, and "
+"project updates.\n"
+"                "
+
+#: .\templates\blog\blog_list.html:28
+msgid "от"
+msgstr "By"
+
+#: .\templates\blog\blog_list.html:39
+msgid "Пока новостей нет! Зайдите позже"
+msgstr "No news yet! Please check back later"
+
+#: .\templates\blog\blog_list.html:51
+msgid "Пред."
+msgstr "Prev."
+
+#: .\templates\blog\blog_list.html:56
+msgid "Страница"
+msgstr "Page"
+
+#: .\templates\blog\blog_list.html:56
+msgid "из"
+msgstr "of"
+
+#: .\templates\blog\blog_list.html:62
+msgid "След."
+msgstr "Next"
+
+#: .\templates\blog\blog_list.html:75
+msgid "Последние посты"
+msgstr "Latest posts"
+
+#: .\templates\blog\blog_list.html:92
+msgid "Категории"
+msgstr "Categories"
+
+#: .\templates\contact\contact.html:11
+msgid "Свяжитесь с нами"
+msgstr "Contact us"
+
+#: .\templates\contact\contact.html:13
+msgid ""
+"\n"
+"                Свяжитесь с нами, чтобы обсудить ваш строительный проект. Мы "
+"поможем вам воплотить вашу идею в жизнь.\n"
+"                "
+msgstr ""
+"\n"
+"                Contact us to discuss your construction project. We will "
+"help bring your idea to life.\n"
+"                "
+
+#: .\templates\contact\contact.html:38
+msgid "Адрес"
+msgstr "Address"
+
+#: .\templates\contact\contact.html:49
+msgid "Экстренный:"
+msgstr "Emergency:"
+
+#: .\templates\contact\contact.html:57
+msgid "Почта"
+msgstr "E-mail"
+
+#: .\templates\contact\contact.html:65
+msgid "Часы работы"
+msgstr "Working hours"
+
+#: .\templates\contact\contact.html:72
+msgid "Данные отсутствуют"
+msgstr "No data available"
+
+#: .\templates\contact\emails\contact_client.html:6
+msgid "Мы получили ваше обращение"
+msgstr "We have received your request."
+
+#: .\templates\contact\emails\contact_client.html:33
+msgid "Служба поддержки"
+msgstr "Help Desk"
+
+#: .\templates\contact\emails\contact_client.html:49
+msgid "Обращение получено"
+msgstr "The request has been received."
+
+#: .\templates\contact\emails\contact_client.html:52
+msgid "Спасибо"
+msgstr "Thank you"
+
+#: .\templates\contact\emails\contact_client.html:55
+msgid "Мы получили ваше сообщение и уже передали его специалистам."
+msgstr ""
+"We have received your message and have already passed it on to our "
+"specialists."
+
+#: .\templates\contact\emails\contact_client.html:56
+msgid "Обычно отвечаем"
+msgstr "We usually answer"
+
+#: .\templates\contact\emails\contact_client.html:56
+msgid "в течение рабочего дня"
+msgstr "within a business day."
+
+#: .\templates\contact\emails\contact_client.html:89
+msgid "Ниже — копия вашего обращения:"
+msgstr "Below is a copy of your request:"
+
+#: .\templates\contact\emails\contact_client.html:107
+msgid ""
+"\n"
+"                          Если в сообщении есть дополнительные материалы или "
+"уточнения — можете отправить новое обращение,\n"
+"                          указав ту же тему.\n"
+"                          "
+msgstr ""
+"\n"
+"                           If the message contains additional materials or "
+"larifications, you can send a new request,\n"
+"                           using the same subject.\n"
+"                           "
+
+#: .\templates\contact\emails\contact_client.html:123
+msgid "Перейти на страницу контактов"
+msgstr "Go to the contact page"
+
+#: .\templates\contact\emails\contact_client.html:139
+msgid "Это автоматическое уведомление. Пожалуйста, не отвечайте на это письмо."
+msgstr "This is an automated notification. Please do not reply to this email."
+
+#: .\templates\contact\partials\contact_success.html:11
+msgid "Заявка отправлена"
+msgstr "The application has been sent"
+
+#: .\templates\contact\partials\contact_success.html:13
+msgid "Обычно отвечаем в течение рабочего дня."
+msgstr "We usually respond within a business day."
+
+#: .\templates\contact\partials\footer_success.html:2
+msgid "Готово ✅"
+msgstr "Ready ✅"
+
+#: .\templates\core\about.html:134
+msgid "Наши Лицензии"
+msgstr "Our licenses"
+
+#: .\templates\core\about.html:136
+msgid ""
+"\n"
+"        Государственные лицензии первой категории на выполнение проектно-"
+"изыскательской деятельности, строительно-монтажных работ и эксплуатацию "
+"электрических сетей и подстанции всех типов.\n"
+"        "
+msgstr ""
+"\n"
+"        First-category state licenses for design and survey activities, "
+"construction and installation works, as well as operation of electrical "
+"networks and substations of all types.\n"
+"        "
+
+#: .\templates\core\about.html:158
+msgid "Лицензии не добавлены."
+msgstr "Licenses have not been added."
+
+#: .\templates\core\about.html:169
+msgid "Сертификаты"
+msgstr "Certificates"
+
+#: .\templates\core\about.html:171
+msgid ""
+"\n"
+"        ТОО «ТЭСС-Проект» прошло сертификацию своей деятельности на "
+"соответствие  с Системой менеджмента качества, по результатам которого были "
+"получены сертификаты соответствия:\n"
+"        "
+msgstr ""
+"\n"
+"        TESS-Project LLP has undergone certification of its activities for "
+"compliance with the Quality Management System, as a result of which "
+"certificates of conformity were obtained:\n"
+"        "
+
+#: .\templates\core\about.html:193
+msgid "Сертификаты не добавлены."
+msgstr "Certificates have not been added."
+
+#: .\templates\core\about.html:203
+msgid "Награды и отзывы"
+msgstr "Awards and reviews"
+
+#: .\templates\core\about.html:205
+msgid ""
+"\n"
+"        Результаты нашей работы подтверждены профессиональными наградами и "
+"отзывами клиентов.\n"
+"        "
+msgstr ""
+"\n"
+"        The results of our work are confirmed by professional awards and "
+"client reviews.\n"
+"        "
+
+#: .\templates\core\about.html:215
+msgid "Награды"
+msgstr "Awards"
+
+#: .\templates\core\about.html:221
+msgid "Отзывы"
+msgstr "Reviews"
+
+#: .\templates\core\gallery.html:10
+msgid "Выполненные проекты"
+msgstr "Completed projects"
+
+#: .\templates\core\gallery.html:12
+msgid ""
+"\n"
+"                Ознакомьтесь с нашими выполненными проектами и оцените "
+"качество нашей работы.\n"
+"                "
+msgstr ""
+"\n"
+"                Explore our completed projects and evaluate the quality of "
+"our work.\n"
+"                "
+
+#: .\templates\core\gallery.html:43 .\templates\core\gallery_detail.html:23
+msgid "Выполнено:"
+msgstr "Completed:"
+
+#: .\templates\core\gallery.html:50
+msgid "Пока пусто"
+msgstr "No content yet"
+
+#: .\templates\core\gallery_detail.html:9
+#: .\templates\core\gallery_detail.html:27
+msgid "Вернуться в Проекты"
+msgstr "Back to projects"
+
+#: .\templates\core\home.html:23
+msgid "Наши услуги"
+msgstr "Our services"
+
+#: .\templates\core\home.html:27
+msgid "Обрятная связь"
+msgstr "Feedback"
+
+#: .\templates\core\home.html:45
+msgid "Лет на рынке"
+msgstr "Years on the market"
+
+#: .\templates\core\home.html:49
+msgid "Проектов выполнено"
+msgstr "Completed:"
+
+#: .\templates\core\home.html:53
+msgid "Клиентов"
+msgstr "Clients"
+
+#: .\templates\core\home.html:71
+msgid "Руководство компании"
+msgstr "Company management"
+
+#: .\templates\core\home.html:85
+msgid "Образование"
+msgstr "Education"
+
+#: .\templates\core\home.html:96
+msgid "Квалификация"
+msgstr "Qualification"
+
+#: .\templates\core\home.html:107
+msgid "Опыт работы"
+msgstr "Experience"
+
+#: .\templates\core\home.html:112
+msgid "+ лет"
+msgstr "+ years"
+
+#: .\templates\core\home.html:129
+msgid "Ключевые навыки"
+msgstr "Key skills"
+
+#: .\templates\core\home.html:187 .\templates\core\services.html:10
+msgid "Наши Услуги"
+msgstr "Our licenses"
+
+#: .\templates\core\home.html:189
+msgid ""
+"\n"
+"                Наша компания предлагает широкий спектр услуг в области "
+"строительства, обслуживания и ремонта промышленного оборудования, а также "
+"проектирование и эксплуатация электрических станций, электрических сетей и "
+"подстанций, магистральных газо-нефтепродуктов, подъемных сооружений, "
+"строительно-монтажные работы.\n"
+"                "
+msgstr ""
+"\n"
+"                Our company offers a wide range of services in the field of "
+"construction, maintenance, and repair of industrial equipment, as well as "
+"the design and operation of power plants, electrical networks and "
+"substations, main gas and oil pipelines, lifting facilities, and "
+"construction and installation works.\n"
+"                "
+
+#: .\templates\core\home.html:211 .\templates\core\home.html:248
+#: .\templates\core\home.html:393
+msgid "Подробнее"
+msgstr "Read more"
+
+#: .\templates\core\home.html:217
+msgid "Временно недоступно"
+msgstr "Temporarily unavailable"
+
+#: .\templates\core\home.html:225
+msgid "Все Услуги"
+msgstr "All services"
+
+#: .\templates\core\home.html:236
+msgid "О нашей компании"
+msgstr "About our company"
+
+#: .\templates\core\home.html:243
+msgid "Временно не добвлено"
+msgstr "Temporarily not available"
+
+#: .\templates\core\home.html:269
+msgid "Наши проекты"
+msgstr "Our projects"
+
+#: .\templates\core\home.html:271
+msgid ""
+"\n"
+"                Ознакомьтесь с некоторыми из наших последних завершенных "
+"проектов, которые демонстрируют наш опыт и качество.\n"
+"                "
+msgstr ""
+"\n"
+"                Explore some of our recently completed projects that "
+"demonstrate our experience and quality.\n"
+"                "
+
+#: .\templates\core\home.html:300
+msgid "Проекты еще не добавлены"
+msgstr "Projects have not been added yet"
+
+#: .\templates\core\home.html:309
+msgid "Все выполненные проекты"
+msgstr "All completed projects"
+
+#: .\templates\core\home.html:321
+msgid "Отзывы о нашей компании"
+msgstr "Reviews about our company"
+
+#: .\templates\core\home.html:323
+msgid "Что говорят о наших услугах наши довольные клиенты."
+msgstr "What our satisfied clients say about our services."
+
+#: .\templates\core\home.html:368
+msgid "Последние новости"
+msgstr "Latest news"
+
+#: .\templates\core\home.html:370
+msgid ""
+"\n"
+"                Будьте в курсе наших последних проектов, отраслевой "
+"аналитики и корпоротивной жизни.\n"
+"                "
+msgstr ""
+"\n"
+"                Stay informed about our latest projects, industry insights, "
+"and corporate life.\n"
+"                "
+
+#: .\templates\core\home.html:403
+msgid "Посмотреть все посты"
+msgstr "View all posts"
+
+#: .\templates\core\home.html:414
+msgid "Остались вопросы?"
+msgstr "Have any questions?"
+
+#: .\templates\core\home.html:416
+msgid ""
+"\n"
+"                Готовы обсудить ваши потребности в строительстве и "
+"проектировании.\n"
+"                Свяжитесь с нами сегодня для получения консультации.\n"
+"                "
+msgstr ""
+"\n"
+"                We are ready to discuss your construction and design needs.\n"
+"                Contact us today for a consultation.\n"
+"                "
+
+#: .\templates\core\services.html:4
+msgid "Деятельсность"
+msgstr "Activities"
+
+#: .\templates\core\services.html:12
+msgid ""
+"\n"
+"                Мы предлагаем комплексные услуги по строительству и ремонту, "
+"отвечающие всем вашим потребностям.\n"
+"                "
+msgstr ""
+"\n"
+"                We provide comprehensive construction and repair services "
+"tailored to meet all your needs.\n"
+"                "
+
+#: .\templates\core\services.html:35
+msgid "Услуги еще не добавлены"
+msgstr "Services have not been added yet"
+
+#: .\templates\gallery_app\gallery.html:12
+msgid "Галерея"
+msgstr "Gallery"
+
+#: .\templates\gallery_app\gallery.html:14
+msgid ""
+"\n"
+"        Будни компании, обучение персонала, корпоративные мероприятия и "
+"рабочие совещания\n"
+"        "
+msgstr ""
+"\n"
+"       Company routines, staff training, corporate events, and working "
+"meetings\n"
+"       "
+
+#: .\templates\gallery_app\gallery.html:21
+msgid "Год:"
+msgstr "Year:"
+
+#: .\templates\gallery_app\gallery.html:23
+#: .\templates\gallery_app\gallery.html:31
+msgid "Все"
+msgstr "All"
+
+#: .\templates\gallery_app\gallery.html:29
+msgid "Проект:"
+msgstr "Projects:"
+
+#: .\templates\gallery_app\gallery.html:37
+msgid "Сбросить"
+msgstr "Reset"
+
+#: .\templates\gallery_app\gallery.html:58
+msgid "Пока нет фотографий в этой категории"
+msgstr "There are no photos in this category yet."
