@@ -15,6 +15,7 @@ import os
 import os
 from dotenv import load_dotenv
 from django.utils.translation import gettext_lazy as _
+import ssl
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -138,6 +139,8 @@ def env_bool(name: str, default: bool = False) -> bool:
         return default
     return val.strip().lower() in ("1", "true", "yes", "y", "on")
 
+
+EMAIL_SSL_CONTEXT = ssl._create_unverified_context()
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
