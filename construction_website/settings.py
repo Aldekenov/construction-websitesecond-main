@@ -27,7 +27,7 @@ if not SECRET_KEY:
     raise RuntimeError("SECRET_KEY is not set in .env")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [h.strip() for h in os.getenv("ALLOWED_HOSTS", "").split(",") if h.strip()]
 
@@ -136,7 +136,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_PORT = int(os.getenv('EMAIL_PORT'))
 
-EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL') == 'True'
+EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL') == 'False'
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS') == 'True'
 
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
