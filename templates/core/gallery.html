@@ -15,7 +15,7 @@
             </p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5">
             {% for project in projects %}
             <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300" 
                  data-aos="fade-up" data-aos-delay="{% cycle '0' '100' '200' '300' '400' '500' %}">
@@ -29,10 +29,10 @@
                     {% endif %}
                 </a>
                 <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">
+                    <h3 class="text-l font-semibold mb-2 text-gray-800">
                         <a href="{% url 'core:gallery_detail' project.pk %}" class="hover:underline">{{ project.title }}</a>
                     </h3>
-                    <p class="text-gray-600 mb-3">{{ project.description }}</p>
+                    <p class="text-gray-600 mb-3 clamp-3 text-sm">{{ project.description }}</p>
                     {% if project.category %}
                     <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
                         {{ project.category }}
