@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-29 15:52+0500\n"
+"POT-Creation-Date: 2026-02-03 15:20+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,15 +18,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
-#: .\construction_website\settings.py:170
+#: .\construction_website\settings(prod).py:201
+#: .\construction_website\settings.py:211
 msgid "Русский"
 msgstr ""
 
-#: .\construction_website\settings.py:171
+#: .\construction_website\settings(prod).py:202
+#: .\construction_website\settings.py:212
 msgid "Қазақша"
 msgstr ""
 
-#: .\construction_website\settings.py:172
+#: .\construction_website\settings(prod).py:203
+#: .\construction_website\settings.py:213
 msgid "English"
 msgstr ""
 
@@ -46,7 +49,7 @@ msgstr "Телефон"
 msgid "Тип обращения"
 msgstr "Жолдау түрі"
 
-#: .\contact\forms.py:17 .\templates\base.html:238
+#: .\contact\forms.py:17 .\templates\base.html:293
 #: .\templates\contact\emails\contact_client.html:64
 msgid "Тема"
 msgstr "Тақырып"
@@ -55,7 +58,7 @@ msgstr "Тақырып"
 msgid "Сообщение"
 msgstr "Сіздің хатыңыз"
 
-#: .\contact\forms.py:48 .\templates\base.html:244
+#: .\contact\forms.py:48 .\templates\base.html:299
 msgid "Отправить"
 msgstr "Жіберу"
 
@@ -63,72 +66,80 @@ msgstr "Жіберу"
 msgid "Сообщение отправлено! Мы скоро свяжемся с вами."
 msgstr "Хабарламаңыз жіберілді! Біз сізбен жақын арада хабарласамыз."
 
-#: .\templates\base.html:122 .\templates\base.html:164
-#: .\templates\base.html:212
+#: .\templates\base.html:96
+msgid "Язык"
+msgstr ""
+
+#: .\templates\base.html:141
+msgid "Сменить язык"
+msgstr ""
+
+#: .\templates\base.html:177 .\templates\base.html:219
+#: .\templates\base.html:267
 msgid "Главная"
 msgstr "Басты"
 
-#: .\templates\base.html:126
+#: .\templates\base.html:181
 msgid "О Нас"
 msgstr "Біз туралы"
 
-#: .\templates\base.html:130 .\templates\base.html:166
-#: .\templates\base.html:214
+#: .\templates\base.html:185 .\templates\base.html:221
+#: .\templates\base.html:269
 msgid "Деятельность"
 msgstr "Қыметтер"
 
-#: .\templates\base.html:134 .\templates\base.html:167
-#: .\templates\base.html:215 .\templates\blog\blog_detail.html:4
+#: .\templates\base.html:189 .\templates\base.html:222
+#: .\templates\base.html:270 .\templates\blog\blog_detail.html:4
 msgid "Блог"
 msgstr "Блог"
 
-#: .\templates\base.html:138 .\templates\base.html:168
-#: .\templates\base.html:216 .\templates\core\gallery.html:4
+#: .\templates\base.html:193 .\templates\base.html:223
+#: .\templates\base.html:271 .\templates\core\gallery.html:4
 #: .\templates\core\gallery_detail.html:4
 msgid "Проекты"
 msgstr "Жобалар"
 
-#: .\templates\base.html:142 .\templates\base.html:169
-#: .\templates\base.html:217 .\templates\gallery_app\gallery.html:5
+#: .\templates\base.html:197 .\templates\base.html:224
+#: .\templates\base.html:272 .\templates\gallery_app\gallery.html:5
 msgid "Фотогалерея"
 msgstr "Фотогалерея"
 
-#: .\templates\base.html:146 .\templates\base.html:170
-#: .\templates\base.html:218 .\templates\contact\contact.html:31
+#: .\templates\base.html:201 .\templates\base.html:225
+#: .\templates\base.html:273 .\templates\contact\contact.html:31
 msgid "Контакты"
 msgstr "Байланыс"
 
-#: .\templates\base.html:165 .\templates\base.html:213
+#: .\templates\base.html:220 .\templates\base.html:268
 #: .\templates\core\about.html:4 .\templates\core\about.html:17
 msgid "О нас"
 msgstr "Біз туралы"
 
-#: .\templates\base.html:210
+#: .\templates\base.html:265
 msgid "Навигация"
 msgstr "Навигация"
 
-#: .\templates\base.html:224 .\templates\contact\contact.html:22
+#: .\templates\base.html:279 .\templates\contact\contact.html:22
 #: .\templates\core\home.html:423
 msgid "Обратная связь"
 msgstr "Кері байланыс"
 
-#: .\templates\base.html:232
+#: .\templates\base.html:287
 msgid "Ваше ФИО"
 msgstr "Толық аты-жөніңіз"
 
-#: .\templates\base.html:234
+#: .\templates\base.html:289
 msgid "Ваш номер телефона"
 msgstr "Сіздің телефон нөміріңіз"
 
-#: .\templates\base.html:236
+#: .\templates\base.html:291
 msgid "Ваша почта"
 msgstr "Сіздің электрондық поштаңыз"
 
-#: .\templates\base.html:240
+#: .\templates\base.html:295
 msgid "Ваше сообщение"
 msgstr "Сіздің хатыңыз"
 
-#: .\templates\base.html:252
+#: .\templates\base.html:307
 msgid "Все права защищены."
 msgstr "Барлық құқықтар қорғалған."
 
@@ -141,7 +152,7 @@ msgstr "Блог санаттары"
 msgid "Назад"
 msgstr "Артқа"
 
-#: .\templates\blog\blog_category.html:11
+#: .\templates\blog\blog_category.html:11 .\templates\core\gallery.html:20
 #: .\templates\core\gallery_detail.html:20
 msgid "Категория:"
 msgstr "Санат:"
@@ -403,11 +414,29 @@ msgstr ""
 "                Орындалған жобаларымызбен танысып, жұмыс сапасын бағалаңыз.\n"
 "                "
 
-#: .\templates\core\gallery.html:43 .\templates\core\gallery_detail.html:23
+#: .\templates\core\gallery.html:23 .\templates\core\gallery.html:34
+#: .\templates\gallery_app\gallery.html:23
+#: .\templates\gallery_app\gallery.html:31
+msgid "Все"
+msgstr "Барлығы"
+
+#: .\templates\core\gallery.html:31 .\templates\gallery_app\gallery.html:21
+msgid "Год:"
+msgstr "Жыл"
+
+#: .\templates\core\gallery.html:43
+msgid "Показать"
+msgstr "Көрсету"
+
+#: .\templates\core\gallery.html:48 .\templates\gallery_app\gallery.html:37
+msgid "Сбросить"
+msgstr "Қалпына келтіру"
+
+#: .\templates\core\gallery.html:77 .\templates\core\gallery_detail.html:23
 msgid "Выполнено:"
 msgstr "Орындалды:"
 
-#: .\templates\core\gallery.html:50
+#: .\templates\core\gallery.html:84
 msgid "Пока пусто"
 msgstr "Әзірге бос"
 
@@ -607,27 +636,19 @@ msgstr ""
 "шаралар және жұмыс кездесулері\n"
 "       "
 
-#: .\templates\gallery_app\gallery.html:21
-msgid "Год:"
-msgstr "Жыл"
-
-#: .\templates\gallery_app\gallery.html:23
-#: .\templates\gallery_app\gallery.html:31
-msgid "Все"
-msgstr "Барлығы"
-
 #: .\templates\gallery_app\gallery.html:29
 #, fuzzy
 #| msgid "Проекты"
 msgid "Проект:"
 msgstr "Жобалар:"
 
-#: .\templates\gallery_app\gallery.html:37
-msgid "Сбросить"
-msgstr "Қалпына келтіру"
-
 #: .\templates\gallery_app\gallery.html:58
 #, fuzzy
 #| msgid "Нету постов в данной категории"
 msgid "Пока нет фотографий в этой категории"
 msgstr "Бұл санатта жазбалар жоқ"
+
+#, fuzzy
+#~| msgid "Категория:"
+#~ msgid "Категория"
+#~ msgstr "Санат:"
