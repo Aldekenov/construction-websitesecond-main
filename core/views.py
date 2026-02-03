@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from .models import CompanyInfo, Service, Testimonial, ProjectGallery, AboutGoals, AboutTasks, AboutStrategy, AboutLicense, AboutCertificate, AboutAward, CEOProfile
 from blog.models import BlogPost
 from contact.models import ContactForm
+from django.db.models.functions import ExtractYear
 
 
 def home(request):
@@ -52,10 +53,42 @@ def services(request):
 
 def gallery(request):
     """Страница: Проекты"""
+    category = (request.GET.get("category") or "").strip()
+    year = (request.GET.get("year") or "").strip()
+
+    qs = ProjectGallery.objects.all()
+
+    if category:
+        qs = qs.filter(category=category)
+
+    if year:
+        try:
+            qs = qs.filter(completion_date__year=int(year))
+        except ValueError:
+            pass
+
+    categories = (ProjectGallery.objects
+                  .exclude(category__isnull=True)
+                  .exclude(category__exact="")
+                  .values_list("category", flat=True)
+                  .distinct()
+                  .order_by("category"))
+
+    years = (ProjectGallery.objects
+             .exclude(completion_date__isnull=True)
+             .annotate(y=ExtractYear("completion_date"))
+             .values_list("y", flat=True)
+             .distinct()
+             .order_by("-y"))
+
     context = {
-        'projects': ProjectGallery.objects.all(),
+        "projects": qs,
+        "categories": categories,
+        "years": years,
+        "selected_category": category,
+        "selected_year": year,
     }
-    return render(request, 'core/gallery.html', context)
+    return render(request, "core/gallery.html", context)
 
 
 def gallery_detail(request, pk):

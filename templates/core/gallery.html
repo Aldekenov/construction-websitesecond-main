@@ -15,6 +15,40 @@
             </p>
         </div>
         
+        <form method="get" class="flex flex-wrap gap-3 items-end mb-8">
+          <div>
+            <label class="block text-sm text-gray-500 mb-1">Категория</label>
+            <select name="category"
+                    class="h-10 px-3 rounded-lg border border-gray-200 bg-white text-gray-800">
+              <option value="">Все</option>
+              {% for c in categories %}
+                <option value="{{ c }}" {% if c == selected_category %}selected{% endif %}>{{ c }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        
+          <div>
+            <label class="block text-sm text-gray-500 mb-1">Год</label>
+            <select name="year"
+                    class="h-10 px-3 rounded-lg border border-gray-200 bg-white text-gray-800">
+              <option value="">Все</option>
+              {% for y in years %}
+                <option value="{{ y }}" {% if y|stringformat:"s" == selected_year %}selected{% endif %}>{{ y }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        
+          <button type="submit"
+                  class="h-10 px-5 rounded-lg bg-gray-900 text-white hover:bg-black transition">
+            Показать
+          </button>
+        
+          <a href="?"
+             class="h-10 px-5 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition flex items-center">
+            Сбросить
+          </a>
+        </form>
+            
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5">
             {% for project in projects %}
             <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300" 
