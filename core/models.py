@@ -50,6 +50,10 @@ class Service(models.Model):
     icon = models.CharField(max_length=50, help_text="Font Awesome icon class", verbose_name="Иконка")
     image = models.ImageField(upload_to='services/', blank=True, null=True, verbose_name="Изображение")
     active = models.BooleanField(default=True, verbose_name="Активно")
+    show_on_home = models.BooleanField(
+        default=False,
+        verbose_name="На главную"
+    )
     order = models.PositiveIntegerField(default=0, verbose_name="Сортировка")
 
     class Meta:

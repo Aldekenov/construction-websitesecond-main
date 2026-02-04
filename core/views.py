@@ -11,7 +11,7 @@ def home(request):
     context = {
         'company_info': CompanyInfo.objects.first(),
         'ceo': CEOProfile.objects.filter(is_active=True).first(),
-        'featured_services': Service.objects.filter(active=True)[:6],
+        'featured_services': Service.objects.filter(show_on_home=True)[:6],
         'featured_testimonials': Testimonial.objects.filter(featured=True)[:3],
         'featured_projects': ProjectGallery.objects.filter(featured=True)[:6],
         'latest_blog_posts': BlogPost.objects.filter(published=True)[:3],

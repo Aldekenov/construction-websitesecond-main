@@ -22,6 +22,7 @@ class CEOProfileAdmin(TranslationAdmin):
 @admin.register(Service)
 class ServiceAdmin(TranslationAdmin):
     search_fields = ("name",)
+    list_filter = ("show_on_home",)
     # если есть поля типа is_active/sort/order — добавим list_filter
     # list_filter = ("is_active",)
 
