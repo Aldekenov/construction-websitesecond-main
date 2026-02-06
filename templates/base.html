@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 {% load i18n %}
+{% load static %}
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'icons/favicon.ico' %}?v=4" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'icons/favicon.ico' %}?v=4" type="image/x-icon">
     <title>{% block title %}{% if company_info %}{{ company_info.company_name }}{% else %}Construction Company{% endif %}{% endblock %}</title>
     <meta name="description" content="{% block description %}Professional construction and renovation services{% endblock %}">
     
