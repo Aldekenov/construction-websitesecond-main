@@ -17,15 +17,19 @@
         <p class="text-xl md:text-2xl mb-8 text-shadow" data-aos="fade-up" data-aos-delay="200">
             {% if company_info %}{{ company_info.tagline }}{% else %}TESS{% endif %}
         </p>
-        <div class="space-x-4" data-aos="fade-up" data-aos-delay="400">
-            <a href="{% url 'core:services' %}" 
-               class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105 btn-glow inline-block">
-                {% trans "Наши услуги" %}
-            </a>
-            <a href="{% url 'contact:contact' %}" 
-               class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-3 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105 inline-block">
-                {% trans "Обрятная связь" %}
-            </a>
+        <div class="mt-2 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
+             data-aos="fade-up" data-aos-delay="400">
+        
+          <a href="{% url 'core:services' %}"
+             class="w-full max-w-xs sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105 btn-glow text-center">
+            {% trans "Наши услуги" %}
+          </a>
+        
+          <a href="{% url 'contact:contact' %}"
+             class="w-full max-w-xs sm:w-auto border-2 border-white text-white px-8 py-3 rounded-lg text-lg font-semibold transition-all duration-300 hover:bg-white hover:text-gray-900 text-center">
+            {% trans "Обратная связь" %}
+          </a>
+        
         </div>
     </div>
     
