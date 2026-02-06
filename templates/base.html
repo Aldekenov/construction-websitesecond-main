@@ -11,7 +11,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" referrerpolicy="no-referrer" />
     
     <!-- HTMX -->
     <script src="https://unpkg.com/htmx.org@1.9.5"></script>
@@ -75,6 +75,8 @@
           -webkit-line-clamp: 3;
           overflow: hidden;
         }
+        .fab-wa-color { color: #16a34a; } /* зеленый */
+        .fab-ico-size { font-size: 20px; }
     </style>
     
     {% block extra_css %}{% endblock %}
@@ -226,12 +228,58 @@
             </div>
         </div>
     </nav>
+    
+    <!-- Floating Contact Menu -->
+    <div id="fabWrap"
+         class="fixed right-5 bottom-5 z-[9999] opacity-0 translate-y-6 pointer-events-none transition-all duration-300">
+      <div id="fabRoot" class="relative">
 
+        <!-- items -->
+        <div id="fabItems"
+             class="absolute right-0 bottom-16 flex flex-col items-end gap-3 pointer-events-none">
+
+          <!-- WhatsApp -->
+          <a href="https://wa.me/+77019736680" target="_blank" rel="noopener"
+             class="fab-item opacity-0 translate-y-2 scale-95 pointer-events-none
+                    w-12 h-12 rounded-full shadow-lg border
+                    !bg-white !border-gray-200
+                    flex items-center justify-center transition-all duration-200">
+            <i class="fab fa-whatsapp text-2xl text-green-900"></i>
+          </a>
+          <!-- Instagram -->
+          <a href="https://instagram.com/tess.project" target="_blank" rel="noopener"
+             class="fab-item opacity-0 translate-y-2 scale-95 pointer-events-none
+                    w-12 h-12 rounded-full shadow-lg border
+                    !bg-white !border-gray-200
+                    flex items-center justify-center transition-all duration-200">
+            <i class="fab fa-instagram text-2xl !text-[#E1306C]"></i>
+          </a>
+          <!-- Call -->
+          <a href="tel:87122292873"
+             class="fab-item opacity-0 translate-y-2 scale-95 pointer-events-none
+                    w-12 h-12 rounded-full shadow-lg border
+                    !bg-white !border-gray-200
+                    flex items-center justify-center transition-all duration-200">
+            <i class="fas fa-phone !text-gray-900 text-lg"></i>
+          </a>
+        </div>
+
+        <!-- main button -->
+        <button id="fabBtn" type="button"
+                class="w-14 h-14 rounded-full shadow-xl
+                       !bg-blue-600 hover:!bg-blue-700
+                       flex items-center justify-center transition-transform duration-200 active:scale-95">
+          <i id="fabIcon" class="fas fa-comment-dots !text-white text-xl leading-none flex items-center justify-center transition-transform duration-200" style="margin-left: -2px"></i>
+        </button>
+
+      </div>
+    </div>
+    
     <!-- Блок контент -->
     <main class="{% if not request.resolver_match.url_name == 'home' %}pt-16{% endif %}">
         {% block content %}{% endblock %}
     </main>
-
+    
     <!-- Футер -->
     <footer class="bg-gray-900 text-white">
         <div class="container mx-auto px-4 py-12">
@@ -248,13 +296,13 @@
                         <a href="#" class="text-gray-400 hover:text-white transition-colors">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-twitter"></i>
+                        <a href="https://wa.me/87019736680" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-whatsapp"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <a href="https://www.instagram.com/tess.project/" class="text-gray-400 hover:text-white transition-colors">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <a href="https://kz.linkedin.com/company/tess-project-kz" class="text-gray-400 hover:text-white transition-colors">
                             <i class="fab fa-linkedin-in"></i>
                         </a>
                     </div>
@@ -500,6 +548,97 @@
         startAuto();
     })();
     </script>
+    <script>
+        (function () {
+          const wrap = document.getElementById('fabWrap');
+          const root = document.getElementById('fabRoot');
+          const btn  = document.getElementById('fabBtn');
+          const icon = document.getElementById('fabIcon');
+          const items = Array.from(document.querySelectorAll('#fabItems .fab-item'));
+
+          if (!wrap || !root || !btn || !icon || items.length === 0) return;
+
+          let open = false;
+          let shown = false;
+
+          const setShown = (v) => {
+            shown = v;
+            if (v) {
+              wrap.classList.remove('opacity-0', 'translate-y-6', 'pointer-events-none');
+              wrap.classList.add('opacity-100', 'translate-y-0');
+            } else {
+              // если скрываем — ещё и закрываем
+              setOpen(false);
+              wrap.classList.add('opacity-0', 'translate-y-6', 'pointer-events-none');
+              wrap.classList.remove('opacity-100', 'translate-y-0');
+            }
+          };
+
+          const setOpen = (v) => {
+            open = v;
+
+            // иконка: чат -> крест
+            icon.classList.toggle('fa-comment-dots', !v);
+            icon.classList.toggle('fa-times', v);
+            icon.classList.toggle('rotate-90', v);
+
+            // items: вылетают вверх с каскадом
+            items.forEach((el, idx) => {
+              const delay = v ? (idx * 60) : 0;
+              el.style.transitionDelay = delay + 'ms';
+
+              if (v) {
+                el.classList.remove('opacity-0', 'translate-y-2', 'scale-95', 'pointer-events-none');
+                el.classList.add('opacity-100', 'translate-y-0', 'scale-100');
+                el.style.pointerEvents = 'auto';
+              } else {
+                el.classList.add('opacity-0', 'translate-y-2', 'scale-95');
+                el.classList.remove('opacity-100', 'translate-y-0', 'scale-100');
+                el.style.pointerEvents = 'none';
+                el.classList.add('pointer-events-none');
+              }
+            });
+
+            // контейнер items кликабельный только когда open
+            const itemsBox = document.getElementById('fabItems');
+            if (itemsBox) itemsBox.style.pointerEvents = v ? 'auto' : 'none';
+          };
+
+          // toggle
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (!shown) return;
+            setOpen(!open);
+          });
+
+          // клик по пункту — закрыть
+          items.forEach((el) => {
+            el.addEventListener('click', () => setOpen(false));
+          });
+
+          // клик вне — закрыть
+          document.addEventListener('click', (e) => {
+            if (!open) return;
+            if (!root.contains(e.target)) setOpen(false);
+          });
+
+          // Esc — закрыть
+          document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') setOpen(false);
+          });
+
+          // показать после скролла
+          const onScroll = () => {
+            const y = window.scrollY || document.documentElement.scrollTop || 0;
+            if (y > 220) setShown(true);
+            else setShown(false);
+          };
+
+          window.addEventListener('scroll', onScroll, { passive: true });
+          onScroll(); // первичный запуск
+
+        })();
+        </script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>
