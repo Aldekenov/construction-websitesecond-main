@@ -155,7 +155,11 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 
-CONTACT_TO_EMAIL = os.getenv('CONTACT_TO_EMAIL')
+CONTACT_TO_EMAIL = [
+    email.strip()
+    for email in os.getenv('CONTACT_TO_EMAIL', '').split(',')
+    if email.strip()
+]
 
 LANGUAGE_CODE = 'ru-RU'
 
