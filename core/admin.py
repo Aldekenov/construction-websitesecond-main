@@ -29,7 +29,11 @@ class ServiceAdmin(TranslationAdmin):
 
 @admin.register(Testimonial)
 class TestimonialAdmin(TranslationAdmin):
+    list_display = ("client_name", "client_company", "rating", "featured", "order", "created_at")
+    list_filter = ("featured", "rating")
+    list_editable = ("featured", "order")
     search_fields = ("client_name", "client_company", "client_position", "testimonial")
+    ordering = ("-featured", "order", "-created_at")
     # если есть рейтинг/публикация/дата — добавим list_filter
     # list_filter = ("is_published",)
 

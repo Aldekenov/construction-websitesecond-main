@@ -74,11 +74,12 @@ class Testimonial(models.Model):
     rating = models.PositiveIntegerField(default=5, choices=[(i, i) for i in range(1, 6)], verbose_name="Рейтинг")
     client_image = models.ImageField(upload_to='testimonials/', blank=True, null=True, verbose_name="Логотип")
     featured = models.BooleanField(default=False, verbose_name="На главную")
+    order = models.PositiveIntegerField(default=0, verbose_name="Сортировка")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Создано")
     image = models.ImageField(upload_to="about/reviews/", verbose_name="Изображение")
 
     class Meta:
-        ordering = ['-featured', '-created_at']
+        ordering = ['-featured', 'order', '-created_at']
         verbose_name_plural = "Отзывы"
         verbose_name = "отзывы"
 
