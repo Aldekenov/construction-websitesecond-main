@@ -206,3 +206,4 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 /construction_website/settings(prod).py
+/staticfiles/
