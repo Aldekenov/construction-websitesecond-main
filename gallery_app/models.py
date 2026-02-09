@@ -1,5 +1,6 @@
 from django.db import models
 from django import forms
+from core.models import ProjectGallery
 
 
 # calendar_app/models.py
@@ -23,9 +24,28 @@ class GalleryImage(models.Model):
         related_name="images",
         verbose_name="Категория"
     )
+    project = models.ForeignKey(
+        ProjectGallery,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="gallery_images",
+        verbose_name="Проект",
+    )
+    project_year = models.PositiveSmallIntegerField("Год", null=True, blank=True)
     project_name = models.CharField("Проект", max_length=200, blank=True, default="", null=True)
-    project_year = models.PositiveSmallIntegerField("Год", null=True, blank=True, )
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        # если выбран проект — год тянем из completion_date
+        if self.project and self.project.completion_date:
+            self.project_year = self.project.completion_date.year
+
+        # (опционально) держим project_name синхронизированным, чтобы старые места не падали
+        if self.project:
+            self.project_name = self.project.title
+
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = "Изображение галереи"

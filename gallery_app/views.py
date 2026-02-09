@@ -17,29 +17,28 @@ def gallery(request):
              .distinct()
              .order_by("-project_year"))
 
-    projects_qs = GalleryImage.objects.exclude(project_name="")
+    projects_qs = GalleryImage.objects.exclude(project__isnull=True).select_related("project")
     if year:
         projects_qs = projects_qs.filter(project_year=year)
 
     projects = (projects_qs
-                .values_list("project_name", flat=True)
+                .values("project_id", "project__title")
                 .distinct()
-                .order_by("project_name"))
+                .order_by("project__title"))
 
     categories = GalleryCategory.objects.all().order_by("title")
 
     categories_data = []
     for cat in categories:
-        qs = cat.images.all().order_by("-created_at")
+        qs = cat.images.all().select_related("project").order_by("-created_at")
 
         if year:
             qs = qs.filter(project_year=year)
         if project:
-            qs = qs.filter(project_name=project)
+            qs = qs.filter(project_id=project)
 
         page_param = f"page_{cat.slug}"
         page_number = request.GET.get(page_param)
-
         paginator = Paginator(qs, PER_PAGE)
         page_obj = paginator.get_page(page_number)
 
@@ -54,5 +53,5 @@ def gallery(request):
         "years": years,
         "projects": projects,
         "selected_year": str(year) if year else "",
-        "selected_project": project or "",
+        "selected_project": str(project) if project else "",
     })
