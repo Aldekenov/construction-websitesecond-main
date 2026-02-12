@@ -1,30 +1,438 @@
-{% extends 'base.html' %}
+{# templates/core/gallery_detail.html #}
+{% extends "base.html" %}
 {% load i18n %}
 
-{% block title %}{{ gallery.title }} | {% trans "Проекты" %} | {{ block.super }}{% endblock %}
+{% block title %}{{ gallery.title }} - {{ block.super }}{% endblock %}
 
 {% block content %}
-<div class="max-w-2xl mx-auto py-12 px-4">
-    <div class="mb-8">
-        <a href="{% url 'core:gallery' %}" class="text-blue-600 hover:underline">&larr; {% trans "Вернуться в Проекты" %} "</a>
+<style>
+      /* Сцена без подложек */
+      .cf-shell{
+        position: relative;
+        height: 62vh;
+        min-height: 420px;
+        overflow: visible; /* чтобы “соседи” читались */
+      }
+
+      /* Анимация подсветки центральной карточки при смене */
+      @keyframes cfCenterPop {
+        0% { transform: translate(-50%, 0) scale(1); filter: none; }
+        45% { transform: translate(-50%, 0) scale(1.02); filter: drop-shadow(0 18px 40px rgba(0,0,0,.20)); }
+        100% { transform: translate(-50%, 0) scale(1); filter: drop-shadow(0 16px 36px rgba(0,0,0,.16)); }
+      }
+
+      /* Лёгкий fade-in всей сцены */
+      @keyframes cfFadeIn {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .cf-stage-anim { animation: cfFadeIn 420ms ease both; }
+
+      /* Карточка фото */
+      .cf-card{
+        position: absolute;
+        inset-block: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: auto 0;
+        height: 84%;
+        border-radius: 24px;
+        overflow: hidden;
+        border: 1px solid rgba(17, 24, 39, .10);
+        background: transparent; /* фон убран */
+        box-shadow: 0 22px 70px -44px rgba(0,0,0,.35);
+      }
+
+      .cf-card img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;   /* выглядит “дороже”, чем contain */
+        background: transparent;
+        display: block;
+      }
+
+      /* Небольшой градиент для “премиума” */
+      .cf-gloss{
+        pointer-events: none;
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0,0,0,.10), transparent 55%, rgba(255,255,255,.06));
+      }
+
+      /* Центральная подсветка (не фон, а glow по контуру) */
+      .cf-is-center{
+        box-shadow:
+          0 30px 90px -55px rgba(0,0,0,.45),
+          0 0 0 1px rgba(255,255,255,.65);
+      }
+
+      /* Кнопки */
+      .cf-btn{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 40;
+        width: 44px;
+        height: 44px;
+        border-radius: 9999px;
+        border: 1px solid rgba(17,24,39,.14);
+        background: rgba(255,255,255,.85);
+        box-shadow: 0 10px 28px -18px rgba(0,0,0,.35);
+        display: grid;
+        place-items: center;
+        color: rgb(17,24,39);
+        transition: transform 120ms ease, background 180ms ease;
+      }
+      .cf-btn:hover{ background: rgba(255,255,255,1); }
+      .cf-btn:active{ transform: translateY(-50%) scale(.96); }
+</style>
+    
+<section class="py-12">
+  <div class="container mx-auto px-4">
+
+    <!-- Назад -->
+    <div class="mb-6">
+      <a href="{% url 'core:gallery' %}"
+         class="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900">
+        <span class="text-lg leading-none">←</span>
+        <span>{% trans "Назад к проектам" %}</span>
+      </a>
     </div>
-    <h1 class="text-3xl font-bold mb-4 text-gray-900">{{ gallery.title }}</h1>
-    {% if gallery.image %}
-        <img src="{{ gallery.image.url }}" alt="{{ gallery.title }}" class="w-full rounded-lg mb-8 shadow-md">
-    {% endif %}
-    {% if gallery.description %}
-        <div class="prose max-w-none mb-8 text-gray-700">{{ gallery.description }}</div>
-    {% endif %}
-    <div class="mb-4 text-gray-500 text-sm">
+
+    <!-- Заголовок -->
+    <div class="max-w-6xl mx-auto">
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900">{{ gallery.title }}</h1>
+
+      <div class="mt-3 flex flex-wrap items-center gap-3 text-sm text-gray-500">
         {% if gallery.category %}
-            <span class="mr-2">{% trans "Категория:" %} {{ gallery.category }}</span>
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100">
+            <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+            {{ gallery.category }}
+          </span>
         {% endif %}
         {% if gallery.completion_date %}
-            <span>{% trans "Выполнено:" %} {{ gallery.completion_date|date:"F j, Y" }}</span>
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100">
+            <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+            {% trans "Год:" %} {{ gallery.completion_date|date:"Y" }}
+          </span>
         {% endif %}
+      </div>
     </div>
-    <div class="mt-8">
-       <a href="{% url 'core:gallery' %}" class="text-blue-600 hover:underline">&larr; {% trans "Вернуться в Проекты" %} </a>
+
+    <!-- Coverflow (БЕЗ ФОНА) -->
+    <div class="max-w-6xl mx-auto mt-8">
+      {% if project_photos or gallery.image %}
+        <div class="flex items-end justify-between gap-4 mb-4">
+          <h2 class="text-xl md:text-2xl font-semibold text-gray-900">
+            {% trans "Фотографии проекта" %}
+          </h2>
+
+          <div class="text-sm text-gray-500 flex items-center gap-3">
+            <span id="cfCounter"></span>
+            <span class="hidden md:inline text-gray-300">•</span>
+            <span class="hidden md:inline">{% trans "Стрелки / свайп" %}</span>
+          </div>
+        </div>
+
+        <div class="cf-shell">
+          <button type="button" class="cf-btn left-4 md:left-6" aria-label="Prev" onclick="cfPrev()">
+            <span class="text-2xl leading-none">‹</span>
+          </button>
+          <button type="button" class="cf-btn right-4 md:right-6" aria-label="Next" onclick="cfNext()">
+            <span class="text-2xl leading-none">›</span>
+          </button>
+
+          <div id="cfStage" class="relative w-full h-full cf-stage-anim"></div>
+
+          <!-- подпись снизу на самой сцене (без фона) -->
+          <div class="absolute bottom-0 left-0 right-0 flex justify-between items-center text-xs text-gray-500 px-2">
+            <span class="truncate max-w-[70%]">
+              {% trans "Проект:" %} {{ gallery.title }}
+            </span>
+            <span class="shrink-0">
+              {% if gallery.completion_date %}{{ gallery.completion_date|date:"Y" }}{% endif %}
+            </span>
+          </div>
+        </div>
+          
+
+      {% else %}
+        <div class="rounded-2xl border border-gray-200 bg-gray-50 p-10 text-center text-gray-600">
+          {% trans "Фотографии проекта пока не загружены." %}
+        </div>
+      {% endif %}
     </div>
-</div>
+
+    <!-- Описание строго снизу -->
+    <div class="max-w-6xl mx-auto mt-10">
+      {% if gallery.description %}
+      <div class="mt-10 text-gray-700 leading-relaxed space-y-4">
+        {{ gallery.description|linebreaksbr }}
+      </div>
+      {% else %}
+      <div class="mt-10 text-gray-500">
+         {% trans "Описание проекта пока не добавлено." %}
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Низ -->
+    <div class="max-w-6xl mx-auto mt-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <a href="{% url 'core:gallery' %}"
+         class="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900">
+        <span class="text-lg leading-none">←</span>
+        <span>{% trans "Вернуться к списку проектов" %}</span>
+      </a>
+
+      {% if company_info %}
+        <div class="text-sm text-gray-500">
+          {% if company_info.email %}<span class="mr-3">{{ company_info.email }}</span>{% endif %}
+          {% if company_info.phone %}<span>{{ company_info.phone }}</span>{% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // ====== DATA: сначала gallery.image (если есть), потом фото из gallery_app ======
+  const cfPhotos = [
+    {% if gallery.image %}
+      "{{ gallery.image.url|escapejs }}",
+    {% endif %}
+    {% for img in project_photos %}
+      "{{ img.image.url|escapejs }}",
+    {% endfor %}
+  ];
+
+  let cfIndex = 0;
+
+  const stage = document.getElementById("cfStage");
+  const counter = document.getElementById("cfCounter");
+
+  function mod(n, m) { return ((n % m) + m) % m; }
+
+  function restartCenterAnim(el){
+    el.style.animation = "none";
+    // eslint-disable-next-line no-unused-expressions
+    el.offsetHeight;
+    el.style.animation = "cfCenterPop 520ms cubic-bezier(.2,.9,.2,1)";
+  }
+
+  // --- Drag state ---
+  let isDragging = false;
+  let dragStartX = 0;
+  let dragDX = 0;
+  let dragStartT = 0;
+  let moved = false;
+
+  // пороги
+  const SWIPE_PX = 70;         // сколько пикселей тянуть для смены слайда
+  const SWIPE_VELOCITY = 0.35; // или по скорости (px/ms)
+
+  // чтобы во время drag не кликовало по карточкам
+  function preventClickWhileDrag(e){
+    if (moved) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }
+
+  function cfRender(animateCenter=true, dragOffsetPx=0) {
+    if (!cfPhotos.length) return;
+
+    counter.textContent = `${cfIndex + 1} / ${cfPhotos.length}`;
+    stage.innerHTML = "";
+
+    const offsets = [-2, -1, 0, 1, 2];
+    const isSmall = window.matchMedia("(max-width: 640px)").matches;
+
+    // коэффициент “живости” при drag: тянем — слегка двигаем всю “ленту”
+    const dragFactor = isSmall ? 0.65 : 0.55;
+    const extra = dragOffsetPx * dragFactor;
+
+    offsets.forEach((off) => {
+      const i = mod(cfIndex + off, cfPhotos.length);
+      const url = cfPhotos[i];
+
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "absolute inset-y-0 left-1/2 -translate-x-1/2 my-auto focus:outline-none";
+      btn.style.height = "84%";
+      btn.style.width = isSmall ? "min(86vw, 680px)" : "min(74vw, 860px)";
+      btn.style.transformOrigin = "center center";
+      btn.style.willChange = "transform, opacity, filter";
+
+      // во время drag убираем transition, чтобы было “как нативно”
+      btn.style.transition = isDragging
+        ? "none"
+        : "transform 520ms cubic-bezier(.2,.9,.2,1), opacity 520ms ease, filter 520ms ease";
+
+      const abs = Math.abs(off);
+
+      // coverflow геометрия
+      const baseStep = (isSmall ? 170 : 260);
+      const translateX = baseStep * off + extra;
+      const rotateY = (isSmall ? -10 : -14) * off;
+
+      // лёгкий “squash” центра при drag
+      const centerSquash = (off === 0 && isDragging) ? 0.985 : 1;
+
+      const scale = (off === 0)
+        ? 1 * centerSquash
+        : (abs === 1 ? 0.86 : 0.74);
+
+      const opacity = (off === 0) ? 1 : (abs === 1 ? 0.55 : 0.20);
+      const blur = (off === 0) ? 0 : (abs === 1 ? 0 : 1.2);
+      const z = 60 - abs * 10;
+
+      btn.style.zIndex = String(z);
+      btn.style.opacity = String(opacity);
+      btn.style.filter = blur ? `blur(${blur}px)` : "none";
+
+      btn.style.transform = `
+        translate(-50%, 0)
+        translateX(${translateX}px)
+        perspective(1100px)
+        rotateY(${rotateY}deg)
+        scale(${scale})
+      `;
+
+      // карточка
+      const card = document.createElement("div");
+      card.className = "cf-card";
+      if (off === 0) card.classList.add("cf-is-center");
+
+      const img = document.createElement("img");
+      img.src = url;
+      img.alt = "";
+      img.loading = "lazy";
+      img.draggable = false; // важно для drag
+
+      const gloss = document.createElement("div");
+      gloss.className = "cf-gloss";
+
+      card.appendChild(img);
+      card.appendChild(gloss);
+      btn.appendChild(card);
+
+      // блокируем клик если реально тянули
+      btn.addEventListener("click", preventClickWhileDrag, true);
+
+      // клик по боковой -> в центр (если не тянули)
+      btn.addEventListener("click", () => {
+        if (moved) return;
+        if (off === 0) return;
+        cfIndex = i;
+        cfRender(true, 0);
+      });
+
+      stage.appendChild(btn);
+
+      if (off === 0 && animateCenter && !isDragging) {
+        restartCenterAnim(card);
+      }
+    });
+  }
+
+  function cfNext(){
+    if (!cfPhotos.length) return;
+    cfIndex = mod(cfIndex + 1, cfPhotos.length);
+    cfRender(true, 0);
+  }
+
+  function cfPrev(){
+    if (!cfPhotos.length) return;
+    cfIndex = mod(cfIndex - 1, cfPhotos.length);
+    cfRender(true, 0);
+  }
+
+  // ===== Drag handlers (мышь + тач) =====
+
+  function onDragStart(clientX){
+    isDragging = true;
+    moved = false;
+    dragStartX = clientX;
+    dragDX = 0;
+    dragStartT = performance.now();
+
+    // чтобы не выделялся текст и не было “призрачного” перетаскивания
+    document.body.style.userSelect = "none";
+    document.body.style.cursor = "grabbing";
+    stage.style.cursor = "grabbing";
+
+    cfRender(false, 0);
+  }
+
+  function onDragMove(clientX){
+    if (!isDragging) return;
+
+    dragDX = clientX - dragStartX;
+    if (Math.abs(dragDX) > 6) moved = true;
+
+    // во время drag просто перерисовываем с offset
+    cfRender(false, dragDX);
+  }
+
+  function onDragEnd(){
+    if (!isDragging) return;
+
+    const dt = Math.max(1, performance.now() - dragStartT);
+    const velocity = Math.abs(dragDX) / dt; // px/ms
+
+    // возвращаем стили
+    document.body.style.userSelect = "";
+    document.body.style.cursor = "";
+    stage.style.cursor = "";
+
+    isDragging = false;
+
+    // Решение: листаем или возвращаемся
+    if (Math.abs(dragDX) > SWIPE_PX || velocity > SWIPE_VELOCITY) {
+      // dragDX < 0 — тянули влево => next
+      // dragDX > 0 — тянули вправо => prev
+      if (dragDX < 0) cfNext();
+      else cfPrev();
+    } else {
+      // просто возвращаем в центр
+      cfRender(true, 0);
+    }
+
+    // сброс moved чуть позже, чтобы клик не сработал сразу после mouseup
+    setTimeout(() => { moved = false; }, 0);
+  }
+
+  // Мышь
+  stage.addEventListener("mousedown", (e) => {
+    // только ЛКМ
+    if (e.button !== 0) return;
+    onDragStart(e.clientX);
+  });
+
+  window.addEventListener("mousemove", (e) => onDragMove(e.clientX));
+  window.addEventListener("mouseup", () => onDragEnd());
+
+  // Тач
+  stage.addEventListener("touchstart", (e) => {
+    onDragStart(e.touches[0].clientX);
+  }, { passive: true });
+
+  stage.addEventListener("touchmove", (e) => {
+    onDragMove(e.touches[0].clientX);
+  }, { passive: true });
+
+  stage.addEventListener("touchend", () => onDragEnd(), { passive: true });
+
+  // Клавиатура
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") cfNext();
+    if (e.key === "ArrowLeft") cfPrev();
+  });
+
+  // Init
+  window.addEventListener("load", () => cfRender(false, 0));
+  window.addEventListener("resize", () => cfRender(false, 0));
+</script>
 {% endblock %}

@@ -4,6 +4,7 @@ from .models import CompanyInfo, Service, Testimonial, ProjectGallery, AboutGoal
 from blog.models import BlogPost
 from contact.models import ContactForm
 from django.db.models.functions import ExtractYear
+from gallery_app.models import GalleryImage
 
 
 def home(request):
@@ -92,7 +93,16 @@ def gallery(request):
 
 
 def gallery_detail(request, pk):
-    """Страница: Проект подробно"""
+    """Страница: Проекты подробно"""
     gallery = get_object_or_404(ProjectGallery, pk=pk)
     company_info = CompanyInfo.objects.first()
-    return render(request, 'core/gallery_detail.html', {'gallery': gallery, 'company_info': company_info})
+
+    project_photos = (GalleryImage.objects
+                      .filter(project=gallery)      # <-- ключевое
+                      .order_by("-created_at"))
+
+    return render(request, "core/gallery_detail.html", {
+        "gallery": gallery,
+        "company_info": company_info,
+        "project_photos": project_photos,
+    })
