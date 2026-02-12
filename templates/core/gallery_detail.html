@@ -6,6 +6,21 @@
 
 {% block content %}
 <style>
+    html { scroll-behavior: smooth; }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+      }
+      @keyframes cfStageOut {
+        0%   { opacity: 1; transform: translateY(0); filter: blur(0px); }
+        100% { opacity: 0; transform: translateY(8px); filter: blur(1.5px); }
+      }
+      @keyframes cfStageIn {
+        0%   { opacity: 0; transform: translateY(-8px); filter: blur(1.5px); }
+        100% { opacity: 1; transform: translateY(0); filter: blur(0px); }
+      }
+    
+      .cf-stage-out { animation: cfStageOut 160ms ease forwards; }
+      .cf-stage-in  { animation: cfStageIn  220ms ease forwards; }
       /* Сцена без подложек */
       .cf-shell{
         position: relative;
@@ -13,15 +28,13 @@
         min-height: 420px;
         overflow: visible; /* чтобы “соседи” читались */
       }
-
-      /* Анимация подсветки центральной карточки при смене */
+      
       @keyframes cfCenterPop {
         0% { transform: translate(-50%, 0) scale(1); filter: none; }
         45% { transform: translate(-50%, 0) scale(1.02); filter: drop-shadow(0 18px 40px rgba(0,0,0,.20)); }
         100% { transform: translate(-50%, 0) scale(1); filter: drop-shadow(0 16px 36px rgba(0,0,0,.16)); }
       }
-
-      /* Лёгкий fade-in всей сцены */
+      
       @keyframes cfFadeIn {
         from { opacity: 0; transform: translateY(8px); }
         to { opacity: 1; transform: translateY(0); }
@@ -76,8 +89,6 @@
         width: 44px;
         height: 44px;
         border-radius: 9999px;
-        border: 1px solid rgba(17,24,39,.14);
-        background: rgba(255,255,255,.85);
         box-shadow: 0 10px 28px -18px rgba(0,0,0,.35);
         display: grid;
         place-items: center;
@@ -87,7 +98,7 @@
       .cf-btn:hover{ background: rgba(255,255,255,1); }
       .cf-btn:active{ transform: translateY(-50%) scale(.96); }
 </style>
-    
+
 <section class="py-12">
   <div class="container mx-auto px-4">
 
@@ -137,10 +148,10 @@
 
         <div class="cf-shell">
           <button type="button" class="cf-btn left-4 md:left-6" aria-label="Prev" onclick="cfPrev()">
-            <span class="text-2xl leading-none">‹</span>
+            <span class="text-2xl leading-none" style="margin-top: -7px">‹</span>
           </button>
           <button type="button" class="cf-btn right-4 md:right-6" aria-label="Next" onclick="cfNext()">
-            <span class="text-2xl leading-none">›</span>
+            <span class="text-2xl leading-none" style="margin-top: -7px">›</span>
           </button>
 
           <div id="cfStage" class="relative w-full h-full cf-stage-anim"></div>
@@ -155,7 +166,7 @@
             </span>
           </div>
         </div>
-          
+
 
       {% else %}
         <div class="rounded-2xl border border-gray-200 bg-gray-50 p-10 text-center text-gray-600">
@@ -214,6 +225,7 @@
 
   function mod(n, m) { return ((n % m) + m) % m; }
 
+  // чтобы “анимация подсветки” на центральной отрабатывала каждый раз
   function restartCenterAnim(el){
     el.style.animation = "none";
     // eslint-disable-next-line no-unused-expressions
@@ -221,7 +233,7 @@
     el.style.animation = "cfCenterPop 520ms cubic-bezier(.2,.9,.2,1)";
   }
 
-  // --- Drag state ---
+  // ====== Drag state ======
   let isDragging = false;
   let dragStartX = 0;
   let dragDX = 0;
@@ -232,7 +244,46 @@
   const SWIPE_PX = 70;         // сколько пикселей тянуть для смены слайда
   const SWIPE_VELOCITY = 0.35; // или по скорости (px/ms)
 
-  // чтобы во время drag не кликовало по карточкам
+  // ====== Stage animation state ======
+  let isAnimating = false;
+
+  function stageOutIn(nextIndex) {
+    // во время drag или текущей анимации не запускаем
+    if (isDragging || isAnimating) return;
+
+    isAnimating = true;
+
+    // 1) OUT
+    stage.classList.remove("cf-stage-in", "cf-stage-out");
+    stage.classList.add("cf-stage-out");
+
+    // 2) swap (после OUT)
+    window.setTimeout(() => {
+      cfIndex = nextIndex;
+      cfRender(true, 0);
+
+      // 3) IN
+      stage.classList.remove("cf-stage-out");
+      stage.classList.add("cf-stage-in");
+
+      // 4) cleanup
+      window.setTimeout(() => {
+        stage.classList.remove("cf-stage-in");
+        isAnimating = false;
+      }, 240);
+    }, 170);
+  }
+
+  function cfNext() {
+    if (!cfPhotos.length) return;
+    stageOutIn(mod(cfIndex + 1, cfPhotos.length));
+  }
+
+  function cfPrev() {
+    if (!cfPhotos.length) return;
+    stageOutIn(mod(cfIndex - 1, cfPhotos.length));
+  }
+
   function preventClickWhileDrag(e){
     if (moved) {
       e.preventDefault();
@@ -240,6 +291,7 @@
     }
   }
 
+  // ====== RENDER ======
   function cfRender(animateCenter=true, dragOffsetPx=0) {
     if (!cfPhotos.length) return;
 
@@ -249,7 +301,7 @@
     const offsets = [-2, -1, 0, 1, 2];
     const isSmall = window.matchMedia("(max-width: 640px)").matches;
 
-    // коэффициент “живости” при drag: тянем — слегка двигаем всю “ленту”
+    // во время drag чуть двигаем всю ленту
     const dragFactor = isSmall ? 0.65 : 0.55;
     const extra = dragOffsetPx * dragFactor;
 
@@ -265,19 +317,17 @@
       btn.style.transformOrigin = "center center";
       btn.style.willChange = "transform, opacity, filter";
 
-      // во время drag убираем transition, чтобы было “как нативно”
+      // если drag — без transition, иначе с transition
       btn.style.transition = isDragging
         ? "none"
         : "transform 520ms cubic-bezier(.2,.9,.2,1), opacity 520ms ease, filter 520ms ease";
 
       const abs = Math.abs(off);
 
-      // coverflow геометрия
       const baseStep = (isSmall ? 170 : 260);
       const translateX = baseStep * off + extra;
       const rotateY = (isSmall ? -10 : -14) * off;
 
-      // лёгкий “squash” центра при drag
       const centerSquash = (off === 0 && isDragging) ? 0.985 : 1;
 
       const scale = (off === 0)
@@ -305,12 +355,14 @@
       card.className = "cf-card";
       if (off === 0) card.classList.add("cf-is-center");
 
+      // картинка
       const img = document.createElement("img");
       img.src = url;
       img.alt = "";
       img.loading = "lazy";
       img.draggable = false; // важно для drag
 
+      // глянец
       const gloss = document.createElement("div");
       gloss.className = "cf-gloss";
 
@@ -325,40 +377,27 @@
       btn.addEventListener("click", () => {
         if (moved) return;
         if (off === 0) return;
-        cfIndex = i;
-        cfRender(true, 0);
+        stageOutIn(i);
       });
 
       stage.appendChild(btn);
 
+      // поп-анимация центральной
       if (off === 0 && animateCenter && !isDragging) {
         restartCenterAnim(card);
       }
     });
   }
 
-  function cfNext(){
-    if (!cfPhotos.length) return;
-    cfIndex = mod(cfIndex + 1, cfPhotos.length);
-    cfRender(true, 0);
-  }
-
-  function cfPrev(){
-    if (!cfPhotos.length) return;
-    cfIndex = mod(cfIndex - 1, cfPhotos.length);
-    cfRender(true, 0);
-  }
-
-  // ===== Drag handlers (мышь + тач) =====
-
+  // ===== Drag handlers =====
   function onDragStart(clientX){
+    if (isAnimating) return; // во время out/in не начинаем drag
     isDragging = true;
     moved = false;
     dragStartX = clientX;
     dragDX = 0;
     dragStartT = performance.now();
 
-    // чтобы не выделялся текст и не было “призрачного” перетаскивания
     document.body.style.userSelect = "none";
     document.body.style.cursor = "grabbing";
     stage.style.cursor = "grabbing";
@@ -372,7 +411,6 @@
     dragDX = clientX - dragStartX;
     if (Math.abs(dragDX) > 6) moved = true;
 
-    // во время drag просто перерисовываем с offset
     cfRender(false, dragDX);
   }
 
@@ -382,7 +420,6 @@
     const dt = Math.max(1, performance.now() - dragStartT);
     const velocity = Math.abs(dragDX) / dt; // px/ms
 
-    // возвращаем стили
     document.body.style.userSelect = "";
     document.body.style.cursor = "";
     stage.style.cursor = "";
@@ -391,22 +428,17 @@
 
     // Решение: листаем или возвращаемся
     if (Math.abs(dragDX) > SWIPE_PX || velocity > SWIPE_VELOCITY) {
-      // dragDX < 0 — тянули влево => next
-      // dragDX > 0 — тянули вправо => prev
-      if (dragDX < 0) cfNext();
-      else cfPrev();
+      if (dragDX < 0) cfNext(); else cfPrev();
     } else {
-      // просто возвращаем в центр
       cfRender(true, 0);
     }
 
-    // сброс moved чуть позже, чтобы клик не сработал сразу после mouseup
+    // сброс moved после mouseup, чтобы не кликнуло
     setTimeout(() => { moved = false; }, 0);
   }
 
-  // Мышь
+  // Мышь: лучше вешать старт на оболочку сцены, но ок на stage
   stage.addEventListener("mousedown", (e) => {
-    // только ЛКМ
     if (e.button !== 0) return;
     onDragStart(e.clientX);
   });
