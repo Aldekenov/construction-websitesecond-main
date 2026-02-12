@@ -92,7 +92,7 @@ def gallery(request):
 
 
 def gallery_detail(request, pk):
-    """Страница: Проекты подробно"""
+    """Страница: Проект подробно"""
     gallery = get_object_or_404(ProjectGallery, pk=pk)
     company_info = CompanyInfo.objects.first()
     return render(request, 'core/gallery_detail.html', {'gallery': gallery, 'company_info': company_info})
