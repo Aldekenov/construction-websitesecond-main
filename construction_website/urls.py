@@ -16,6 +16,7 @@ urlpatterns += i18n_patterns(
     path('blog/', include('blog.urls')),
     path('contact/', include('contact.urls')),
     path('images/', include('gallery_app.urls')),
+    path("vacancies/", include("vacancies.urls")),
 )
 
 if settings.DEBUG:

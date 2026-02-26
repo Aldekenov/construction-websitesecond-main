@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-03 15:20+0500\n"
+"POT-Creation-Date: 2026-02-26 17:30+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,17 +19,17 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
 #: .\construction_website\settings(prod).py:201
-#: .\construction_website\settings.py:211
+#: .\construction_website\settings.py:208
 msgid "Русский"
 msgstr ""
 
 #: .\construction_website\settings(prod).py:202
-#: .\construction_website\settings.py:212
+#: .\construction_website\settings.py:209
 msgid "Қазақша"
 msgstr ""
 
 #: .\construction_website\settings(prod).py:203
-#: .\construction_website\settings.py:213
+#: .\construction_website\settings.py:210
 msgid "English"
 msgstr ""
 
@@ -37,11 +37,14 @@ msgstr ""
 msgid "Имя"
 msgstr "Аты-жөні"
 
-#: .\contact\forms.py:14
+#: .\contact\forms.py:14 .\templates\vacancies\partials\apply_form.html:40
 msgid "Email"
 msgstr "Email"
 
 #: .\contact\forms.py:15 .\templates\contact\contact.html:46
+#: .\templates\vacancies\emails\application_client.html:110
+#: .\templates\vacancies\emails\application_received.html:110
+#: .\templates\vacancies\partials\apply_form.html:29
 msgid "Телефон"
 msgstr "Телефон"
 
@@ -49,7 +52,7 @@ msgstr "Телефон"
 msgid "Тип обращения"
 msgstr "Жолдау түрі"
 
-#: .\contact\forms.py:17 .\templates\base.html:293
+#: .\contact\forms.py:17 .\templates\base.html:348
 #: .\templates\contact\emails\contact_client.html:64
 msgid "Тема"
 msgstr "Тақырып"
@@ -58,7 +61,8 @@ msgstr "Тақырып"
 msgid "Сообщение"
 msgstr "Сіздің хатыңыз"
 
-#: .\contact\forms.py:48 .\templates\base.html:299
+#: .\contact\forms.py:48 .\templates\base.html:354
+#: .\templates\vacancies\partials\apply_form.html:85
 msgid "Отправить"
 msgstr "Жіберу"
 
@@ -66,80 +70,85 @@ msgstr "Жіберу"
 msgid "Сообщение отправлено! Мы скоро свяжемся с вами."
 msgstr "Хабарламаңыз жіберілді! Біз сізбен жақын арада хабарласамыз."
 
-#: .\templates\base.html:96
+#: .\templates\base.html:101
 msgid "Язык"
-msgstr ""
+msgstr "Тіл"
 
-#: .\templates\base.html:141
+#: .\templates\base.html:146
 msgid "Сменить язык"
-msgstr ""
+msgstr "Тілді өзгерту"
 
-#: .\templates\base.html:177 .\templates\base.html:219
-#: .\templates\base.html:267
+#: .\templates\base.html:182 .\templates\base.html:228
+#: .\templates\base.html:322
 msgid "Главная"
 msgstr "Басты"
 
-#: .\templates\base.html:181
+#: .\templates\base.html:186
 msgid "О Нас"
 msgstr "Біз туралы"
 
-#: .\templates\base.html:185 .\templates\base.html:221
-#: .\templates\base.html:269
+#: .\templates\base.html:190 .\templates\base.html:230
+#: .\templates\base.html:324
 msgid "Деятельность"
 msgstr "Қыметтер"
 
-#: .\templates\base.html:189 .\templates\base.html:222
-#: .\templates\base.html:270 .\templates\blog\blog_detail.html:4
+#: .\templates\base.html:194 .\templates\vacancies\vacancy_detail.html:4
+#: .\templates\vacancies\vacancy_list.html:4
+#: .\templates\vacancies\vacancy_list.html:18
+msgid "Вакансии"
+msgstr "Вакансиялар"
+
+#: .\templates\base.html:198 .\templates\base.html:231
+#: .\templates\base.html:325 .\templates\blog\blog_detail.html:4
 msgid "Блог"
 msgstr "Блог"
 
-#: .\templates\base.html:193 .\templates\base.html:223
-#: .\templates\base.html:271 .\templates\core\gallery.html:4
-#: .\templates\core\gallery_detail.html:4
+#: .\templates\base.html:202 .\templates\base.html:232
+#: .\templates\base.html:326 .\templates\core\gallery.html:4
 msgid "Проекты"
 msgstr "Жобалар"
 
-#: .\templates\base.html:197 .\templates\base.html:224
-#: .\templates\base.html:272 .\templates\gallery_app\gallery.html:5
+#: .\templates\base.html:206 .\templates\base.html:233
+#: .\templates\base.html:327 .\templates\gallery_app\gallery.html:5
 msgid "Фотогалерея"
 msgstr "Фотогалерея"
 
-#: .\templates\base.html:201 .\templates\base.html:225
-#: .\templates\base.html:273 .\templates\contact\contact.html:31
+#: .\templates\base.html:210 .\templates\base.html:234
+#: .\templates\base.html:328 .\templates\contact\contact.html:31
 msgid "Контакты"
 msgstr "Байланыс"
 
-#: .\templates\base.html:220 .\templates\base.html:268
+#: .\templates\base.html:229 .\templates\base.html:323
 #: .\templates\core\about.html:4 .\templates\core\about.html:17
 msgid "О нас"
 msgstr "Біз туралы"
 
-#: .\templates\base.html:265
+#: .\templates\base.html:320
 msgid "Навигация"
 msgstr "Навигация"
 
-#: .\templates\base.html:279 .\templates\contact\contact.html:22
-#: .\templates\core\home.html:423
+#: .\templates\base.html:334 .\templates\contact\contact.html:22
+#: .\templates\core\home.html:30 .\templates\core\home.html:478
 msgid "Обратная связь"
 msgstr "Кері байланыс"
 
-#: .\templates\base.html:287
+#: .\templates\base.html:342
 msgid "Ваше ФИО"
 msgstr "Толық аты-жөніңіз"
 
-#: .\templates\base.html:289
+#: .\templates\base.html:344
 msgid "Ваш номер телефона"
 msgstr "Сіздің телефон нөміріңіз"
 
-#: .\templates\base.html:291
+#: .\templates\base.html:346
 msgid "Ваша почта"
 msgstr "Сіздің электрондық поштаңыз"
 
-#: .\templates\base.html:295
+#: .\templates\base.html:350
 msgid "Ваше сообщение"
 msgstr "Сіздің хатыңыз"
 
-#: .\templates\base.html:307
+#: .\templates\base.html:362
 msgid "Все права защищены."
 msgstr "Барлық құқықтар қорғалған."
 
@@ -153,7 +162,6 @@ msgid "Назад"
 msgstr "Артқа"
 
 #: .\templates\blog\blog_category.html:11 .\templates\core\gallery.html:20
-#: .\templates\core\gallery_detail.html:20
 msgid "Категория:"
 msgstr "Санат:"
 
@@ -278,6 +286,8 @@ msgid "Обращение получено"
 msgstr "Өтініш қабылданды."
 
 #: .\templates\contact\emails\contact_client.html:52
+#: .\templates\vacancies\emails\application_client.html:52
+#: .\templates\vacancies\emails\application_received.html:52
 msgid "Спасибо"
 msgstr "Рахмет"
 
@@ -286,10 +296,14 @@ msgid "Мы получили ваше сообщение и уже переда�
 msgstr "Біз сіздің хабарламаңызды алдық және оны мамандарымызға жеткіздік."
 
 #: .\templates\contact\emails\contact_client.html:56
+#: .\templates\vacancies\emails\application_client.html:56
+#: .\templates\vacancies\emails\application_received.html:56
 msgid "Обычно отвечаем"
 msgstr "Біз әдетте"
 
 #: .\templates\contact\emails\contact_client.html:56
+#: .\templates\vacancies\emails\application_client.html:56
+#: .\templates\vacancies\emails\application_received.html:56
 msgid "в течение рабочего дня"
 msgstr "бір жұмыс күні ішінде жауап береміз."
 
@@ -315,6 +329,8 @@ msgid "Перейти на страницу контактов"
 msgstr "Байланыс бетіне өту"
 
 #: .\templates\contact\emails\contact_client.html:139
+#: .\templates\vacancies\emails\application_client.html:155
+#: .\templates\vacancies\emails\application_received.html:155
 msgid "Это автоматическое уведомление. Пожалуйста, не отвечайте на это письмо."
 msgstr ""
 "Бұл автоматтандырылған хабарландыру. Бұл электрондық поштаға жауап бермеңіз."
@@ -324,6 +340,7 @@ msgid "Заявка отправлена"
 msgstr "Өтініш жіберілді."
 
 #: .\templates\contact\partials\contact_success.html:13
+#: .\templates\vacancies\partials\apply_success.html:15
 msgid "Обычно отвечаем в течение рабочего дня."
 msgstr "Әдетте бір жұмыс күні ішінде жауап береміз."
 
@@ -420,7 +437,8 @@ msgstr ""
 msgid "Все"
 msgstr "Барлығы"
 
-#: .\templates\core\gallery.html:31 .\templates\gallery_app\gallery.html:21
+#: .\templates\core\gallery.html:31 .\templates\core\gallery_detail.html:128
+#: .\templates\gallery_app\gallery.html:21
 msgid "Год:"
 msgstr "Жыл"
 
@@ -428,11 +446,11 @@ msgstr "Жыл"
 msgid "Показать"
 msgstr "Көрсету"
 
-#: .\templates\core\gallery.html:48 .\templates\gallery_app\gallery.html:37
+#: .\templates\core\gallery.html:48 .\templates\gallery_app\gallery.html:43
 msgid "Сбросить"
 msgstr "Қалпына келтіру"
 
-#: .\templates\core\gallery.html:77 .\templates\core\gallery_detail.html:23
+#: .\templates\core\gallery.html:77
 msgid "Выполнено:"
 msgstr "Орындалды:"
 
@@ -440,60 +458,86 @@ msgstr "Орындалды:"
 msgid "Пока пусто"
 msgstr "Әзірге бос"
 
-#: .\templates\core\gallery_detail.html:9
-#: .\templates\core\gallery_detail.html:27
-msgid "Вернуться в Проекты"
+#: .\templates\core\gallery_detail.html:110
+#, fuzzy
+#| msgid "Наши проекты"
+msgid "Назад к проектам"
+msgstr "Біздің жобаларымыз"
+
+#: .\templates\core\gallery_detail.html:139
+#, fuzzy
+#| msgid "Фотогалерея"
+msgid "Фотографии проекта"
+msgstr "Фотогалерея"
+
+#: .\templates\core\gallery_detail.html:145
+msgid "Стрелки / свайп"
+msgstr "Көрсеткілер / сырғыту"
+
+#: .\templates\core\gallery_detail.html:162
+#: .\templates\gallery_app\gallery.html:29
+#, fuzzy
+#| msgid "Проекты"
+msgid "Проект:"
+msgstr "Жобалар:"
+
+#: .\templates\core\gallery_detail.html:173
+msgid "Фотографии проекта пока не загружены."
+msgstr "Жобаның фотосуреттері әлі жүктелген жоқ."
+
+#: .\templates\core\gallery_detail.html:186
+msgid "Описание проекта пока не добавлено."
+msgstr "Жобаның сипаттамасы әлі қосылған жоқ."
+
+#: .\templates\core\gallery_detail.html:196
+msgid "Вернуться к списку проектов"
 msgstr "Жобаларға оралу"
 
-#: .\templates\core\home.html:23
+#: .\templates\core\home.html:25
 msgid "Наши услуги"
 msgstr "Біздің қызметтеріміз"
 
-#: .\templates\core\home.html:27
-msgid "Обрятная связь"
-msgstr "Кері байланыс"
-
-#: .\templates\core\home.html:45
+#: .\templates\core\home.html:52
 msgid "Лет на рынке"
 msgstr "Нарықта"
 
-#: .\templates\core\home.html:49
+#: .\templates\core\home.html:56
 msgid "Проектов выполнено"
 msgstr "Орындалған жобалар"
 
-#: .\templates\core\home.html:53
+#: .\templates\core\home.html:60
 msgid "Клиентов"
 msgstr "Клиенттер"
 
-#: .\templates\core\home.html:71
+#: .\templates\core\home.html:78
 msgid "Руководство компании"
 msgstr "Компания басшылығы"
 
-#: .\templates\core\home.html:85
+#: .\templates\core\home.html:92
 msgid "Образование"
 msgstr "Білімі"
 
-#: .\templates\core\home.html:96
+#: .\templates\core\home.html:103
 msgid "Квалификация"
 msgstr "Біліктілігі"
 
-#: .\templates\core\home.html:107
+#: .\templates\core\home.html:114
 msgid "Опыт работы"
 msgstr "Жұмыс тәжірибесі"
 
-#: .\templates\core\home.html:112
+#: .\templates\core\home.html:119
 msgid "+ лет"
 msgstr "+ жыл"
 
-#: .\templates\core\home.html:129
+#: .\templates\core\home.html:136
 msgid "Ключевые навыки"
 msgstr "Негізгі дағдылар"
 
-#: .\templates\core\home.html:187 .\templates\core\services.html:10
+#: .\templates\core\home.html:194 .\templates\core\services.html:10
 msgid "Наши Услуги"
 msgstr "Біздің қызметтеріміз"
 
-#: .\templates\core\home.html:189
+#: .\templates\core\home.html:196
 msgid ""
 "\n"
 "                Наша компания предлагает широкий спектр услуг в области "
@@ -511,32 +555,32 @@ msgstr ""
 "бойынша кең ауқымды қызметтер ұсынады.\n"
 "                "
 
-#: .\templates\core\home.html:211 .\templates\core\home.html:248
-#: .\templates\core\home.html:393
+#: .\templates\core\home.html:232 .\templates\core\home.html:270
+#: .\templates\core\home.html:448 .\templates\vacancies\vacancy_list.html:73
 msgid "Подробнее"
 msgstr "Толығырақ"
 
-#: .\templates\core\home.html:217
+#: .\templates\core\home.html:239
 msgid "Временно недоступно"
 msgstr "Уақытша қолжетімсіз"
 
-#: .\templates\core\home.html:225
+#: .\templates\core\home.html:247
 msgid "Все Услуги"
 msgstr "Барлық қызметтер"
 
-#: .\templates\core\home.html:236
+#: .\templates\core\home.html:258
 msgid "О нашей компании"
 msgstr "Біздің компания туралы"
 
-#: .\templates\core\home.html:243
+#: .\templates\core\home.html:265
 msgid "Временно не добвлено"
 msgstr "Уақытша қосылмаған"
 
-#: .\templates\core\home.html:269
+#: .\templates\core\home.html:291
 msgid "Наши проекты"
 msgstr "Біздің жобаларымыз"
 
-#: .\templates\core\home.html:271
+#: .\templates\core\home.html:293
 msgid ""
 "\n"
 "                Ознакомьтесь с некоторыми из наших последних завершенных "
@@ -548,27 +592,27 @@ msgstr ""
 "аяқталған жобаларымызбен танысыңыз.\n"
 "                "
 
-#: .\templates\core\home.html:300
+#: .\templates\core\home.html:322
 msgid "Проекты еще не добавлены"
 msgstr "Жобалар әлі қосылмаған"
 
-#: .\templates\core\home.html:309
+#: .\templates\core\home.html:331
 msgid "Все выполненные проекты"
 msgstr "Барлық орындалған жобалар"
 
-#: .\templates\core\home.html:321
+#: .\templates\core\home.html:343
 msgid "Отзывы о нашей компании"
 msgstr "Біздің компания туралы пікірлер"
 
-#: .\templates\core\home.html:323
+#: .\templates\core\home.html:345
 msgid "Что говорят о наших услугах наши довольные клиенты."
 msgstr "Қанағаттанған клиенттеріміз біздің қызметтеріміз туралы не дейді."
 
-#: .\templates\core\home.html:368
+#: .\templates\core\home.html:423
 msgid "Последние новости"
 msgstr "Соңғы жаңалықтар"
 
-#: .\templates\core\home.html:370
+#: .\templates\core\home.html:425
 msgid ""
 "\n"
 "                Будьте в курсе наших последних проектов, отраслевой "
@@ -579,15 +623,15 @@ msgstr ""
 "               Соңғы жобаларымыз, салалық талдаулар және корпоративтік "
 "өміріміз туралы хабардар болып отырыңыз."
 
-#: .\templates\core\home.html:403
+#: .\templates\core\home.html:458
 msgid "Посмотреть все посты"
 msgstr "Барлық жазбаларды көру"
 
-#: .\templates\core\home.html:414
+#: .\templates\core\home.html:469
 msgid "Остались вопросы?"
 msgstr "Сұрақтарыңыз бар ма?"
 
-#: .\templates\core\home.html:416
+#: .\templates\core\home.html:471
 msgid ""
 "\n"
 "                Готовы обсудить ваши потребности в строительстве и "
@@ -616,7 +660,7 @@ msgstr ""
 "               Біз сіздің барлық қажеттіліктеріңізді қанағаттандыру үшін "
 "кешенді құрылыс және жөндеу қызметтерін ұсынамыз.                "
 
-#: .\templates\core\services.html:35
+#: .\templates\core\services.html:52
 msgid "Услуги еще не добавлены"
 msgstr "Қызметтер әлі қосылмаған"
 
@@ -636,17 +680,146 @@ msgstr ""
 "шаралар және жұмыс кездесулері\n"
 "       "
 
-#: .\templates\gallery_app\gallery.html:29
-#, fuzzy
-#| msgid "Проекты"
-msgid "Проект:"
-msgstr "Жобалар:"
-
-#: .\templates\gallery_app\gallery.html:58
-#, fuzzy
-#| msgid "Нету постов в данной категории"
+#: .\templates\gallery_app\gallery.html:65
 msgid "Пока нет фотографий в этой категории"
-msgstr "Бұл санатта жазбалар жоқ"
+msgstr "Бұл санатта әлі фотосуреттер жоқ."
+
+#: .\templates\vacancies\emails\application_client.html:6
+#: .\templates\vacancies\emails\application_received.html:6
+msgid "Мы получили ваше резюме"
+msgstr "Біз сіздің түйіндемеңізді алдық."
+
+#: .\templates\vacancies\emails\application_client.html:33
+#: .\templates\vacancies\emails\application_received.html:33
+msgid "Отдел кадров"
+msgstr "Мамандар бөлімі"
+
+#: .\templates\vacancies\emails\application_client.html:49
+#: .\templates\vacancies\emails\application_received.html:49
+msgid "Отклик получен"
+msgstr "Өтініш қабылданды."
+
+#: .\templates\vacancies\emails\application_client.html:55
+#: .\templates\vacancies\emails\application_received.html:55
+msgid "Мы получили ваше резюме и уже передали его специалистам."
+msgstr "Біз сіздің түйіндемеңізді алдық және оны мамандарға тапсырдық."
+
+#: .\templates\vacancies\emails\application_client.html:64
+#: .\templates\vacancies\emails\application_received.html:64
+msgid "Вакансия"
+msgstr "Вакансия"
+
+#: .\templates\vacancies\emails\application_client.html:89
+#: .\templates\vacancies\emails\application_received.html:89
+#, fuzzy
+#| msgid "Ниже — копия вашего обращения:"
+msgid "Ниже — копия вашего отклика:"
+msgstr "Төменде сіздің өтінішіңіздің көшірмесі:"
+
+#: .\templates\vacancies\emails\application_client.html:97
+#: .\templates\vacancies\emails\application_received.html:97
+#: .\templates\vacancies\partials\apply_form.html:18
+msgid "ФИО"
+msgstr "Толық аты-жөні"
+
+#: .\templates\vacancies\emails\application_client.html:114
+#: .\templates\vacancies\emails\application_received.html:114
+msgid "Файл резюме"
+msgstr "Түйіндеме файлы"
+
+#: .\templates\vacancies\emails\application_client.html:123
+#: .\templates\vacancies\emails\application_received.html:123
+#: .\templates\vacancies\partials\apply_form.html:51
+msgid "Сопроводительное письмо"
+msgstr "Ілеспе хат"
+
+#: .\templates\vacancies\emails\application_client.html:139
+#: .\templates\vacancies\emails\application_received.html:139
+msgid "Перейти к вакансиям"
+msgstr "Вакансиялар бетіне өту"
+
+#: .\templates\vacancies\partials\apply_form.html:22
+msgid "Например: Иванов Иван"
+msgstr "Мысалы: Иванов Иван"
+
+#: .\templates\vacancies\partials\apply_form.html:33
+msgid "+7 (___) ___-__-__"
+msgstr "+7 (___) ___-__-__"
+
+#: .\templates\vacancies\partials\apply_form.html:54
+msgid "Коротко расскажите о себе и опыте…"
+msgstr "Өзіңіз және тәжірибеңіз туралы қысқаша айтып беріңізші..."
+
+#: .\templates\vacancies\partials\apply_form.html:61
+msgid "Резюме (файл)"
+msgstr "Түйіндеме (файл)"
+
+#: .\templates\vacancies\partials\apply_form.html:74
+msgid "Допустимые форматы: PDF, DOC, DOCX. Максимум 10 МБ."
+msgstr "Қабылданатын форматтар: PDF, DOC, DOCX. Ең көбі 10 МБ."
+
+#: .\templates\vacancies\partials\apply_success.html:11
+msgid "Отклик отправлен"
+msgstr "Өтініш жіберілді."
+
+#: .\templates\vacancies\partials\apply_success.html:13
+msgid "Спасибо! Мы получили ваше резюме и свяжемся с вами при необходимости."
+msgstr "Рақмет! Біз сіздің түйіндемеңізді алдық және қажет болған жағдайда сізбен хабарласамыз."
+
+#: .\templates\vacancies\vacancy_detail.html:13
+msgid "Все вакансии"
+msgstr "Барлық вакансиялар"
+
+#: .\templates\vacancies\vacancy_detail.html:52
+msgid "Откликнуться"
+msgstr "Үн қату"
+
+#: .\templates\vacancies\vacancy_detail.html:66
+msgid "Описание"
+msgstr "Сипаттама"
+
+#: .\templates\vacancies\vacancy_detail.html:75
+msgid "Требования"
+msgstr "Талаптар"
+
+#: .\templates\vacancies\vacancy_detail.html:84
+msgid "Условия"
+msgstr "Шарттар"
+
+#: .\templates\vacancies\vacancy_detail.html:97
+msgid "Отклик на вакансию"
+msgstr "Вакансияға үн қату"
+
+#: .\templates\vacancies\vacancy_detail.html:99
+msgid "Заполните форму и прикрепите резюме (PDF/DOC/DOCX)."
+msgstr "Нысанды толтырып, түйіндемеңізді (PDF/DOC/DOCX) тіркеңіз."
+
+#: .\templates\vacancies\vacancy_detail.html:109
+msgid "Нажимая «Отправить», вы соглашаетесь на обработку персональных данных."
+msgstr "«Жіберу» түймесін басу арқылы сіз жеке деректерді өңдеуге келісесіз."
+
+#: .\templates\vacancies\vacancy_list.html:21
+msgid ""
+"Присоединяйтесь к нашей команде. Ниже — актуальные вакансии. Если подходящей "
+"позиции нет, вы всё равно можете отправить резюме на рассмотрение."
+msgstr ""
+"Біздің командаға қосылыңыз. Ағымдағы бос орындар төменде көрсетілген. Егер лайықты "
+" лауазымы болмаса, сіз өз түйіндемеңізді қарауға жібере аласыз."
+
+#: .\templates\vacancies\vacancy_list.html:80
+msgid "Отклик с резюме"
+msgstr "Түйіндемемен жауап"
+
+#: .\templates\vacancies\vacancy_list.html:93
+msgid "Сейчас нет активных вакансий"
+msgstr "Қазіргі уақытта бос жұмыс орындары жоқ."
+
+#: .\templates\vacancies\vacancy_list.html:95
+msgid "Но вы можете отправить резюме на HR@tess-project.kz"
+msgstr "Бірақ сіз өз түйіндемеңізді HR@tess-project.kz мекенжайына жібере аласыз."
+
+#~ msgid "Обрятная связь"
+#~ msgstr "Кері байланыс"
 
 #, fuzzy
 #~| msgid "Категория:"

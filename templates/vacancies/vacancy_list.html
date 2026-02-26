@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Вакансии" %} | {{ block.super }}{% endblock %}
+
+{% block content %}
+<section class="bg-gray-50">
+  <!-- Hero -->
+  <div class="relative overflow-hidden bg-gray-900">
+    <div class="absolute inset-0 opacity-40">
+      <div class="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-blue-600 blur-3xl"></div>
+      <div class="absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-indigo-500 blur-3xl"></div>
+    </div>
+
+    <div class="relative max-w-6xl mx-auto px-4 py-14">
+      <div class="max-w-3xl">
+        <h1 class="text-3xl md:text-4xl font-bold text-white" data-aos="fade-up">
+          {% trans "Вакансии" %}
+        </h1>
+        <p class="mt-4 text-gray-300 leading-relaxed" data-aos="fade-up" data-aos-delay="100">
+          {% trans "Присоединяйтесь к нашей команде. Ниже — актуальные вакансии. Если подходящей позиции нет, вы всё равно можете отправить резюме на рассмотрение." %}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- List -->
+  <div class="max-w-6xl mx-auto px-4 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+      {% for v in vacancies %}
+        <article class="bg-white rounded-2xl shadow-lg overflow-hidden transform hover:scale-[1.01] transition-all duration-300"
+                 data-aos="fade-up" data-aos-delay="{% cycle '0' '100' '200' '300' '400' '500' %}">
+          <div class="p-6">
+            <div class="flex items-start justify-between gap-4">
+              <h2 class="text-xl font-semibold text-gray-900 leading-snug">
+                <a href="{{ v.get_absolute_url }}" class="hover:underline">
+                  {{ v.title }}
+                </a>
+              </h2>
+
+              {% if v.employment %}
+                <span class="shrink-0 inline-flex items-center rounded-full bg-blue-50 text-blue-700 text-xs font-medium px-3 py-1">
+                  {{ v.employment }}
+                </span>
+              {% endif %}
+            </div>
+
+            <div class="mt-3 flex flex-wrap gap-2 text-sm text-gray-600">
+              {% if v.location %}
+                <span class="inline-flex items-center gap-2 rounded-lg bg-gray-100 px-3 py-2">
+                  <i class="fa-solid fa-location-dot text-gray-500 text-[14px] leading-none"></i>
+                  {{ v.location }}
+                </span>
+              {% endif %}
+
+              <span class="inline-flex items-center gap-2 rounded-lg bg-gray-100 px-3 py-2">
+                <svg class="h-4 w-4 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1z"/>
+                </svg>
+                {{ v.created_at|date:"d.m.Y" }}
+              </span>
+            </div>
+
+            {% if v.description %}
+              <div class="mt-4 text-gray-600 text-sm leading-relaxed clamp-3">
+                {{ v.description|striptags|truncatewords:30 }}
+              </div>
+            {% endif %}
+
+            <div class="mt-6 flex items-center justify-between">
+              <a href="{{ v.get_absolute_url }}"
+                 class="inline-flex items-center gap-2 rounded-xl bg-gray-900 text-white px-5 py-2.5 hover:bg-black transition">
+                {% trans "Подробнее" %}
+                <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10.293 15.707a1 1 0 010-1.414L13.586 11H4a1 1 0 110-2h9.586l-3.293-3.293a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </a>
+
+              <span class="text-xs text-gray-500">
+                {% trans "Отклик с резюме" %}
+              </span>
+            </div>
+          </div>
+        </article>
+      {% empty %}
+        <div class="col-span-full">
+          <div class="rounded-2xl border border-gray-200 bg-white p-8 text-center" data-aos="fade-up">
+            <div class="mx-auto h-12 w-12 rounded-full bg-gray-100 flex items-center justify-center">
+              <svg class="h-6 w-6 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6z"/>
+              </svg>
+            </div>
+            <h3 class="mt-4 text-lg font-semibold text-gray-900">{% trans "Сейчас нет активных вакансий" %}</h3>
+            <p class="mt-2 text-gray-600">
+              {% trans "Но вы можете отправить резюме на HR@tess-project.kz" %}
+            </p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

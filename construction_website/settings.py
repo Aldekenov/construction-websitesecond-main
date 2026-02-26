@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_tailwind',
     # Local apps
+    "vacancies.apps.VacanciesConfig",
     "core.apps.CoreConfig",
     "contact.apps.ContactConfig",
     "blog.apps.BlogConfig",
@@ -161,6 +162,8 @@ CONTACT_TO_EMAIL = [
     if email.strip()
 ]
 
+HR_TO_EMAIL = [email.strip() for email in os.getenv("HR_TO_EMAIL", "").split(",") if email.strip()]
+
 LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'UTC'
@@ -214,4 +217,5 @@ MODELTRANSLATION_TRANSLATION_FILES = (
     "blog.translation",
     "gallery_app.translation",
     "contact.translation",
+    "vacancies.translation",
 )
