@@ -293,7 +293,7 @@
         <div class="container mx-auto px-4 py-12">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <!-- Информация о компании -->
-                <div class="col-span-1 md:col-span-2">
+                <div class="flex flex-col col-span-1 md:col-span-2">
                     <h3 class="text-xl font-bold mb-4">
                         {% if company_info %}{{ company_info.company_name }}{% else %}TESS{% endif %}
                     </h3>
@@ -312,6 +312,12 @@
                         </a>
                         <a href="https://kz.linkedin.com/company/tess-project-kz" class="text-gray-400 hover:text-white transition-colors">
                             <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                    <div class="mt-auto pt-4">
+                        <a href="/admin/"
+                           class="opacity-40 hover:opacity-100 transition text-gray-500 text-sm">
+                           <i class="fa-solid fa-user-shield"></i>
                         </a>
                     </div>
                 </div>
@@ -359,7 +365,7 @@
                     <div id="footer-form-result" class="mt-2"></div>
                 </div>
             </div>
-            
+
             <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
                 <p>&copy; {% now "Y" %} {% if company_info %}{{ company_info.company_name }}{% else %}TESS{% endif %}. {% trans "Все права защищены." %}</p>
             </div>
